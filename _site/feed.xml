@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Michael&#39;s Headquarters</title>
+    <description>Michael Head is a UX-focused web engineer with more than 5 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations. 
+</description>
+    <link>http://michaelehead.com/</link>
+    <atom:link href="http://michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 04 Jun 2015 19:20:02 -0400</pubDate>
+    <lastBuildDate>Thu, 04 Jun 2015 19:20:02 -0400</lastBuildDate>
+    <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Wrap long links on small screens</title>
+        <description>&lt;p&gt;When building mobile-friendly web pages, you may come across long links in your content that cause horizontal scrollbars on smaller screens. Since links don’t contain spaces, there is no natural break for them to wrap when their parent container shrinks in width. You can use the following CSS rule to fix this:&lt;/p&gt;
+
+&lt;!-- 
+	Unfortunately, the syntax highlighting CSS thinks &quot;overflow&quot; in &quot;overflow-wrap&quot; needs to be bold.
+	Forgive this inline style as a workaround.
+--&gt;
+&lt;style&gt;
+	.highlight .k { font-weight: normal; }
+&lt;/style&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;/* standard syntax for modern browsers */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;/* older browser syntax */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wrap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;A better approach is to change the text of the link itself. Instead of having &lt;a href=&quot;#nogo&quot;&gt;http://some/really/long/link?withabunchoftextinit&lt;/a&gt;, you can just link an &lt;a href=&quot;#nogo&quot;&gt;appropriate keyword&lt;/a&gt; or two. Better for SEO and better for users. &lt;/p&gt;
+</description>
+        <pubDate>Mon, 20 Apr 2015 00:26:38 -0400</pubDate>
+        <link>http://michaelehead.com/2015/04/20/wrap-long-links-on-small-screens.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/04/20/wrap-long-links-on-small-screens.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>How to (quickly) get a domain auth code from register.com</title>
+        <description>&lt;p&gt;If, like me, you are trying to transfer a domain away from register.com, you’ll probably end up running into this message:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/register.com-auth-code.png&quot; alt=&quot;Register.com message that says an auth code will be sent in 3-4 days&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Instead of going the “easy” route of requesting an auth code online, just call the customer support number listed there. Navigate the phone tree with 1, 1, and 2, and let the rep know you want to request an auth code for your domain. I was put on hold, then received an email, and finished the call all within 10 minutes. That beats the heck out of waiting 3-4 days. &lt;/p&gt;
+</description>
+        <pubDate>Wed, 18 Feb 2015 19:24:27 -0500</pubDate>
+        <link>http://michaelehead.com/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Accessing real IP addresses on OpenShift</title>
+        <description>&lt;p&gt;I’m working on a Sinatra app and using request.ip returned the wrong IP address on OpenShift. This is due to OpenShift running a reverse proxy. After doing some searching online, I found the best way to get the user’s real IP address is as follows:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;vc&quot;&gt;@@ip_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;HTTP_X_FORWARDED_FOR&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;HTTP_X_FORWARDED_FOR&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;REMOTE_ADDR&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Ignoring the syntax (which isn’t very Ruby-like) and the use of a global variable (oh no!), this worked for me on OpenShift. Now, instead of getting a reverse proxy IP, I get the user’s real IP address. &lt;/p&gt;
+</description>
+        <pubDate>Thu, 12 Feb 2015 16:22:00 -0500</pubDate>
+        <link>http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>DataMapper settings on OpenShift with PostgreSQL</title>
+        <description>&lt;p&gt;The OpenShift documentation shows that a PostgreSQL connection string should look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;postgresql://user:password@host:port&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;However, the DataMapper documentation shows that a PostgreSQL connection string should look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;postgres://user:password@hostname/database&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When using DataMapper on OpenShift, though, follow the DataMapper documentation, &lt;strong&gt;not&lt;/strong&gt; the OpenShift documentation. The DataMapper gem attempts to require adapters based on the prefix name, so if you use “postgresql” as the prefix, it attempts to load the “dm-postgresql-adapter” gem, which does not exist. You will get a “cannot load file – dm-postgresql-adapter” error. So, stick with the DataMapper version and use the “postgres” prefix. &lt;/p&gt;
+</description>
+        <pubDate>Tue, 10 Feb 2015 11:43:42 -0500</pubDate>
+        <link>http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</guid>
+        
+        <category>development</category>
+        
+        <category>ruby</category>
+        
+        <category>databases</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Automatically go to folder when logging into Vagrant VM</title>
+        <description>&lt;p&gt;Instead of going to the home directory, you may prefer to go to another directory when you SSH into a Vagrant VM. If so, here’s how to accomplish that.&lt;/p&gt;
+
+&lt;p&gt;SSH into the Vagrant box you want to modify. Once logged in, open &lt;code&gt;~/.bashrc&lt;/code&gt; in your editor of choice. Add &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd /path/to/your/preferred/location&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;to the bottom the &lt;code&gt;.bashrc&lt;/code&gt; file. Next time you SSH into your Vagrant VM, you’ll be where you want to be without having to change directories manually every time. Verified on Ubuntu 14.04. Tip inspired by &lt;a href=&quot;http://unix.stackexchange.com/a/32471&quot;&gt;http://unix.stackexchange.com/a/32471&lt;/a&gt;. &lt;/p&gt;
+</description>
+        <pubDate>Thu, 18 Dec 2014 15:41:17 -0500</pubDate>
+        <link>http://michaelehead.com/2014/12/18/automatically-go-to-folder-when-logging-into.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/12/18/automatically-go-to-folder-when-logging-into.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Speeding up Yosemite boot time on a 2010 MacBook Pro</title>
+        <description>&lt;p&gt;I have a mid-2010 MacBook Pro with a dual core i7, 8GB of RAM, and a solid state drive (SSD). In its heyday, with Snow Leopard, it was pretty damn fast. In 2014, this once-majestic laptop has finally succumbed to &lt;a href=&quot;http://en.wikipedia.org/wiki/Wirth%27s_law&quot;&gt;Wirth’s law&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;Mavericks ran on it well enough, but there were definitely visual glitches and problems here and there, so I decided to give Yosemite a chance. I did a clean install of Yosemite and found that things weren’t as bad as I had expected. However, the first time I restarted the computer, the boot time was 1 minute and 15 seconds from chime sound to log in screen. On an SSD with an i7 processor, that was unacceptable. 
+Doing some research online, I found some recommendations for ways to possibly improve the performance. So, I tried two of these:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://support.apple.com/en-us/HT201295&quot;&gt;Resetting the SMC&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://support.apple.com/kb/PH18761&quot;&gt;Resetting the PRAM&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Following those two steps, the boot time dropped from 1:15 to 15 seconds. So, resetting the SMC and the PRAM reduced the boot time in Yosemite by a full minute. Thank goodness.&lt;/p&gt;
+
+&lt;p&gt;So far, I think I’ll stick with Yosemite. Fixing the boot time issue helped sway me a bit, but it’s really disappointing that users, in 2014, have to resort to such “technical” things to fix performance with a clean install of an operating system. &lt;/p&gt;
+</description>
+        <pubDate>Sat, 13 Dec 2014 15:10:26 -0500</pubDate>
+        <link>http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Automate the automatable for your users</title>
+        <description>&lt;p&gt;In user experience design, we must automate the automatable for our users. Something may only take seconds for an individual user to do, which may seem like it’s a waste of time to automate. However, when something that can be automated isn’t automated, consider the wasted time as it multiplies across all of your users.&lt;/p&gt;
+
+&lt;p&gt;For example, if I want to pay my water bill with the City of Durham website, I have to put in two different numbers to identify myself–an account number and a customer ID. These numbers, though, are actually just the last 6 digits of my account number on my paper bill and the first 6 digits of my account number on my paper bill, respectively.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/utility-billing.png&quot; alt=&quot;Screenshot of City of Durham utility billing website&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As a users, splitting the numbers into two fields isn’t a challenge, but it’s annoying. It only takes seconds for me to split them up mentally, type one set into one field, and then type the other set into the other field. But why do I need to do that at all? Computers can split numbers in microseconds. I could be given a single input field to type the full number into and then the server can do the splitting. This would save me, a single user, seconds each time I want to pay my bill. Aggregated across all users, this would save hours per year, at least. &lt;/p&gt;
+
+&lt;p&gt;So, when your programmer can spend a few extra minutes to save your entire user population hours per year, I think that’s worth the effort. Always automate the automatable for your users.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 13 Oct 2014 12:48:50 -0400</pubDate>
+        <link>http://michaelehead.com/2014/10/13/automate-the-automatable-for-your-users.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/10/13/automate-the-automatable-for-your-users.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Integer to Float coercion in PHP</title>
+        <description>&lt;p&gt;I take for granted the coercing from integer to float in PHP when I work in that language. When I finally dove into Ruby to use it on a project recently, I discovered it does not do this coercing for you. Nor does Python.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/php-ruby-python-floats.png&quot; alt=&quot;Python vs. Ruby vs. PHP float coercion code examples&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This can be tricky to grasp at first–we learn for many years in math classes how to divide something like 100/33 into 3 and some remainder after the decimal. In math classrooms, there is no discussion of number “types” when doing this type of arithmetic. So, while Ruby and Python are very internally consistent with regard to their loose type systems (i.e. dividing integers gives an integer result), PHP’s coercing makes a bit more sense based on non-programming mathematics experience. &lt;/p&gt;
+</description>
+        <pubDate>Thu, 10 Jul 2014 15:20:56 -0400</pubDate>
+        <link>http://michaelehead.com/2014/07/10/integer-to-float-coercion-in-php.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/07/10/integer-to-float-coercion-in-php.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>DataMapper fails silently when strings are longer than schema property</title>
+        <description>&lt;p&gt;When inserting content into your database using DataMapper’s create method, any String longer than the corresponding schema property will cause the create method to fail silently. For example, if your model has a property with a :length of 256 as below:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Message&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DataMapper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Resource&lt;/span&gt;
+  
+  &lt;span class=&quot;n&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Serial&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;property&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;then the following code will fail silently and not insert a row:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;Message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;This message is more than 8 characters long&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;So, be sure to double check your :length attributes.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 07 Jul 2014 14:41:07 -0400</pubDate>
+        <link>http://michaelehead.com/2014/07/07/datamapper-fails-silently-when-strings-are-longer.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/07/07/datamapper-fails-silently-when-strings-are-longer.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Ignore CSS and JS files in Ruby Rerun</title>
+        <description>&lt;p&gt;If you’re using the Rerun gem to watch for file changes in your Ruby web application, you may find it annoying that CSS and JS file changes cause the entire application to restart. Use the –ignore flag to ignore certain file types when calling Rerun. For example, below is a shell script I use to start a Sinatra application in my project:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/bash&lt;/span&gt;
+rerun --ignore &lt;span class=&quot;s2&quot;&gt;&amp;quot;**/*.{js,css}&amp;quot;&lt;/span&gt; ruby app.rb&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
+        <pubDate>Tue, 01 Jul 2014 12:48:34 -0400</pubDate>
+        <link>http://michaelehead.com/2014/07/01/ignore-css-and-js-files-in-ruby-rerun.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/07/01/ignore-css-and-js-files-in-ruby-rerun.html</guid>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

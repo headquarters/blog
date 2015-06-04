@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+               _
+              | |
+              | |
+           ___|  \___ 
+          |___]
+         |____]
+          |___]    |----
+           |___]__/
+           
+           Cool.
+        -->
+  <title>JavaScript to Java Context Switching | Michael Head</title>
+  <meta name="description" content="Splitting my time between JavaScript and Java, occasionally my brain doesn’t switch contexts quickly enough for me to remember what is possible or not possib...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/plugins/slick/slick.css">
+  <link rel="stylesheet" href="/plugins/featherlight/featherlight.min.css">
+        
+  <link rel="canonical" href="http://michaelehead.com/2013/03/27/javascript-to-java-context-switching.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://michaelehead.com/feed.xml" />
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+</head>
+
+
+  <body>
+
+    <header>
+    <a href="#main" id="go-to-main">Go to content &darr;</a>
+    <hgroup>
+        <h1>Michael's Headquarters</h1>
+        <h2>On UX Design and Development</h2>
+    </hgroup>
+    <nav id="main-nav">
+        <ul>
+          <li ><a href="/">About</a></li>
+          <li class="active"><a href="/blog/">Blog</a></li>
+          <li ><a href="/portfolio/">Portfolio</a></li>
+          <!--<li><a href="/">Miscellany</a></li>-->
+        </ul>
+    </nav>        
+</header>
+
+    <main id="main" class="blog">
+      <div class="post content">
+	<header class="post-header">
+        <h1 class="post-title">JavaScript to Java Context Switching</h1>
+        <time class="post-date" datetime="">
+            Mar 27, 2013
+        </time>
+    </header>
+	<article class="post-content">
+	<p>Splitting my time between JavaScript and Java, occasionally my brain doesn’t switch contexts quickly enough for me to remember what is possible or not possible in one language.</p>
+
+<p>Recently, I was trying to split a string into two separate array values in a JSP, for displaying them separately through JSTL. I commented out</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">someVar</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span></code></pre></div>
+
+<p>and added</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Array</span> <span class="n">someVarArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Array</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span></code></pre></div>
+
+<p>and Eclipse seemed to be fine with it. So, I went on to write more code utilizing my new array, and refreshed the page…everything worked fine. But, the page markup was not changing to reflect the JSP changes. It was heavily cached for some reason. So, I restarted the server, and reloaded the page, and got the following error:</p>
+
+<p>java.lang.ClassNotFoundException: org.apache.someclass.etc</p>
+
+<p>After finally getting over my JavaScript tunnel vision, I realized I needed a type for the array:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span><span class="o">[]</span> <span class="n">someVarArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span></code></pre></div>
+
+<p>This is difficult to track down because my IDE effectively told me there was a ClassNotFoundException, which every StackOverflow post points to being an issue with class paths or output folders for a project; none of them point to actual code problems. Also, the compiler did not catch this as a problem, either. Where is your strong type handling now, Java?</p>
+
+<p>After spending so much time tracking down this problem, I’m starting to understand the allure of using a single language on the client as on the server (e.g. NodeJS). Not having to switch contexts would have prevented this problem in the first place. Or maybe one day I’ll be a better Java developer that won’t make these kinds of mistakes (ha!).</p>
+
+	</article>
+</div>
+
+    </main>
+
+            <footer class="footer row">
+          <div class="col">
+                <div class="social">
+                    <a href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
+                    <a href="http://linkedin.com/in/michaelehead"><img src="/images/icons/LinkedIn.png" alt="LinkedIn" /></a>
+                    <a href="http://twitter.com/michaelehead"><img src="/images/icons/Twitter.png" alt="Twitter" /></a>
+                </div>
+                <section>
+                  <div class="copyright">&copy; 2015</div>
+                  <div class="poweredby">Generated by <a href="http://jeykyllrb.com">Jekyll</a></div>
+              </section>
+              <a id="go-to-top" href="#go-to-main">&uarr; Top</a>
+          </div>
+        </footer>        
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="/plugins/slick/slick.min.js"></script>        
+        <script src="/plugins/featherlight/featherlight.min.js"></script>        
+        <script src="/js/portfolio.js"></script>
+    </body>
+</html>
+
+
+  </body>
+
+</html>

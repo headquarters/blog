@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+               _
+              | |
+              | |
+           ___|  \___ 
+          |___]
+         |____]
+          |___]    |----
+           |___]__/
+           
+           Cool.
+        -->
+  <title>Notes from Josh Clark's Designing Touch-Friendly Interfaces | Michael Head</title>
+  <meta name="description" content="I attended a Triangle UXPA meeting where we were able to watch the virtual seminar Designing Touch-Friendly Interfaces by Josh Clark. I’m sharing my notes he...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/plugins/slick/slick.css">
+  <link rel="stylesheet" href="/plugins/featherlight/featherlight.min.css">
+        
+  <link rel="canonical" href="http://michaelehead.com/2014/03/14/notes-from-josh-clarks-designing-touch-friendly.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://michaelehead.com/feed.xml" />
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+</head>
+
+
+  <body>
+
+    <header>
+    <a href="#main" id="go-to-main">Go to content &darr;</a>
+    <hgroup>
+        <h1>Michael's Headquarters</h1>
+        <h2>On UX Design and Development</h2>
+    </hgroup>
+    <nav id="main-nav">
+        <ul>
+          <li ><a href="/">About</a></li>
+          <li class="active"><a href="/blog/">Blog</a></li>
+          <li ><a href="/portfolio/">Portfolio</a></li>
+          <!--<li><a href="/">Miscellany</a></li>-->
+        </ul>
+    </nav>        
+</header>
+
+    <main id="main" class="blog">
+      <div class="post content">
+	<header class="post-header">
+        <h1 class="post-title">Notes from Josh Clark's Designing Touch-Friendly Interfaces</h1>
+        <time class="post-date" datetime="">
+            Mar 14, 2014
+        </time>
+    </header>
+	<article class="post-content">
+	<p>I attended a <a href="http://triuxpa.org/">Triangle UXPA</a> meeting where we were able to watch the virtual seminar <a href="http://www.uie.com/events/virtual_seminars/touch_friendly/">Designing Touch-Friendly Interfaces by Josh Clark</a>. I’m sharing my notes here as a service to myself in the future and as a reminder to others out there about how to design touch-friendly interfaces. </p>
+
+<p>Some interesting statistics on how people hold their phones “on the street”, from a field study by Steven Huber (n=~1300):</p>
+
+<ul>
+  <li>One handed, using the thumb on that hand: ~49%</li>
+  <li>Cradled in one hand, using pointer finger on the other: ~36%</li>
+  <li>Two handed with both thumbs: ~15%</li>
+</ul>
+
+<p>So, thumb use accounts for about 64% of usage in this sample. This informs the heuristics below.</p>
+
+<p>For apps:</p>
+
+<ul>
+  <li>Primary controls on the bottom</li>
+  <li>Right vs. left side less important than top or bottom</li>
+  <li>Data changing buttons at the top (“out of harm’s way”)</li>
+  <li>Content at top, controls on the bottom (similar to other devices, like a calculator)</li>
+  <li>Stacking controls is a bad idea (causes mis-taps)</li>
+</ul>
+
+<p>These guidelines reflect an iOS-bias. For Android devices, usually controls go on top because the physical device buttons are at the bottom. </p>
+
+<p>For websites, browser chrome gets in the way, so having a sticky navigation at top or bottom eats up content area. Therefore, a good way to avoid this is to put a Menu link in the header that links to navigation in the footer, but the navigation is at the bottom of the page, not the screen.</p>
+
+<p>Tablets are almost more desktop-like. Controls at the top are better than the bottom. Bottom nav makes more sense if the whole canvas will change (“coverflow style”). Favor the sides and corners of the screen for controls, since sometimes we hold larger devices in both hands due to their weight. </p>
+
+<p>Dimensions for controls:</p>
+
+<p>*~7mm is the contact point for thumb on a flat screen
+*44px maps to ~7mm and works well across devices
+*2.75em on a default font size of 16px is 44px
+*7mm has a 1 in 100 error rate on taps, 9mm is 1 in 200 (based on Microsoft study)
+*At least one dimension should be 44px; 29px minimum in other dimension
+*At least 2mm between controls; less than that requires increasing size of controls</p>
+
+<p>Clarity trumps density: you may have click or tap more, but the clarity of what’s on the screen pays off. This is in contrast to previous fears on the web that too many clicks would increase bounce rate. </p>
+
+<p>General recommendations:</p>
+
+<ul>
+  <li>Get rid of select menus; replace with other controls</li>
+  <li>Get rid of extra fields (generally a good idea)</li>
+  <li>Get rid of confirmation dialogs (use gestures to confirm less than desirable actions)</li>
+  <li>Require less keyboard use</li>
+  <li>Eliminate detail screens (providing more information upfront makes secondary detail screens less necessary…AccuWeather example)</li>
+  <li><a href="http://www.shouldiuseacarousel.com/">Eliminate carousels</a> (seems everyone wants to do this)</li>
+  <li><a href="http://www.nngroup.com/articles/scrolling-and-attention/">Eliminate the long scroll</a> (use off-canvas panels)</li>
+</ul>
+
+<p>Great quotes (paraphrased): </p>
+
+<blockquote>
+  <p>“People come to your site/app for the content, not the navigation.”<br />
+“Navigation is often a last resort if the (navigation in the) content fails us.”</p>
+</blockquote>
+
+	</article>
+</div>
+
+    </main>
+
+            <footer class="footer row">
+          <div class="col">
+                <div class="social">
+                    <a href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
+                    <a href="http://linkedin.com/in/michaelehead"><img src="/images/icons/LinkedIn.png" alt="LinkedIn" /></a>
+                    <a href="http://twitter.com/michaelehead"><img src="/images/icons/Twitter.png" alt="Twitter" /></a>
+                </div>
+                <section>
+                  <div class="copyright">&copy; 2015</div>
+                  <div class="poweredby">Generated by <a href="http://jeykyllrb.com">Jekyll</a></div>
+              </section>
+              <a id="go-to-top" href="#go-to-main">&uarr; Top</a>
+          </div>
+        </footer>        
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="/plugins/slick/slick.min.js"></script>        
+        <script src="/plugins/featherlight/featherlight.min.js"></script>        
+        <script src="/js/portfolio.js"></script>
+    </body>
+</html>
+
+
+  </body>
+
+</html>
