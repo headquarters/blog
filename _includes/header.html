@@ -1,0 +1,15 @@
+<header>
+    <a href="#main" id="go-to-main">Go to content &darr;</a>
+    <hgroup>
+        <h1>{{ site.title }}</h1>
+        <h2>{{ site.subtitle }}</h2>
+    </hgroup>
+    <nav id="main-nav">
+        <ul>
+          <li {% if page.section == "about" %}class="active"{% endif %}><a href="/">About</a></li>
+          <li {% if page.section == "blog" %}class="active"{% endif %}><a href="/blog/">Blog</a></li>
+          <li {% if page.section == "portfolio" %}class="active"{% endif %}><a href="/portfolio/">Portfolio</a></li>
+          <!--<li><a href="/">Miscellany</a></li>-->
+        </ul>
+    </nav>        
+</header>

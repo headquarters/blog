@@ -1,0 +1,20 @@
+---
+layout: post
+title: A Web Developer in Game Developer's Clothing
+date: '2013-05-04T20:18:02-05:00'
+tags: []
+tumblr_url: http://michaelehead.com/post/49635810045/a-web-developer-in-game-developers-clothing
+---
+On April 24th-25th, Raleigh, NC hosted the East Coast Game Conference for 2013 for the 5th year. Despite not being in the game industry, I decided to attend because I have a more than [cursory interest in game design and development](https://github.com/headquarters/JSBrick). I came to realize that the game industry is very similar to the web industry in culture. We share similar challenges in diversity, in developing empathy for our customers, and in growing as communities of practitioners. 
+
+The content of the conference was great; for that reason alone, I encourage anyone interested in game design, development, or the industry as a whole to attend. The organization of the conference itself left something to be desired, which I will cover shortly. I attended sessions on developing combat systems, AI for turn based games, tips for visual communication in level design, prototyping, finding a mentor in the industry, and finding your “core" (the main point of your game). 
+
+From the development and design sessions, I realized one similarity between game development and web development is that we should always spend less time on re-inventing the wheel. The AI for games is well-researched, with many published algorithms; no need to write your own. Similarly, there are tons web development libraries and frameworks out there, so spend more time building cool things and less time struggling over problems that are already solved. 
+
+Another similarity made clear to me was that designers and developers in non-web industries face the same issues we face in web development. One anecdote from the developer leading the combat systems session was “I have never worked on a fighting game in which the designers didn't come back, 6 months into production, and say ‘We really want the ice guys to be vulnerable to fire', so at this point I always have a vulnerabilities table built from the beginning". 
+
+[Cliff Blezinksi](https://twitter.com/therealcliffyb) gave an inspirational talk to implore the community to stand united, rather than tearing itself apart from the inside with artificial differences like AAA game developers vs. indie game developers. Jason Vandenberghe's keynote discussed his ideas of the 5 Domains of Play as a means for developing empathy for players. The discussion of empathy for players sounds very familiar to what every UX professional preaches with regard to empathy for users in web development. 
+
+Aside from the content, the conference itself was somewhat confusing at times. The web and print schedules did not match and it was hard to tell which was the authoritative schedule. The ECGC staff did maintain a twitter account, so that was somewhat helpful, but the rescheduling of the keynote on Thursday did cause some people to be late to the 3rd session of the day. Parking was expensive–$19 over two days, and it wasn't included on the website in any fashion to tell people where to park or make recommendations. WiFi was not free, at least for my ticket level–had I purchased a more expensive ticket, I would have access to the WiFi (“a $40 value"). This is less a problem from the ECGC organizers than it is the Raleigh Convention Center owners–why can I go to a privately-ran company like Starbucks and get free WiFi, but my $80 ticket to a conference can't cover the cost of WiFi? If Raleigh wants to show it's a modern hub for tech companies, I think they should invest in their tech infrastructure for these kinds of events. 
+
+Despite the aforementioned complaints, the ECGC staff did a wonderful job keeping equipment running, shepherding people around, and generally keeping things running smoothly. Though I still probably won't be in the industry next year, I plan to attend nonetheless, because this was an affordable conference with great content where you could feel the strength of the community in the area come together. 

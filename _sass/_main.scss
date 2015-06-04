@@ -1,0 +1,308 @@
+/* Dead Simple Grid (c) 2012 Vladimir Agafonkin */
+.col {
+	padding: 0 1.0em;
+}
+.row .row {
+	margin: 0 -1.0em;
+}
+.row:before, .row:after {
+	content: "";
+	display: table;
+}
+.row:after {
+	clear: both;
+}
+@media only screen {
+	.col {
+		float: left;
+		width: 100%;
+
+		-webkit-box-sizing: border-box;
+		   -moz-box-sizing: border-box;
+		        box-sizing: border-box;
+	}
+}
+
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre,
+ul, ol, dl, figure,
+%vertical-rhythm {
+    margin-bottom: $spacing-unit / 2;
+}
+
+#go-to-main:focus { 
+	position:static; 
+	width:auto; 
+	height:auto; 
+
+} 
+
+/* Global */
+body {
+    font-family:"Avenir Next", Verdana, sans-serif;
+}
+
+body > header {
+	margin-bottom:$spacing-unit;
+}
+
+body > header,
+body > footer {
+	text-align:center;
+}
+
+header hgroup h1 {
+	margin-bottom:-0.5em;
+}
+
+header hgroup h2 {
+	font-size:1.2em;
+	color:#444;
+	font-weight:normal;
+}
+
+.content {
+	max-width:$content-length;
+}
+
+#main-nav {
+	border-width:3px 0;
+	border-style:solid;
+	border-color:#666;
+}
+
+#main-nav ul {
+	list-style:none;
+	padding-left:0;
+	margin:0;
+}
+
+#main-nav ul li {
+	border-bottom:1px solid #ccc;
+}
+
+#main-nav ul li:last-child {
+	border:none;
+}
+
+#main-nav ul li a {
+	padding:0.5em 0;
+	display:block;
+	transition: color 100ms ease-in, background-color 100ms ease-in;
+}
+
+#main-nav ul li.active a {
+	font-weight:bold;
+}
+
+#main-nav ul li a:hover {
+	color:#fff;
+	background-color:#878597;
+}
+
+main,
+.post.content {
+	padding:0 $spacing-unit;
+	margin:0 auto;
+}
+
+#portfolio main,
+#misellany main {
+	max-width:80em;
+}
+
+.footer {
+	margin-top:1em;
+	padding:1em;
+	font-size:0.8em;
+	border-top:2px solid #666;
+}
+
+.footer .social {
+	margin:1em 0;
+}
+
+.footer .social a {
+	margin:0 1em;
+}
+
+.footer section {
+	font-size:0.8em;
+	margin-bottom:$spacing-unit;
+}
+.page-title {
+	text-align:center;
+}
+/* End Global */
+
+/* Home/About */
+#about-me .row {
+	max-width:60em;
+	margin:0 auto;
+}
+#about-me .profile-photo {
+	text-align:center;
+	max-width: 18em;
+}
+
+#about-me .profile-photo img {
+	max-width:100%;
+}
+/* End Home/About */
+
+/* Posts */
+.post-header time {
+	font-size:0.9em;
+	color:#666;
+}
+
+.post-title {
+	font-weight:normal;
+	margin-bottom:0;
+}
+
+.posts {
+	max-width:40em;
+	margin:0 auto;
+}
+
+.pagination {
+	font-size:0.8em;
+}
+
+.highlight > pre {
+	background:#eee;
+	/*white-space:normal;*/
+	padding:1em;
+}
+
+.post img {
+	max-width:100%;
+}
+
+.post img.expanded {
+	max-width:none;
+}
+
+/* End Blog */
+
+/* Portfolio */
+.project {
+	border-left:1px solid #ccc;
+}
+
+.project > p {
+	margin-top:0;
+}
+
+.portfolio .slideshow .slick-slide img {
+	max-width:100%;
+	margin:auto;
+}
+
+.portfolio .slideshow .slick-prev {
+	left: 5px;
+}
+
+.portfolio .slideshow .slick-next {
+	right: 5px;
+}
+
+/* 
+	Vertically align the slideshow items: https://output.jsbin.com/honawo/quiet/
+*/
+.portfolio .slideshow .slick-track {
+	display: -webkit-flex;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.technology,
+.roles {
+	color: #666;
+}
+
+.technology span,
+.roles span,
+.source span {
+	font-size:0.9em;
+	color:#333;
+}
+
+.source {
+	margin-bottom:$spacing-unit;
+}
+
+/* End Portfolio */
+
+/* Miscellany */
+
+/* End Miscellany */
+
+@media only screen and (min-width: 40em){
+	/* Global */
+	#main-nav ul li {
+		display:inline-block;
+		border:none;
+	}
+
+	#main-nav ul li a {
+		padding:0.5em 1.5em;
+	}
+
+	#go-to-main { 
+		position:absolute; 
+		left:-10000px; 
+		top:auto; 
+		width:1px; 
+		height:1px; 
+		overflow:hidden;
+	} 
+	/* End Global */
+
+	/* About */
+	.experience .images + .work.col,
+	.experience .work.col,
+	#about-me .profile-photo { 
+		width:40%;
+	}
+
+	.experience .work + images.col,
+	.experience .images.col,
+	#about-me .description {
+		width:60%;
+	}
+
+	#about-me p {
+		margin-top: 0;
+	}
+
+	#about-me .profile-photo {
+		text-align:right;
+	}
+
+	/* End About */
+
+	/* Portfolio */
+	.project-details {
+		/*margin-bottom:$spacing-unit;*/
+		/*display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		align-items: center;*/
+	}
+	.experience .project/*:nth-child(odd)*/ .work {
+		/* equivalent to float:right if these were not flex items */
+		/*-ms-flex-order: 2;
+		-webkit-order: 2;
+		order: 2;*/
+	}
+
+	/* End Portfolio */
+}

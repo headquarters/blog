@@ -1,0 +1,43 @@
+/Users/Michael/Projects/jekyll-blog/_posts/2011-08-20-if-you-show-something-that-looks-like-an-error.md
+/Users/Michael/Projects/jekyll-blog/_posts/2011-08-20-mapping-a-domain-and-www-subdomain-to-tumblr.md
+/Users/Michael/Projects/jekyll-blog/_posts/2011-08-29-usability-notes-about-fifth-thirds-signup-forms.md
+/Users/Michael/Projects/jekyll-blog/_posts/2011-09-23-internet-explorer-7-redraw-fix-with-javascript.md
+/Users/Michael/Projects/jekyll-blog/_posts/2011-09-24-using-charles-proxy-with-google-chrome-on-mac-os-x.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-01-20-changing-terminal-colors-for-webfaction-ssh.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-03-27-defaulting-to-front-facing-camera-on-ipad-with.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-04-02-why-apple-should-provide-icloud-support-to-snow.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-04-11-interaction-design-recommendation-disable.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-07-20-instapaper-doubts-i-have-a-password.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-07-30-three-gripes-with-disk-utilitys-superdrive-ui.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-08-26-ncsu-distance-ed-first-impressions.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-10-29-econtalk-kling-on-education-and-the-internet.md
+/Users/Michael/Projects/jekyll-blog/_posts/2012-11-14-after-reading-the-best-interface-is-no-interface.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-01-04-php-windows-and-spaces-in-file-names.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-01-27-snippet-of-screenshot-from-amazon-seller-form-used.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-02-17-windows-8-out-of-box-experience.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-03-27-javascript-to-java-context-switching.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-05-02-user-activated-image-loading.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-05-04-a-web-developer-in-game-developers-clothing.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-06-17-testing-google-maps-locally.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-09-02-gray-plating.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-09-21-time-to-home-screen-in-ios-6-vs-ios-7.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-12-06-belt-buckles-in-cars-should-be-interchangeable.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-12-12-more-thoughts-on-user-activated-image-loading.md
+/Users/Michael/Projects/jekyll-blog/_posts/2013-12-16-apples-gray-plating-problem.md
+/Users/Michael/Projects/jekyll-blog/_posts/2014-01-24-adding-a-download-video-link-for-sakai-videos.md
+/Users/Michael/Projects/jekyll-blog/_posts/2014-03-14-notes-from-josh-clarks-designing-touch-friendly.md
+/Users/Michael/Projects/jekyll-blog/_posts/2014-03-16-do-unto-others-as-theyd-have-done-to-them.md
+/Users/Michael/Projects/jekyll-blog/_posts/2014-05-12-free-service-design-idea-for-an-isp.md
+/Users/Michael/Projects/jekyll-blog/_posts/2014-07-01-animate-the-zurb-foundation-progress-bar.md
+/Users/Michael/Projects/jekyll-blog/_posts/2014-07-01-ignore-css-and-js-files-in-ruby-rerun.md
+/Users/Michael/Projects/jekyll-blog/_posts/2014-07-07-datamapper-fails-silently-when-strings-are-longer.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2014-07-10-integer-to-float-coercion-in-php.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2014-07-22-sometimes-the-english-language-is-inconsistent.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2014-10-13-automate-the-automatable-for-your-users.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2014-12-13-speeding-up-yosemite-boot-time-on-a-2010-macbook.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2014-12-15-launch-a-vagrant-vm-when-your-host-mac-boots.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2014-12-18-automatically-go-to-folder-when-logging-into.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2015-02-10-datamapper-settings-on-openshift-with-postgresql.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2015-02-12-accessing-real-ip-addresses-on-openshift.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2015-02-18-how-to-quickly-get-a-domain-auth-code-from.md
+DONE: /Users/Michael/Projects/jekyll-blog/_posts/2015-04-19-wrap-long-links-on-small-screens.md

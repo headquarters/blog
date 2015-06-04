@@ -1,0 +1,101 @@
+---
+section: portfolio
+layout: default
+title: "Portfolio"
+---
+<header>
+	<h1 class="page-title">Portfolio</h1>
+</header>
+<article>
+	<hgroup>
+		<h1 id="design-and-development">Design &amp; Development</h1>
+	</hgroup>
+	<section class="experience">
+	{% for org in site.data.portfolio %}
+		<div class="org-info">
+			<h2 class="">
+				{% if org.logo %}
+				<!--<img src="{{ org.logo }}" alt="" class="logo" />-->{{ org.name }}
+				{% else %}
+					{{ org.name }}
+				{% endif %}
+			</h2>
+			<p class="content">
+				{{ org.desc }}
+			</p>
+		</div>
+		{% for project in org.projects %}
+			<div class="project">
+				<div class="row">
+					<h3 class="col">{{ project.name }}</h3>
+				</div>
+				<div class="project-details row">
+					<div class="work col">
+						<div class="content">
+							<p>
+								{{ project.desc }}
+							</p>
+							<div class="technology">
+								<span>Technologies:</span>
+								{{ project.technologies | join: ", " }}
+							</div>
+							<div class="roles">
+								<span>Roles:</span>
+								{{ project.roles | join: ", " }}
+							</div>
+							{% if project.source_url.size > 0 %}
+							<div class="source">
+								<span>Source:</span>
+								<a href="{{ project.source_url}}">{{ project.source_url}}</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+					{% if project.images.size > 0 %}
+					<div class="images slideshow col">
+						{% for image in project.images %}
+							<div>
+								<a href="{{ image.src }}">{{ image.alt }}</a>
+							</div>
+						{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+	{% endfor %}	
+	</section>	
+{% comment %}
+	<hgroup>
+		<h1 id="ux-research">UX Research</h1>
+	</hgroup>
+	<section class="experience row">
+		<div class="project col">
+			<h2>Academic Advising Website Usability Evaluation</h2>
+			<ul>
+				<li>Client: <strong>UNC Academic Advising</strong></li>
+				<li>Website: <strong><a href="http://advising.unc.edu">advising.unc.edu</a></strong></li>
+				<li>Methods: <strong>Think-aloud protocol, questionnaires</strong></li>
+				<li>Tools: <strong>Camtasia, Qualtrics</strong></li>
+				<li>Number of participants: <strong>10</strong></li>
+			</ul>
+			<p>
+				I conducted a usability evaluation of the UNC Academic Advising website as a member of a 4-person team. 
+			</p>
+		</div>
+		<div class="project col">
+			<h2>Lifetime Library Usability Evaluation</h2>
+			<ul>
+				<li>Client: <strong>UNC Lifetime Library</strong> (as part of a class)</li>
+				<li>Website: <strong><a href="https://lifetime-library.ils.unc.edu/">lifetime-library.ils.unc.edu</a></strong></li>
+				<li>Methods: <strong>Think-aloud protocol, questionnaires</strong></li>
+				<li>Tools: <strong>Quicktime, Google Forms</strong></li>
+				<li>Number of participants: <strong>4</strong></li>
+			</ul>
+			<p>
+				I conducted a usability evaluation of the UNC Lifetime Library website as a member of a 4-person team. 
+			</p>
+		</div>
+	</section>
+{% endcomment %}
+</article>
