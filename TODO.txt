@@ -11,3 +11,4 @@ For deployment:
 Crunch PNGs or convert to lower size JPGs
 Check validation
 Set caching headers
+Add webfaction SSH key for easier git push
