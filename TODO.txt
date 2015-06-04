@@ -11,4 +11,3 @@ For deployment:
 Crunch PNGs or convert to lower size JPGs
 Check validation
 Set caching headers
-Put into GitHub, setup deployment to Webfaction with git push
