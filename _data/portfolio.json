@@ -141,6 +141,29 @@
 				]
 			},
 			{
+				name: "Wireframes",
+				desc: "I created conceptual wireframes for a dashboard and for the Etix print-at-home ticket.",
+				url: null,
+				source_url: null,
+				technologies: [
+					"Balsamiq"
+				],
+				roles: [
+					"Design"
+				],
+				images: [
+					{
+						src: "/images/wireframes/dashboard.png",
+						alt: "Screenshot of Balsamiq wireframe for a dashboard"
+					},
+					{
+						src: "/images/wireframes/print-at-home-ticket.png",
+						alt: "Screenshot of Balsamiq wireframe for a print-at-home ticket"
+					}
+
+				]
+			},
+			{
 				name: "Schema.org Metadata Implementation",
 				desc: "I implemented Schema.org metadata recommendations on the Etix site in order to provide structured data in search results in supported search engines. The accompanying screenshot shows an example of this structured data being used by Google to improve the search results interface.",
 				url: null,
