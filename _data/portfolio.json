@@ -142,7 +142,7 @@
 			},
 			{
 				name: "Schema.org Metadata Implementation",
-				desc: "I implemented Schema.org metadata recommendations on the Etix site in order to provide structured data in search results in supported search engines. Above is a screenshot of an example of this structured data being used by Google to improve the search results interface.",
+				desc: "I implemented Schema.org metadata recommendations on the Etix site in order to provide structured data in search results in supported search engines. The accompanying screenshot shows an example of this structured data being used by Google to improve the search results interface.",
 				url: null,
 				source_url: null,
 				technologies: [
