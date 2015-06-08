@@ -142,7 +142,7 @@
 			},
 			{
 				name: "Wireframes",
-				desc: "I created conceptual wireframes for a dashboard and for the Etix print-at-home ticket.",
+				desc: "I created conceptual wireframes for a dashboard and for the Etix print-at-home ticket. I worked with several stakeholders across the organization to gather requirements for the concepts.",
 				url: null,
 				source_url: null,
 				technologies: [
@@ -228,34 +228,6 @@
 		logo: null,
 		desc: "Some of the other projects I've worked on.",
 		projects: [
-			{
-				name: "Beasley Accounting",
-				desc: "Beasley Accounting is an accounting firm that works with small businesses and individuals for payroll, corporate taxes, and income taxes. I created a responsive site for them that provided basic information about their business and a contact form. It's viewable at <a href=\"http://beasleyaccounting.com\">beasleyaccounting.com</a>.",
-				url: "http://beasleyaccounting.com",
-				source_url: null,
-				technologies: [
-					"Ruby",
-					"Sinatra",
-					"HTML",
-					"CSS",
-					"JavaScript",
-					"jQuery"
-				],
-				roles: [
-					"Programming",
-					"Design"
-				],
-				images: [
-					{
-						src: "/images/screenshots/beasleyaccounting/beasleyaccounting-desktop.png",
-						alt: "Screenshot of BeasleyAccounting.com desktop home page",
-					},
-					{
-						src: "/images/screenshots/beasleyaccounting/beasleyaccounting-mobile.png",
-						alt: "Screenshot of BeasleyAccounting.com mobile home page",
-					}
-				]
-			},
 			{
 				name: "NC Hospital Charges Visualization",
 				desc: "As part of a graduate course in Visual Analytics, I worked with 2 classmates on a D3 visualization of hospital charge data in NC. 
