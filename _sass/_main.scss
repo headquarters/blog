@@ -45,20 +45,20 @@ body {
     font-family:"Avenir Next", Verdana, sans-serif;
 }
 
-body > header {
+#site-header {
 	margin-bottom:$spacing-unit;
 }
 
-body > header,
+#site-header,
 body > footer {
 	text-align:center;
 }
 
-header hgroup h1 {
+#site-header header h1 {
 	margin-bottom:-0.5em;
 }
 
-header hgroup h2 {
+#site-header header h2 {
 	font-size:1.2em;
 	color:#444;
 	font-weight:normal;

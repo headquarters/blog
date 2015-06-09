@@ -1,7 +1,6 @@
 TODO:
 
 Write summaries for usability evaluations
-Get some screenshots of charts
 Highlight Client, Methods, Tools used
 
 Adjust white space
