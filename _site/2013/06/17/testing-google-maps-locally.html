@@ -1,4 +1,4 @@
-  	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <div id="site-header">
+<div id="site-header">
     <a href="#main" id="go-to-main">Go to content &darr;</a>
     <header>
         <h1>Michael's Headquarters</h1>
@@ -45,8 +45,8 @@
     </nav>        
 </div>
 
-    <main id="main" class="blog">
-      <div class="post content">
+<main id="main" class="blog">
+  <div class="post content">
 	<header class="post-header">
         <h1 class="post-title">Testing Google Maps locally</h1>
         <time class="post-date" datetime="">
@@ -54,14 +54,14 @@
         </time>
     </header>
 	<article class="post-content">
-	<p>When setting up your Google Maps API key, specify that it works on all subdomains, i.e. <code>*.mysite.com</code>. Then, create a host name in <code>/etc/hosts</code> (different path on Windows) that is something like “local.mysite.com” to point at 127.0.0.1. Now, instead of using “localhost” to access your site locally, you can use “local.mysite.com” to access it, and the Google Maps API will treat it as a legitimate site. Yay, no more API key error messages!</p>
+	<p>When setting up your Google Maps API key, specify that it works on all subdomains, i.e. <code class="highlighter-rouge">*.mysite.com</code>. Then, create a host name in <code class="highlighter-rouge">/etc/hosts</code> (different path on Windows) that is something like “local.mysite.com” to point at 127.0.0.1. Now, instead of using “localhost” to access your site locally, you can use “local.mysite.com” to access it, and the Google Maps API will treat it as a legitimate site. Yay, no more API key error messages!</p>
 
 	</article>
 </div>
 
-    </main>
+</main>
 
-            <footer class="footer row">
+        <footer class="footer row">
           <div class="col">
                 <div class="social">
                     <a href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>

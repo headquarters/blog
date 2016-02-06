@@ -1,4 +1,4 @@
-  	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <div id="site-header">
+<div id="site-header">
     <a href="#main" id="go-to-main">Go to content &darr;</a>
     <header>
         <h1>Michael's Headquarters</h1>
@@ -45,8 +45,8 @@
     </nav>        
 </div>
 
-    <main id="main" class="blog">
-      <div class="post content">
+<main id="main" class="blog">
+  <div class="post content">
 	<header class="post-header">
         <h1 class="post-title">PHP, Windows, and spaces in file names</h1>
         <time class="post-date" datetime="">
@@ -58,26 +58,26 @@
 
 <p>So, </p>
 
-<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$output = &#39;&#39;&#39;&#39;;</span>
-<span class="x">system(&#39;&#39;C:\Program Files (x86)\Prince\Engine\bin\prince.exe --version 2&gt;&amp;1&#39;&#39;, $output);</span>
-<span class="x">echo $output;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-php" data-lang="php">$output = '''';
+system(''C:\Program Files (x86)\Prince\Engine\bin\prince.exe --version 2&gt;<span class="err">&amp;</span>1'', $output);
+echo $output; </code></pre></figure>
 
 <p>is bad, and doesn’t work. You get the error
-<code>''C:\Program'' is not recognized as an internal or external command, operable program or batch file.</code>
+<code class="highlighter-rouge">''C:\Program'' is not recognized as an internal or external command, operable program or batch file.</code>
 because it stops after the first space. Now, why would I, as a somewhat experienced developer, expect this to work? Because the Windows command line accepts directory names with spaces so long as they are in quotes. Well, the path argument in system() above was in (single) quotes, so I expected PHP to handle all that path just fine. I was wrong. One way to handle this is to write</p>
 
-<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">$output = &#39;&#39;&#39;&#39;;</span>
-<span class="x">system(&#39;&#39;C:\Progra~2\Prince\Engine\bin\prince.exe --version 2&gt;&amp;1&#39;&#39;, $output);</span>
-<span class="x">echo $output;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-php" data-lang="php">$output = '''';
+system(''C:\Progra~2\Prince\Engine\bin\prince.exe --version 2&gt;<span class="err">&amp;</span>1'', $output);
+echo $output; </code></pre></figure>
 
-<p>which works fine. <code>Progra~2</code> here refers to the second matching directory name starting with “Progra”. <code>Progra~1</code> is “Program Files”, but I wanted to target “Program Files (x86)”, thus the “~2” suffix instead of “~1”.</p>
+<p>which works fine. <code class="highlighter-rouge">Progra~2</code> here refers to the second matching directory name starting with “Progra”. <code class="highlighter-rouge">Progra~1</code> is “Program Files”, but I wanted to target “Program Files (x86)”, thus the “~2” suffix instead of “~1”.</p>
 
 	</article>
 </div>
 
-    </main>
+</main>
 
-            <footer class="footer row">
+        <footer class="footer row">
           <div class="col">
                 <div class="social">
                     <a href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>

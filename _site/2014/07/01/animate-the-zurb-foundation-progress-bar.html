@@ -1,4 +1,4 @@
-  	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <div id="site-header">
+<div id="site-header">
     <a href="#main" id="go-to-main">Go to content &darr;</a>
     <header>
         <h1>Michael's Headquarters</h1>
@@ -45,8 +45,8 @@
     </nav>        
 </div>
 
-    <main id="main" class="blog">
-      <div class="post content">
+<main id="main" class="blog">
+  <div class="post content">
 	<header class="post-header">
         <h1 class="post-title">Animate the ZURB Foundation Progress Bar</h1>
         <time class="post-date" datetime="">
@@ -56,20 +56,20 @@
 	<article class="post-content">
 	<p>After doing a search for animating the Foundation progress bar, I came across a ZURB forums post. However, I was trying to avoid using JavaScript to do the animation. So, if anyone out there is interested in a CSS-based method for animating the ZURB Foundation progress bar, just drop this CSS into your stylesheet:</p>
 
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.progress</span> <span class="nc">.meter</span> <span class="p">{</span>
-	<span class="o">-</span><span class="n">moz</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span><span class="k">width</span> <span class="m">0.7s</span> <span class="n">ease</span><span class="p">;</span>
-	<span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span><span class="k">width</span> <span class="m">0.7s</span> <span class="n">ease</span><span class="p">;</span>
-	<span class="o">-</span><span class="n">transition</span><span class="o">:</span><span class="k">width</span> <span class="m">0.7s</span> <span class="n">ease</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.progress</span> <span class="nc">.meter</span> <span class="p">{</span>
+	<span class="nl">-moz-transition</span><span class="p">:</span><span class="n">width</span> <span class="m">0.7s</span> <span class="n">ease</span><span class="p">;</span>
+	<span class="nl">-webkit-transition</span><span class="p">:</span><span class="n">width</span> <span class="m">0.7s</span> <span class="n">ease</span><span class="p">;</span>
+	<span class="py">-transition</span><span class="p">:</span><span class="n">width</span> <span class="m">0.7s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>Adjust the transition properties as you see fit, but leave “width” in there, since that’s the property that changes on the .meter element.</p>
 
 	</article>
 </div>
 
-    </main>
+</main>
 
-            <footer class="footer row">
+        <footer class="footer row">
           <div class="col">
                 <div class="social">
                     <a href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>

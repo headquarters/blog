@@ -1,4 +1,4 @@
-  	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <div id="site-header">
+<div id="site-header">
     <a href="#main" id="go-to-main">Go to content &darr;</a>
     <header>
         <h1>Michael's Headquarters</h1>
@@ -45,8 +45,8 @@
     </nav>        
 </div>
 
-    <main id="main" class="blog">
-      <div class="post content">
+<main id="main" class="blog">
+  <div class="post content">
 	<header class="post-header">
         <h1 class="post-title">DataMapper fails silently when strings are longer than schema property</h1>
         <time class="post-date" datetime="">
@@ -56,25 +56,25 @@
 	<article class="post-content">
 	<p>When inserting content into your database using DataMapper’s create method, any String longer than the corresponding schema property will cause the create method to fail silently. For example, if your model has a property with a :length of 256 as below:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Message</span>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Message</span>
   <span class="kp">include</span> <span class="no">DataMapper</span><span class="o">::</span><span class="no">Resource</span>
   
   <span class="n">property</span> <span class="ss">:id</span><span class="p">,</span> <span class="no">Serial</span>
-  <span class="n">property</span> <span class="ss">:message</span><span class="p">,</span> <span class="nb">String</span><span class="p">,</span> <span class="ss">:length</span> <span class="o">=&gt;</span> <span class="mi">8</span>
-<span class="k">end</span></code></pre></div>
+  <span class="n">property</span> <span class="ss">:message</span><span class="p">,</span> <span class="no">String</span><span class="p">,</span> <span class="ss">:length</span> <span class="o">=&gt;</span> <span class="mi">8</span>
+<span class="k">end</span></code></pre></figure>
 
 <p>then the following code will fail silently and not insert a row:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Message</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">:message</span> <span class="o">=&gt;</span> <span class="s2">&quot;This message is more than 8 characters long&quot;</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">    <span class="no">Message</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:message</span> <span class="o">=&gt;</span> <span class="s2">"This message is more than 8 characters long"</span><span class="p">)</span></code></pre></figure>
 
 <p>So, be sure to double check your :length attributes.</p>
 
 	</article>
 </div>
 
-    </main>
+</main>
 
-            <footer class="footer row">
+        <footer class="footer row">
           <div class="col">
                 <div class="social">
                     <a href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
