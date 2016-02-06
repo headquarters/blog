@@ -16,15 +16,14 @@
            
            Cool.
         -->
-  <title>About | Michael Head</title>
-  <meta name="description" content="Michael Head is a UX-focused software engineer with more than 6 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
-">
+  <title>Install Ruby Gems on Mac OS X without sudo | Michael Head</title>
+  <meta name="description" content="I have never had a default installation of Ruby gems on Mac OS X let me simplyinstall new gems without requiring sudo. If you would like to install Ruby gems...">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/plugins/slick/slick.css">
   <link rel="stylesheet" href="/plugins/featherlight/featherlight.min.css">
         
-  <link rel="canonical" href="http://michaelehead.com/">
+  <link rel="canonical" href="http://michaelehead.com/2016/02/06/installing-gems-without-sudo.html">
   <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://michaelehead.com/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
@@ -38,46 +37,53 @@
     </header>
     <nav id="main-nav">
         <ul>
-          <li class="active"><a href="/">About</a></li>
-          <li ><a href="/blog/">Blog</a></li>
+          <li ><a href="/">About</a></li>
+          <li class="active"><a href="/blog/">Blog</a></li>
           <li ><a href="/portfolio/">Portfolio</a></li>
           <!--<li><a href="/">Miscellany</a></li>-->
         </ul>
     </nav>        
 </div>
 
-<main id="main" class="about">
-  <header>
-  <h1 class="page-title">About Michael</h1>
-</header>
-<article id="about-me">
-  <div class="row">
-    <div class="col profile-photo">
-      <img src="/images/michael-head.jpg" alt="Picture of the author, Michael Head" />
-    </div>
-    <div class="col description">
-        <p>
-            I'm a user experience designer trapped inside a software engineer's body.
-            I'm currently working as an Advisory Software Engineer in a DevOps role at <a href="https://www.ibm.com">IBM</a>
-            as part of an agile team that builds and supports the <a href="https://www.ibm.com/marketplace/cloud/us/en-us">IBM Digital Marketplace</a>.
-        </p>
-        <p>
-            Prior to working at IBM, I graduated from UNC-Chapel Hill with a <a href="http://sils.unc.edu/">Master of Science in Information Science</a>,
-            concentrating in Human-Computer Interaction. Before graduate school, I worked as a web developer&mdash;highlights of my
-            work are in my <a href="/portfolio">portfolio</a>.
-        </p>
-        <p>
-            Other tidbits:
-            <ul>
-                <li>I am a <a href="http://cua.humanfactors.com/profile/MichaelHead">Certified Usability Analyst</a>.</li>
-                <li>I have code on <a href="https://github.com/headquarters">GitHub</a> and <a href="http://codepen.io/michaelehead">CodePen</a>.</li>
-                <li>I occasionally answer questions on the <a href="http://stackexchange.com/users/148603/michael?tab=accounts">StackExchange</a> network (StackOverflow and UX).</li>
-                <li>And I write about various technology and design topics here on my <a href="/blog">blog</a>.</li>
-            </ul>
-        </p>
-    </div>
-  </div>
-</article>
+<main id="main" class="blog">
+  <div class="post content">
+	<header class="post-header">
+        <h1 class="post-title">Install Ruby Gems on Mac OS X without sudo</h1>
+        <time class="post-date" datetime="">
+            Feb 6, 2016
+        </time>
+    </header>
+	<article class="post-content">
+	<p>I have never had a default installation of Ruby gems on Mac OS X let me simply
+install new gems without requiring <code class="highlighter-rouge">sudo</code>. If you would like to install Ruby gems
+without requiring <code class="highlighter-rouge">sudo</code>, do the following:</p>
+
+<ol>
+  <li>
+    <p>Add <code class="highlighter-rouge">GEM_HOME</code> to your .bash_profile</p>
+
+    <blockquote>
+      <p>For example, <code class="highlighter-rouge">nano ~/.bash_profile</code> and add <code class="highlighter-rouge">export GEM_HOME=/Users/Michael/.gem</code>
+where the path is to your own Home folder</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Add the gem executables to your system path</p>
+
+    <blockquote>
+      <p>Also in .bash_profile, add <code class="highlighter-rouge">export PATH="$GEM_HOME/bin:$PATH"</code></p>
+    </blockquote>
+  </li>
+</ol>
+
+<p>For some reason these simple steps don’t show up in the top StackOverflow answers.
+People often suggest using rvm to install a custom Ruby version that won’t require using
+<code class="highlighter-rouge">sudo</code> when installing gems or something like rbenv to create a Ruby environment for the
+same benefit. If you simply want to use the default installed Ruby version on Mac OS X
+(this works in El Capitan) without requiring <code class="highlighter-rouge">sudo</code>, this should do it.</p>
+
+	</article>
+</div>
 
 </main>
 

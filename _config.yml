@@ -3,9 +3,9 @@ title: Michael's Headquarters
 author: Michael Head
 subtitle: On UX Design and Development
 email: michaelehead@gmail.com
-description: > # 
-  Michael Head is a UX-focused web engineer with more than 5 years of experience building awesome user experiences
-  for small agencies, mid-sized companies, and Fortune 50 corporations. 
+description: > #
+  Michael Head is a UX-focused software engineer with more than 6 years of experience building awesome user experiences
+  for small agencies, mid-sized companies, and Fortune 50 corporations.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://michaelehead.com" # the base hostname & protocol for your site
 twitter_username: michaelehead
@@ -18,14 +18,14 @@ markdown: kramdown
 # Defaults
 defaults:
   -
-    scope: 
+    scope:
         path: ""
         type: "posts"
     values:
         layout: "default"
         section: "blog"
   -
-    scope: 
+    scope:
         path: ""
         type: "pages"
     values:
