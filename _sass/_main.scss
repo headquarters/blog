@@ -33,12 +33,11 @@ ul, ol, dl, figure,
     margin-bottom: $spacing-unit / 2;
 }
 
-#go-to-main:focus { 
-	position:static; 
-	width:auto; 
-	height:auto; 
-
-} 
+#go-to-main:focus {
+	position:static;
+	width:auto;
+	height:auto;
+}
 
 /* Global */
 body {
@@ -69,9 +68,9 @@ body > footer {
 }
 
 #main-nav {
-	border-width:3px 0;
+	border-width:1px 0;
 	border-style:solid;
-	border-color:#666;
+	border-color:#ddd;
 }
 
 #main-nav ul {
@@ -115,10 +114,9 @@ main,
 }
 
 .footer {
-	margin-top:1em;
-	padding:1em;
+	margin-top:2em;
+	padding:2em;
 	font-size:0.8em;
-	border-top:2px solid #666;
 }
 
 .footer .social {
@@ -211,7 +209,7 @@ main,
 	right: 5px;
 }
 
-/* 
+/*
 	Vertically align the slideshow items: https://output.jsbin.com/honawo/quiet/
 */
 .portfolio .slideshow .slick-track {
@@ -256,20 +254,20 @@ main,
 		padding:0.5em 1.5em;
 	}
 
-	#go-to-main { 
-		position:absolute; 
-		left:-10000px; 
-		top:auto; 
-		width:1px; 
-		height:1px; 
+	#go-to-main {
+		position:absolute;
+		left:-10000px;
+		top:auto;
+		width:1px;
+		height:1px;
 		overflow:hidden;
-	} 
+	}
 	/* End Global */
 
 	/* About */
 	.experience .images + .work.col,
 	.experience .work.col,
-	#about-me .profile-photo { 
+	#about-me .profile-photo {
 		width:40%;
 	}
 

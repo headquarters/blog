@@ -414,9 +414,9 @@ body > footer {
   max-width: 40em; }
 
 #main-nav {
-  border-width: 3px 0;
+  border-width: 1px 0;
   border-style: solid;
-  border-color: #666; }
+  border-color: #ddd; }
 
 #main-nav ul {
   list-style: none;
@@ -451,10 +451,9 @@ main,
   max-width: 80em; }
 
 .footer {
-  margin-top: 1em;
-  padding: 1em;
-  font-size: 0.8em;
-  border-top: 2px solid #666; }
+  margin-top: 2em;
+  padding: 2em;
+  font-size: 0.8em; }
 
 .footer .social {
   margin: 1em 0; }
@@ -528,7 +527,7 @@ main,
 .portfolio .slideshow .slick-next {
   right: 5px; }
 
-/* 
+/*
 	Vertically align the slideshow items: https://output.jsbin.com/honawo/quiet/
 */
 .portfolio .slideshow .slick-track {
