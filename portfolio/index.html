@@ -7,10 +7,10 @@ title: "Portfolio"
 	<h1 class="page-title">Portfolio</h1>
 </header>
 <article>
-	<hgroup>
-		<h1 id="design-and-development">Design &amp; Development</h1>
-	</hgroup>
 	<section class="experience">
+        <header>
+            <h1 id="design-and-development">Design &amp; Development</h1>
+        </header>
 	{% for org in site.data.portfolio %}
 		<div class="org-info">
 			<h2 class="">
@@ -51,51 +51,73 @@ title: "Portfolio"
 							{% endif %}
 						</div>
 					</div>
-					{% if project.images.size > 0 %}
-					<div class="images slideshow col">
-						{% for image in project.images %}
-							<div>
-								<a href="{{ image.src }}">{{ image.alt }}</a>
-							</div>
-						{% endfor %}
-					</div>
-					{% endif %}
 				</div>
+                {% if project.images.size > 0 %}
+                <div class="images row">
+                    {% for image in project.images %}
+                        <div class="image col">
+                            <a href="{{ image.src }}" class="image-link">{{ image.alt }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
 			</div>
 		{% endfor %}
-	{% endfor %}	
-	</section>	
-{% comment %}
-	<hgroup>
-		<h1 id="ux-research">UX Research</h1>
-	</hgroup>
+	{% endfor %}
+	</section>
+    {% comment %}
+    <section>
+        <header>
+            <h1 id="ux-research">UX Research</h1>
+        </header>
+    </section>
 	<section class="experience row">
+        <div class="project col">
+            <h2>IBM Digital Marketplace Usability Evaluation</h2>
+            <ul>
+				<li>Client: IBM Digital Marketplace</li>
+				<li>Website: <a href="https://www.ibm.com/marketplace/cloud/us/en-us">ibm.com/marketplace/cloud/us/en-us</a></li>
+				<li>Methods: Think-aloud protocol, questionnaires, 5-second test</li>
+				<li>Tools: Quicktime, paper questionnaires</li>
+				<li>Number of participants: 25</li>
+            </ul>
+            <p>
+                5-second test of home page, created moderator guide, trained others to moderate tests and moderated
+                some tests myself, ad-hoc formative analysis
+            </p>
+        </div>
+        <div class="project col">
+            <h2>Change Blindness Research</h2>
+            <p>
+                My Master's paper
+            </p>
+        </div>
 		<div class="project col">
 			<h2>Academic Advising Website Usability Evaluation</h2>
 			<ul>
-				<li>Client: <strong>UNC Academic Advising</strong></li>
-				<li>Website: <strong><a href="http://advising.unc.edu">advising.unc.edu</a></strong></li>
-				<li>Methods: <strong>Think-aloud protocol, questionnaires</strong></li>
-				<li>Tools: <strong>Camtasia, Qualtrics</strong></li>
-				<li>Number of participants: <strong>10</strong></li>
+				<li>Client: UNC Academic Advising</li>
+				<li>Website: <a href="http://advising.unc.edu">advising.unc.edu</a></strong></li>
+				<li>Methods: Think-aloud protocol, questionnaires</li>
+				<li>Tools: Camtasia, Qualtrics</li>
+				<li>Number of participants: 10</li>
 			</ul>
 			<p>
-				I conducted a usability evaluation of the UNC Academic Advising website as a member of a 4-person team. 
+				I conducted a usability evaluation of the UNC Academic Advising website as a member of a 4-person team.
 			</p>
 		</div>
 		<div class="project col">
 			<h2>Lifetime Library Usability Evaluation</h2>
 			<ul>
-				<li>Client: <strong>UNC Lifetime Library</strong> (as part of a class)</li>
-				<li>Website: <strong><a href="https://lifetime-library.ils.unc.edu/">lifetime-library.ils.unc.edu</a></strong></li>
-				<li>Methods: <strong>Think-aloud protocol, questionnaires</strong></li>
-				<li>Tools: <strong>Quicktime, Google Forms</strong></li>
-				<li>Number of participants: <strong>4</strong></li>
+				<li>Client: UNC Lifetime Library</li>
+				<li>Website: <a href="https://lifetime-library.ils.unc.edu/">lifetime-library.ils.unc.edu</a></li>
+				<li>Methods: Think-aloud protocol, questionnaires</li>
+				<li>Tools: Quicktime, Google Forms</li>
+				<li>Number of participants: 4</li>
 			</ul>
 			<p>
-				I conducted a usability evaluation of the UNC Lifetime Library website as a member of a 4-person team. 
+				I conducted a usability evaluation of the UNC Lifetime Library website as a member of a 4-person team.
 			</p>
 		</div>
 	</section>
-{% endcomment %}
+    {% endcomment %}
 </article>

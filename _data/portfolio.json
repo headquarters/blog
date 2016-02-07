@@ -1,4 +1,29 @@
 [
+    {
+		"name": "IBM",
+		"url": "https://www.ibm.com/",
+		"logo": "/images/logos/ibm-logo.png",
+		"desc": "I currently work at <a href=\"https://www.ibm.com/\">IBM</a> as a full stack DevOps software engineer.",
+		"projects": [
+			{
+				"name": "IBM Digital Marketplace",
+				"desc": "",
+				"url": "https://www.ibm.com/marketplace/cloud/us/en-us",
+				"source_url": null,
+				"technologies": [
+					"HTML",
+					"CSS",
+					"JavaScript",
+					"Node"
+				],
+				"roles": [
+					"Programming"
+				],
+				"images": [
+				]
+			}
+		]
+	},
 	{
 		"name": "UNC-Chapel Hill",
 		"url": "http://sils.unc.edu",
@@ -76,6 +101,36 @@
 					}
 				]
 			},
+            {
+                "name": "NC Hospital Charges Visualization",
+                "desc": "As part of a graduate course in Visual Analytics, I worked with 2 classmates on a <a href=\"http://alblaine.github.io/visualanalytics690/\">D3 visualization of hospital charge data in NC</a>.
+                        The visualization shows a map of NC, plotting averages for hospital charges by Diagnosis Related Group (DRG), on each hospital.
+                        A color scale is used to designate the range of low to high averages. Clicking a hospital brings up its details and shows
+                        how it compares to others for the same DRG.
+                        The site and source is hosted on a classmate's GitHub account.",
+                "url": "http://alblaine.github.io/visualanalytics690/",
+                "source_url": "https://github.com/headquarters/visualanalytics690",
+                "technologies": [
+                    "HTML",
+                    "CSS",
+                    "JavaScript",
+                    "D3",
+                    "jQuery"
+                ],
+                "roles": [
+                    "Programming"
+                ],
+                "images": [
+                    {
+                        "src": "/images/screenshots/healthcare-visualization/visualization-1.png",
+                        "alt": "Screenshot of NC Hospital Charges visualization (1 of 2)",
+                    },
+                    {
+                        "src": "/images/screenshots/healthcare-visualization/visualization-2.png",
+                        "alt": "Screenshot of NC Hospital Charges visualization (2 of 2)",
+                    }
+                ]
+            }
 		]
 	},
 
@@ -221,50 +276,5 @@
 				]
 			}
 		]
-	},
-	{
-		"name": "Other projects",
-		"url": null,
-		"logo": null,
-		"desc": "Some of the other projects I've worked on.",
-		"projects": [
-			{
-				"name": "NC Hospital Charges Visualization",
-				"desc": "As part of a graduate course in Visual Analytics, I worked with 2 classmates on a D3 visualization of hospital charge data in NC.
-						The visualization shows a map of NC, plotting averages for hospital charges by Diagnosis Related Group (DRG), on each hospital.
-						A color scale is used to designate the range of low to high averages. Clicking a hospital brings up its details and shows
-						how it compares to others for the same DRG.
-						The site and source is hosted on a classmate's GitHub account.",
-				"url": "http://alblaine.github.io/visualanalytics690/",
-				"source_url": "https://github.com/alblaine/visualanalytics690",
-				"technologies": [
-					"HTML",
-					"CSS",
-					"JavaScript",
-					"D3",
-					"jQuery"
-				],
-				"roles": [
-					"Programming"
-				],
-				"images": [
-					{
-						"src": "/images/screenshots/healthcare-visualization/visualization-1.png",
-						"alt": "Screenshot of NC Hospital Charges visualization (1 of 2)",
-					},
-					{
-						"src": "/images/screenshots/healthcare-visualization/visualization-2.png",
-						"alt": "Screenshot of NC Hospital Charges visualization (2 of 2)",
-					}
-				]
-			}
-		]
 	}
 ]
-/*
-	UX Research:
-		Master's Paper
-		Advising Usability Evaluation
-		Lifetime Library Usability Evaluation
-
-*/
