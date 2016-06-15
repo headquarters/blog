@@ -4,7 +4,6 @@ Write summaries for usability evaluations
 Highlight Client, Methods, Tools used
 
 Adjust white space
-Consider centering portfolio content
 
 For deployment:
 Check validation
