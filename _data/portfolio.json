@@ -14,7 +14,11 @@
 					"HTML",
 					"CSS",
 					"JavaScript",
-					"Node"
+					"Node",
+                    "Gulp",
+                    "Mocha",
+                    "Bluemix (PaaS)",
+                    "CouchDB"
 				],
 				"roles": [
 					"Programming"
@@ -44,7 +48,8 @@
 					"CSS",
 					"JavaScript",
 					"jQuery",
-					"AnnotatorJS"
+					"AnnotatorJS",
+                    "Heroku (PaaS)"
 				],
 				"roles": [
 					"Programming",
@@ -75,7 +80,8 @@
 					"HTML",
 					"CSS",
 					"JavaScript",
-					"jQuery"
+					"jQuery",
+                    "OpenShift (PaaS)"
 				],
 				"roles": [
 					"Programming",
@@ -106,7 +112,7 @@
                         The visualization shows a map of NC, plotting averages for hospital charges by Diagnosis Related Group (DRG), on each hospital.
                         A color scale is used to designate the range of low to high averages. Clicking a hospital brings up its details and shows
                         how it compares to others for the same DRG.
-                        The site and source is hosted on a classmate's GitHub account.",
+                        The site itself is hosted on GitHub Pages.",
                 "url": "http://alblaine.github.io/visualanalytics690/",
                 "source_url": "https://github.com/headquarters/visualanalytics690",
                 "technologies": [
