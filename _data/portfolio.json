@@ -3,27 +3,66 @@
 		"name": "IBM",
 		"url": "https://www.ibm.com/",
 		"logo": "/images/logos/ibm-logo.png",
-		"desc": "I currently work at <a href=\"https://www.ibm.com/\">IBM</a> as a full stack DevOps software engineer.",
+		"desc": "I currently work at <a href=\"https://www.ibm.com/\">IBM</a> as a full stack DevOps software engineer. I build new features for and maintain the Digital Marketplace Storefront and Digital Marketplace Search UI.",
 		"projects": [
 			{
 				"name": "IBM Digital Marketplace",
-				"desc": "",
+				"desc": "The storefront for the IBM Digital Marketplace is a NodeJS application running on Bluemix (Platform as a Service). React components are rendered server-side for speed and SEO value.",
 				"url": "https://www.ibm.com/marketplace/cloud/us/en-us",
 				"source_url": null,
 				"technologies": [
 					"HTML",
 					"CSS",
 					"JavaScript",
+                    "React",
 					"Node",
                     "Gulp",
                     "Mocha",
                     "Bluemix (PaaS)",
-                    "CouchDB"
+                    "CouchDB (Cloudant)"
 				],
 				"roles": [
 					"Programming"
 				],
 				"images": [
+                    {
+                        "src": "/images/screenshots/ibm/homepage.jpg",
+                        "alt": "Screenshot of IBM Digital Marketplace homepage",
+                    },
+                    {
+                        "src": "/images/screenshots/ibm/product-detail.jpg",
+                        "alt": "Screenshot of IBM Digital Marketplace product detail page",
+                    }
+				]
+			},
+			{
+				"name": "IBM Digital Marketplace Search UI",
+				"desc": "Launching soon, the new search UI is a React-powered single page application with server-side rendering on initial page load for speed.",
+				"url": "https://www.ibm.com/marketplace/search/us/en-us",
+				"source_url": null,
+				"technologies": [
+					"HTML",
+					"CSS",
+					"JavaScript",
+                    "React",
+					"Node",
+                    "Gulp",
+                    "Mocha",
+                    "Bluemix (PaaS)",
+                    "Elastic Search"
+				],
+				"roles": [
+					"Programming"
+				],
+				"images": [
+                    {
+                        "src": "/images/screenshots/ibm/search.jpg",
+                        "alt": "Screenshot of IBM Digital Marketplace search home page",
+                    },
+                    {
+                        "src": "/images/screenshots/ibm/search-filter.jpg",
+                        "alt": "Screenshot of IBM Digital Marketplace search home page with filter sidebar showing",
+                    }
 				]
 			}
 		]
