@@ -112,7 +112,7 @@ main,
 	margin:0 auto;
 }
 
-#portfolio main,
+#work main,
 #misellany main {
 	max-width:80em;
 }
@@ -143,7 +143,7 @@ main,
 /* Home/About */
 .about,
 .articles,
-.portfolio {
+.work {
 	max-width:60em;
 	margin:0 auto;
 }
@@ -186,7 +186,7 @@ main,
 
 /* End Blog */
 
-/* Portfolio */
+/* Work */
 .project {
 	border-left:1px solid #ccc;
 }
@@ -195,22 +195,22 @@ main,
 	margin-top:0;
 }
 
-// .portfolio .slideshow .slick-slide img {
+// .work .slideshow .slick-slide img {
 // 	margin:auto;
 // }
 //
-// .portfolio .slideshow .slick-prev {
+// .work .slideshow .slick-prev {
 // 	left: 5px;
 // }
 //
-// .portfolio .slideshow .slick-next {
+// .work .slideshow .slick-next {
 // 	right: 5px;
 // }
 
 /*
 	Vertically align the slideshow items: https://output.jsbin.com/honawo/quiet/
 */
-// .portfolio .slideshow .slick-track {
+// .work .slideshow .slick-track {
 // 	display: -webkit-flex;
 // 	-webkit-align-items: center;
 // 	-webkit-justify-content: center;
@@ -235,7 +235,7 @@ main,
 	margin-bottom:$spacing-unit;
 }
 
-/* End Portfolio */
+/* End Work */
 
 /* Miscellany */
 
@@ -285,7 +285,7 @@ main,
 
 	/* End About */
 
-	/* Portfolio */
+	/* Work */
     .images.row {
         padding: 1em 0;
     }
@@ -316,5 +316,5 @@ main,
         }
     }
 
-	/* End Portfolio */
+	/* End Work */
 }

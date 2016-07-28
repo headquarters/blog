@@ -449,7 +449,7 @@ main,
   padding: 0 1em;
   margin: 0 auto; }
 
-#portfolio main,
+#work main,
 #misellany main {
   max-width: 80em; }
 
@@ -475,7 +475,7 @@ main,
 /* Home/About */
 .about,
 .articles,
-.portfolio {
+.work {
   max-width: 60em;
   margin: 0 auto; }
 
@@ -509,7 +509,7 @@ main,
   max-width: none; }
 
 /* End Blog */
-/* Portfolio */
+/* Work */
 .project {
   border-left: 1px solid #ccc; }
 
@@ -532,7 +532,7 @@ main,
 .source {
   margin-bottom: 1em; }
 
-/* End Portfolio */
+/* End Work */
 /* Miscellany */
 /* End Miscellany */
 @media only screen and (min-width: 40em) {
@@ -567,7 +567,7 @@ main,
     text-align: right; }
 
   /* End About */
-  /* Portfolio */
+  /* Work */
   .images.row {
     padding: 1em 0; }
 
@@ -588,7 +588,7 @@ main,
     .image.col:nth-child(4n) {
       clear: left; }
 
-  /* End Portfolio */ }
+  /* End Work */ }
 /**
  * Syntax highlighting styles
  */

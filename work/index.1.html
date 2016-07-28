@@ -7,22 +7,64 @@ title: "Work"
 	<h1 class="page-title">Work</h1>
 </header>
 <article>
-	{% for org in site.data.work_list %}
-		<section class="experience">
-			<header>
-				<h1>{{ org.name }}</h1>
-				<p>{{ org.desc }}</p>
-			</header>
-
-			<h2>Projects</h2>
-			<ul>
-			{% for project in org.projects %}
-				<li><a href="{{ project.url }}">{{ project.name }}</a></li>
-			{% endfor %}
-			</ul>
-		
-		</section>
+	<section class="experience">
+        <header>
+            <h1 id="design-and-development">Design &amp; Development</h1>
+        </header>
+	{% for org in site.data.work %}
+		<div class="org-info">
+			<h2 class="">
+				{% if org.logo %}
+				<!--<img src="{{ org.logo }}" alt="" class="logo" />-->{{ org.name }}
+				{% else %}
+					{{ org.name }}
+				{% endif %}
+			</h2>
+			<p class="content">
+				{{ org.desc }}
+			</p>
+		</div>
+		{% for project in org.projects %}
+			<div class="project">
+				<div class="row">
+					<h3 class="col">{{ project.name }}</h3>
+				</div>
+				<div class="project-details row">
+					<div class="work col">
+						<div class="content">
+							<p>
+								{{ project.desc }}
+							</p>
+							<div class="technology">
+								<span>Technologies:</span>
+								{{ project.technologies | join: ", " }}
+							</div>
+							<div class="roles">
+								<span>Roles:</span>
+								{{ project.roles | join: ", " }}
+							</div>
+							{% if project.source_url.size > 0 %}
+							<div class="source">
+								<span>Source:</span>
+								<a href="{{ project.source_url}}">{{ project.source_url}}</a>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+                {% if project.images.size > 0 %}
+                <div class="images row">
+                    {% for image in project.images %}
+                        <div class="image col">
+                            <a href="{{ image.src }}" class="image-link">{{ image.alt }}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+			</div>
+		{% endfor %}
 	{% endfor %}
+	</section>
     {% comment %}
     <section>
         <header>
