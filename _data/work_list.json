@@ -1,9 +1,21 @@
 [
+	{
+		"name": "PayScale",
+		"url": "http://www.payscale.com/",
+		"logo": "/images/logos/payscale-logo.png",
+		"desc": "I work as a Senior Software Design Engineer at PayScale helping to modernize the design, code, and infrastructure for their product MarketPay.",
+		"projects": [
+			{
+				"name": "MarketPay",
+				"url": "/work/payscale/marketpay"
+			}
+		]
+	},
     {
 		"name": "IBM",
 		"url": "https://www.ibm.com/",
 		"logo": "/images/logos/ibm-logo.png",
-		"desc": "I currently work at <a href=\"https://www.ibm.com/\">IBM</a> as a full stack DevOps software engineer. I build new features for and maintain the Digital Marketplace Storefront and Digital Marketplace Search UI.",
+		"desc": "I worked at <a href=\"https://www.ibm.com/\">IBM</a> as a full stack DevOps software engineer. I built new features for and maintained the Digital Marketplace Storefront and Digital Marketplace Search UI.",
 		"projects": [
 			{
 				"name": "IBM Digital Marketplace",
@@ -41,6 +53,10 @@
             {
                 "name": "Usability Evaluation: UNC Advising Site",
                 "url": "/work/unc/advising-site"
+            },
+            {
+                "name": "Masters Paper",
+                "url": "/work/unc/masters-paper"
             }
 		]
 	},
@@ -76,7 +92,7 @@
 		"projects": [
 			{
 				"name": "RESTful Web Service Integration",
-				"url": "/work/lowes/development"
+				"url": "/work/lowes"
 			}
 		]
 	}
