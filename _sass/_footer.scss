@@ -1,0 +1,19 @@
+.footer {
+    margin-top: 2em;
+	padding: 2em;
+	font-size: 0.8em;
+    text-align: center;
+    
+    &--social {
+        margin: 1em 0;
+    }
+
+    &--link {
+        margin: 0 1em;
+    }
+
+    &--blog-info {
+    	font-size: 0.8em;
+	    margin-bottom: $spacing-unit;
+    }
+}

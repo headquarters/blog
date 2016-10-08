@@ -1,0 +1,19 @@
+.post-list {
+	max-width: 60em;
+	margin: 0 auto;
+
+	&--title {
+		font-weight: normal;
+		margin-bottom: 0;
+	}
+
+	&--date {
+		font-size: 0.9em;
+		color: #666;
+	}
+}
+
+.post.content {
+	padding:0 $spacing-unit;
+	margin:0 auto;
+}

@@ -1,14 +1,14 @@
-<div id="site-header">
-    <a href="#main" id="go-to-main">Go to content &darr;</a>
-    <header>
-        <h1>{{ site.title }}</h1>
-        <h2>{{ site.subtitle }}</h2>
+<div class="site-header">
+    <a href="#main" id="go-to-main" class="site-header--content-link">Go to content &darr;</a>
+    <header class="site-header--titles">
+        <h1 class="site-header--title">{{ site.title }}</h1>
+        <h2 class="site-header--subtitle">{{ site.subtitle }}</h2>
     </header>
-    <nav id="main-nav">
-        <ul>
-          <li {% if page.section == "about" %}class="active"{% endif %}><a href="/">About</a></li>
-          <li {% if page.section == "blog" %}class="active"{% endif %}><a href="/blog/">Blog</a></li>
-          <li {% if page.section == "work" %}class="active"{% endif %}><a href="/work/">Work</a></li>
+    <nav class="main-nav">
+        <ul class="main-nav--list">
+          <li class="main-nav--list-item {% if page.section == "about" %}active{% endif %}"><a class="main-nav--link" href="/">About</a></li>
+          <li class="main-nav--list-item {% if page.section == "blog" %}active{% endif %}"><a class="main-nav--link" href="/blog/">Blog</a></li>
+          <li class="main-nav--list-item {% if page.section == "work" %}active{% endif %}"><a class="main-nav--link" href="/work/">Work</a></li>
         </ul>
     </nav>        
 </div>

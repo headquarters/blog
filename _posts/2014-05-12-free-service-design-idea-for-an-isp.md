@@ -13,4 +13,4 @@ So, what is one way to try to ease the frustration on both ends? Alert your cust
 
 Flip the communication stream and be proactive by alerting your customers. This will let some of them know not to worry about calling customer service because there is an obvious problem, it will relieve the call center of unnecessary calls, and it will save your site on bandwidth from a bunch of people checking service status. Then let them know the service is back up with another text message once service is restored. 
 
-I'm borrowing the term “"Service Design" from Patrick Quattlebaum and possibly abusing it here. Nonetheless, I think this simple idea is a great example of a small feature that can be added to improve a service's customer experience. If you know anyone important an ISP (especially TWC)–pitch this idea to them!
+I'm borrowing the term "Service Design" from Patrick Quattlebaum and possibly abusing it here. Nonetheless, I think this simple idea is a great example of a small feature that can be added to improve a service's customer experience. If you know anyone important an ISP (especially TWC)–pitch this idea to them!

@@ -6,12 +6,12 @@ title: "Blog"
 <header>
   <h1 class="page-title">Blog Posts</h1>
 </header>
-<div class="articles row">
+<div class="post-list row">
   {% for post in site.posts %}
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
-            <time class="post-date" datetime="{{ post.date }}">
+    <article class="post-list--item">
+        <header class="post-list--info">
+            <h2 class="post-list--title"><a class="post-list--link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
+            <time class="post-list--date" datetime="{{ post.date }}">
                 {{ post.date | date: "%b %-d, %Y" }}
             </time>
         </header>

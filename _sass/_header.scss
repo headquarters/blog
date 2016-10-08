@@ -1,0 +1,31 @@
+.site-header {
+	margin-bottom: $spacing-unit;
+	text-align: center;
+
+	&--content-link {
+		position: static;
+		width: auto;
+		height: auto;
+	}
+
+	&--title {
+		margin-bottom: -0.5em;
+	}
+
+	&--subtitle {
+		font-size: 1.2em;
+		color: #444;
+		font-weight: normal;
+	}
+}
+
+@media only screen and (min-width: 40em){
+	.site-header--content-link {
+		position:absolute;
+		left:-10000px;
+		top:auto;
+		width:1px;
+		height:1px;
+		overflow:hidden;
+	}
+}	
