@@ -37,7 +37,6 @@
 				"name": "AnnotatorOne Prototypes",
 				"url": "/work/unc/annotatorone"
 			},
-
 			{
 				"name": "MyBCRisk.org Responsive Website",
 				"url": "/work/unc/mybcrisk"
@@ -91,7 +90,7 @@
 		"desc": "I worked at <a href=\"http://www.lowes.com\">Lowe's Home Improvement</a> as a front-end developer from 2010 to 2012. I created new landing pages for the site, worked on the home page ocassionally, created bookmarklets for internal use by coworkers, worked on a proof of concept for integrating Flickr photos and Google maps, and mentored other developers. I was part of two different Agile teams at different times while I was there: first, as part of the Cart/Checkout team, and later as part of the Folders &amp; Lists MyLowes team.",
 		"projects": [
 			{
-				"name": "RESTful Web Service Integration",
+				"name": "Lowes.com",
 				"url": "/work/lowes"
 			}
 		]

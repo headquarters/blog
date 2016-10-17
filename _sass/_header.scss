@@ -10,6 +10,7 @@
 
 	&--title {
 		margin-bottom: -0.5em;
+		font-size: 1.6em;
 	}
 
 	&--subtitle {
@@ -21,11 +22,11 @@
 
 @media only screen and (min-width: 40em){
 	.site-header--content-link {
-		position:absolute;
-		left:-10000px;
-		top:auto;
-		width:1px;
-		height:1px;
-		overflow:hidden;
+		position: absolute;
+		left: -10000px;
+		top: auto;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
 	}
 }	
