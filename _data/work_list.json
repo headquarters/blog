@@ -7,7 +7,7 @@
 		"projects": [
 			{
 				"name": "MarketPay",
-				"url": "/work/payscale/marketpay"
+				"url": "/work/payscale/marketpay.html"
 			}
 		]
 	},
@@ -19,11 +19,11 @@
 		"projects": [
 			{
 				"name": "IBM Digital Marketplace Storefront",
-				"url": "/work/ibm/marketplace"
+				"url": "/work/ibm/marketplace.html"
 			},
 			{
 				"name": "IBM Digital Marketplace Search UI",
-				"url": "/work/ibm/search"
+				"url": "/work/ibm/search.html"
 			}
 		]
 	},
@@ -35,23 +35,23 @@
 		"projects": [
 			{
 				"name": "AnnotatorOne Prototypes",
-				"url": "/work/unc/annotatorone"
+				"url": "/work/unc/annotatorone.html"
 			},
 			{
 				"name": "MyBCRisk.org Responsive Website",
-				"url": "/work/unc/mybcrisk"
+				"url": "/work/unc/mybcrisk.html"
 			},
             {
                 "name": "Usability Evaluation: UNC Lifetime Library",
-                "url": "/work/unc/lifetime-library"
+                "url": "/work/unc/lifetime-library.html"
             },
             {
                 "name": "Usability Evaluation: UNC Advising Site",
-                "url": "/work/unc/advising-site"
+                "url": "/work/unc/advising-site.html"
             },
             {
                 "name": "Master's Paper",
-                "url": "/work/unc/masters-paper"
+                "url": "/work/unc/masters-paper.html"
             }
 		]
 	},
@@ -63,19 +63,19 @@
 		"projects": [
 			{
 				"name": "Style Guide",
-				"url": "/work/etix/style-guide"
+				"url": "/work/etix/style-guide.html"
 			},
 			{
 				"name": "Checkout Process Redesign",
-				"url": "/work/etix/checkout"
+				"url": "/work/etix/checkout.html"
 			},
 			{
 				"name": "Wireframes",
-				"url": "/work/etix/wireframes"
+				"url": "/work/etix/wireframes.html"
 			},
 			{
 				"name": "Schema.org Metadata Implementation",
-				"url": "/work/etix/schema"
+				"url": "/work/etix/schema.html"
 			}
 		]
 	},
