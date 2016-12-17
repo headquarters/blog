@@ -45,11 +45,68 @@
 </div>
 
 <main id="main" class="work">
-  Icons
-Focus Group Research
-Iterative Design
-Mobile-first Responsive Design
-Progressive Enhancement
+  <header>
+	<h1 class="page-title">MyBCRisk.org</h1>
+</header>
+<article>
+    <aside class="panel">
+        <div class="utilized"><span>Focus:</span> Development, Design</div>
+        <div class="utilized"><span>Worked with:</span> JavaScript, jQuery, HTML, CSS, Foundation (framework), Sketch (Mac OS design app), Ruby, Sinatra, OpenShift (PaaS), PostgreSQL</div>
+        <div class="utilized"><span>URL: <span> 
+            <a href="http://mybcrisk.org">mybcrisk.org</a>  
+        </div>
+    </aside>
+
+    <p>
+        The website MyBCRisk.org ("My Breast Cancer Risk") is a questionnaire site that provides users with real time feedback on their 
+        current health and behaviors. As users answer questions the site provides evidence-based responses to encourage positive behaviors or suggest changes to negative behaviors. 
+    </p>
+
+    <figure>
+        <img src="/images/gifs/mybcrisk-walkthrough.gif" alt="Walkthrough of the MyBCRisk.org UI" />
+        <figcaption>Walkthrough of the MyBCRisk.org UI, including home page and questions with real-time responses (when available).</figcaption>
+   </figure>    
+
+    <h2>Design</h2>
+
+    <p>
+        MyBCRisk.org was a joint collaboration between the UNC School of Information Science and the UNC Gillings School of Global Public Health. Under the guidance of
+        Professor Brad Hemminger, and with the help of another SILS student, I worked with stakeholders in the UNC Breast Cancer and the Environment Research Program 
+        to create a mobile-first, responsive design. This involved getting user feedback early and often in an iterative design process with paper and high fidelity
+        prototypes.       
+    </p>
+    
+    <figure>
+        <img src="/images/screenshots/mybcrisk/mybcrisk-mobile-home.jpeg" alt="Screenshot of the MyBCRisk.org home page on a small screen">
+        <figcaption>The MyBCRisk.org home page on a mobile device. The iPhone 6 was released during the development process and nothing had to change, proving the 
+            responsive design approach was a good idea. 
+        </figcaption>
+    </figure>
+    
+    <figure>
+        <img src="/images/screenshots/mybcrisk/mybcrisk-desktop-home.jpeg" alt="Screenshot of the MyBCRisk.org home page on a large screen">
+        <figcaption>The MyBCRisk.org home page on a desktop. Priority was given to mobile screen sizes during the design phase, so not much changed at larger screen sizes.</figcaption>
+    </figure>
+
+    <figure>
+        <img src="/images/screenshots/mybcrisk/mybcrisk-mobile-question.jpeg" alt="Screenshot of a MyBCRisk.org question page on a small screen">
+        <figcaption>A question page on a mobile device. By exposing all possible options on a single screen we decreased clicks/taps required so users could speed through the quiz.</figcaption>
+    </figure>
+
+    <h2>Development</h2>
+
+    <p>
+        The website utilizes progressive enhancement and responsive design to reach the largest user base possible. In terms of progressive enhancement, all links
+        point at real resources on the server and forms do full POST requests without JavaScript on the client (with JavaScript on the client all forms submit via AJAX
+        with server responses updating the client without a page reload). The responsive design is implemented utilizing the <a href="http://foundation.zurb.com/">Foundation framework</a>. 
+    </p>
+    <p>
+        Session state management is done through cookies and URL parameters. This allows users to return to the site to review their results or finish the questionnaire
+        for up to 30 days. The results are also shareable via URL, to show friends or family where a user is doing well or may need improvement (social support). 
+        The database backing the site is PostgreSQL and the entire application ran on UNC's OpenShift instance. 
+    </p>
+</article>
+
 </main>
 
         <footer class="footer row">

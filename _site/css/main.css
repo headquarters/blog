@@ -523,7 +523,20 @@ main {
   margin: 0 auto; }
 
 figure {
-  margin: 1em 2em; }
+  margin: 1em 0;
+  padding: 1.5em;
+  background-color: #eee;
+  clear: both;
+  text-align: center; }
+  figure figcaption {
+    text-align: left; }
+
+blockquote {
+  font-style: italic;
+  font-family: Georgia, serif; }
+
+article {
+  clear: both; }
 
 .content {
   max-width: 40em; }

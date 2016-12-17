@@ -1,0 +1,51 @@
+---
+section: work
+layout: default
+title: "Work | Master's Paper"
+---
+
+
+<header>
+	<h1 class="page-title">Master's Paper: Change Blindness in Web Applications</h1>
+</header>
+<article>
+	<aside class="panel">
+		<div class="utilized"><span>Focus:</span> Web Design, Interface Design, Change Blindness</div>
+		<div class="utilized"><span>Methods:</span> Randomized trials</div>
+        <div class="utilized"><span>Recruiting:</span> Convenience sample, Amazon Mechanical Turk</div>
+		<div class="utilized"><span>Number of participants:</span> 132</div>
+	</aside>
+
+    <h2>Background</h2>
+    <p>
+        For my Master's Paper at UNC, I researched change blindness in the context of web applications. Bill Scott (Director of UI Engineering at Netflix at the time)
+        made an interesting claim during his presentation at the User Interface Engineering 16 conference: webpages create a change blindness effect due to the way they
+        load page-by-page. I set out to research this claim by creating a web application that served up one of 3 "real" web pages (code, not image maps) then randomly altered
+        one of 5 things on the page in one of 3 ways. 
+    </p>
+	<figure>
+		<img src="/images/screenshots/masters-paper/change-blindness-comparison.png" alt="Graphic comparing change blindness effect in web pages to a well-known version outside the web" />
+		<figcaption>
+			The well-known "one-shot paradigm" from previous change blindness studies on the left; web page loading on the right. The "one-shot paradigm" graphic comes from 
+            <em>Rensink (2005) Change blindness. Neurobiology of Attention. (pp. 76-81). San Diego, CA: Elsevier.</em>  
+		</figcaption>
+	</figure> 
+
+    <h2>Study Design</h2>
+    <p>
+        The study design was a 3x3x5 within-subjects design where participants went through 30 trials. Each trials consisted of viewing one of 3 page types 
+        that would undergo one of 3 change types in one of 5 locations. The combination of page type, change type, and change location were randomized throughout to 
+        mitigate learning effects. 
+    </p>
+
+    <h2>Results</h2>
+    <p>
+        Results showed that the "one-shot paradigm", where a 0.5-second flicker occurred between pages, lowered performance compared to normal full page refreshes, as expected. 
+        Users detected changes 5% more often and with response times 0.1 second faster when things instantly changed on the page. 
+        This was not a significant difference between a full page refresh and instantly modifying a UI component on screen. 
+        So, single page applications that minimize full-page refreshes may help reduce the incidence of change blindness on the web, but full page refreshes
+        aren't the scary change-blindness-inducing aberration that some designers fear they are.        
+    </p>
+
+
+</article>

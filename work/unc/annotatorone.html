@@ -4,6 +4,66 @@ layout: default
 title: "Work | Annotator One"
 ---
 
-Icons
-Protoyping
-Performance tuning
+<header>
+	<h1 class="page-title">Annotator One</h1>
+</header>
+<article>
+    <aside class="panel">
+        <div class="utilized"><span>Focus:</span> Development, Design</div>
+        <div class="utilized"><span>Worked with:</span> JavaScript, jQuery, HTML, CSS, Sketch (Mac OS design app), Heroku (PaaS), Python, CouchDB (Cloudant)</div>
+        <div class="utilized"><span>URL: <span> 
+            <a href="http://secure-dusk-1121.herokuapp.com/version5/a3?user=andy&db=annotationtest">http://secure-dusk-1121.herokuapp.com/version5/a3?user=andy&db=annotationtest</a>  
+        </div>
+    </aside>
+    <p>
+        As part of my research assistantship at UNC, I worked on improving the prototype of a "web scale" annotations project
+        started by a previous student. The project was mainly used in conducting user research studies. Various iterations of the
+        application were required for user testing, so I worked on several different versions of the application's UI. 
+    </p>
+
+    <figure>
+        <img src="/images/gifs/annotations-interactions.gif" alt="AnnotatorOne interactions animation" />
+        <figcaption>Some of the interactions available on the AnnotatorOne interface, including changing comment displays and tracking the current highlight.</figcaption>
+   </figure>
+
+    <h2>Prototyping</h2>
+
+    <p>
+        The application itself was a collection of research articles with annotations stored in a CouchDB database. The back-end was Python, 
+        using the Flask micro framework. The UI was HTML, CSS, and JavaScript, built on top of the AnnotatorJS library. I created a means
+        of accessing variations of the UI based on query string values&mdash;effectively a set of feature flags before I knew that concept had a name!
+    </p>
+
+    <figure>
+        <img src="/images/screenshots/annotatorone/annotatorone-1.png" alt="Screenshot of the AnnotatorOne Prototype (1 of 2)">
+        <figcaption>Screenshot of one of the Annotator One prototypes. The article text is on the left with hundreds of comments appearing in a column on the right.</figcaption>
+    </figure>
+
+    <h2>Visual Design</h2>
+
+    <p>
+        Being a novel interface, the Annotator One prototype required icons to convey to users some complex concepts such as 
+        "show all my highlights" or "show everyone's highlights". I created custom icons for the prototype that were intended to
+        convey showing/hiding highlights as well as determing whose highlights you were seeing. You can see these icons in the accompanying
+        screenshots, in the top nav bar.
+    </p>
+    
+    <figure>
+        <img src="/images/screenshots/annotatorone/annotatorone-2.png" alt="Screenshot of the AnnotatorOne Prototype (2 of 2)">
+        <figcaption>In this screenshot, a user has selected a comment and its corresponding comment is highlighted in a light pink color.</figcaption>
+    </figure>
+    
+    <h2>Performance Tuning</h2>
+
+    <p>
+        A big challenge with "web scale" annotations is the sheer number of annotations on a single text. All of these highlights and comments
+        can easily bog down the performance of a web application. Some of my effort on the Annotator One project was directed towards improving
+        performance of the interface, usually through optimizing DOM manipulations involved in showing all the annotations on page load. 
+    </p>
+
+    <p>
+        Article text loaded from the server, but the annotation text loaded asynchronously from a CouchDB database. Some of the performance tuning things I worked on included refactoring
+        DOM manipulations to not happen in loops, comparing the speed of Canvas and DOM representations of a highlights "heat map" (the vertical strip on the right side the screen), and 
+        firing events on scroll without bogging down the UI. 
+    </p>
+</article>
