@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+               _
+              | |
+              | |
+           ___|  \____
+          |___]   
+         |____]     
+          |___]    |___
+           |___]__/
+           
+           Cool.
+        -->
+  <title>JavaScript Object Mutation Gotchas | Michael Head</title>
+  <meta name="description" content="In entry level computer science courses, one of the topics you discuss in learning a new programming language is “pass by value” and “pass by reference”. I’m...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/plugins/featherlight/featherlight.min.css">
+        
+  <link rel="canonical" href="http://michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://michaelehead.com/feed.xml" />
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+
+<div class="site-header">
+    <a href="#main" id="go-to-main" class="site-header--content-link">Go to content &darr;</a>
+    <header class="site-header--titles">
+        <h1 class="site-header--title">Michael's Headquarters</h1>
+        <h2 class="site-header--subtitle">On UX Design and Development</h2>
+    </header>
+    <nav class="main-nav">
+        <ul class="main-nav--list">
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/">About</a></li>
+          <li class="main-nav--list-item active"><a class="main-nav--link" href="/blog/">Blog</a></li>
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/work/">Work</a></li>
+        </ul>
+    </nav>        
+</div>
+
+<main id="main" class="blog">
+  <div class="post content">
+	<header class="post-header">
+        <h1 class="post-title">JavaScript Object Mutation Gotchas</h1>
+        <time class="post-date" datetime="">
+            Jan 5, 2017
+        </time>
+    </header>
+	<article class="post-content">
+	<p>In entry level computer science courses, one of the topics you discuss in learning a new programming language is “pass by value” and “pass by reference”. 
+I’m going to discuss these concepts in relation to some JavaScript object mutation “gotchas” that can creep up.</p>
+
+<p>If you open up the console tab of your browser’s dev tools you can paste in the following example. 
+You’ll see that primitive types in JavaScript are “passed” by value in assignments.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">firstNumber</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">secondNumber</span> <span class="o">=</span> <span class="nx">firstNumber</span><span class="p">;</span> <span class="c1">// value of 3 is "copied" to secondNumber</span>
+<span class="nx">secondNumber</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// overriding the value of secondNumber has no effect on firstNumber</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstNumber</span><span class="p">);</span> <span class="c1">// 3</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">secondNumber</span><span class="p">);</span> <span class="c1">// 10</span></code></pre></figure>
+
+<p>However, this is not what happens with objects and their properties. Here’s another example:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">firstBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'The green book'</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">secondBook</span> <span class="o">=</span> <span class="nx">firstBook</span><span class="p">;</span> <span class="c1">// this still references firstBook</span>
+<span class="nx">secondBook</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">'The blue book'</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The blue book'</span></code></pre></figure>
+
+<p><a href="http://stackoverflow.com/a/3638034/360509">This StackOverflow answer</a> calls this “call-by-sharing”. 
+Changing the internals of an object mutates the original object.</p>
+
+<p>Now, where in modern JavaScript usage might this bite a developer? 
+For me, it’s often been in mocha tests when I mutate an object’s properties between tests. 
+I have a <a href="https://github.com/headquarters/react-es6-template/blob/object-mutation-example/test/components/Panel.js">sample test displaying this problem on GitHub</a>.</p>
+
+<p>Two of my preferred solutions for this, depending on your development environment (browser or server), are to use Object.assign or the ES6 spread operator:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">firstBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'The green book'</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">secondBook</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">firstBook</span><span class="p">);</span>
+<span class="nx">secondBook</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">'The blue book'</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The green book' is unchanged</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// ES6 spread operator doesn't work in most browsers yet as of 2017-01-05,</span>
+<span class="c1">// have to test this in the Node REPL</span>
+<span class="kd">var</span> <span class="nx">firstBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'The green book'</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">secondBook</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">firstBook</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="s1">'The green book'</span> <span class="p">};</span> <span class="c1">// The title property will overwrite the property brought in from via the spread operator</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The green book' is unchanged</span></code></pre></figure>
+
+<p>So, be mindful of the sort-of-pass-by-reference treatment of objects in JavaScript to avoid object mutation gotchas.</p>
+
+	</article>
+</div>
+
+</main>
+
+        <footer class="footer row">
+          <div class="col">
+                <div class="footer--social">
+                    <a class="footer--link" href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
+                    <a class="footer--link" href="http://linkedin.com/in/michaelehead"><img src="/images/icons/LinkedIn.png" alt="LinkedIn" /></a>
+                    <a class="footer--link" href="http://twitter.com/michaelehead"><img src="/images/icons/Twitter.png" alt="Twitter" /></a>
+                </div>
+                <section class="footer--blog-info">
+                  <div class="footer--copyright">&copy; 2015</div>
+                  <div class="footer--poweredby">Generated by <a href="http://jeykyllrb.com">Jekyll</a></div>
+              </section>
+              <a class="footer--go-to-top" href="#go-to-main">&uarr; Top</a>
+          </div>
+        </footer>
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="/plugins/featherlight/featherlight.min.js"></script>
+        <script src="/js/portfolio.js"></script>
+    </body>
+</html>
+

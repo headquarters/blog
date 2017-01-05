@@ -360,7 +360,8 @@ th {
  * Syntax highlighting styles
  */
 .highlight {
-  background: #fff; }
+  background: #fff;
+  margin: 1em 0; }
   .highlight .c {
     color: #998;
     font-style: italic; }
@@ -515,7 +516,8 @@ body {
 
 code {
   background-color: antiquewhite;
-  display: inline-block; }
+  display: inline-block;
+  padding: 1em; }
 
 h1, h2, h3, h4, h5 {
   font-weight: normal; }
@@ -523,15 +525,6 @@ h1, h2, h3, h4, h5 {
 main {
   padding: 0 1em;
   margin: 0 auto; }
-
-figure {
-  margin: 1em 0;
-  padding: 1.5em;
-  background-color: #eee;
-  clear: both;
-  text-align: center; }
-  figure figcaption {
-    text-align: left; }
 
 blockquote {
   font-style: italic;
@@ -668,6 +661,14 @@ article {
     float: left; }
     .work-image--bordered {
       box-shadow: 0px 1px 5px #999; }
+  .work figure {
+    margin: 1em 0;
+    padding: 1.5em;
+    background-color: #eee;
+    clear: both;
+    text-align: center; }
+    .work figure figcaption {
+      text-align: left; }
 
 .panel {
   background: beige;

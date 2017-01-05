@@ -26,6 +26,7 @@ body {
 code {
     background-color: antiquewhite;
     display: inline-block;
+    padding: 1em;
 }
 
 h1, h2, h3, h4, h5 {
@@ -35,18 +36,6 @@ h1, h2, h3, h4, h5 {
 main {
 	padding: 0 $spacing-unit;
 	margin: 0 auto;
-}
-
-figure {
-    margin: 1em 0;
-    padding: 1.5em;
-    background-color: #eee;
-    clear: both;
-    text-align: center;
-
-    figcaption {
-        text-align: left;
-    }
 }
 
 blockquote {
