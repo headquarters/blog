@@ -47,7 +47,7 @@ console.log(firstBook.title); // 'The green book' is unchanged
 // ES6 spread operator doesn't work in most browsers yet as of 2017-01-05,
 // have to test this in the Node REPL
 var firstBook = { title: 'The green book' };
-var secondBook = { ...firstBook, title: 'The green book' }; // The title property will overwrite the property brought in from via the spread operator
+var secondBook = { ...firstBook, title: 'The blue book' }; // The title property will overwrite the property brought in from via the spread operator
 console.log(firstBook.title); // 'The green book' is unchanged
 {% endhighlight %}
 
