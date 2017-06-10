@@ -19,7 +19,7 @@ component, it's not a great idea to include jQuery to make the Bootstrap compone
 Some options exist, such as [React Bootstrap](https://react-bootstrap.github.io/) and [Reactstrap](https://reactstrap.github.io/). Unfortunately for React Bootstrap, it appears to still be using Bootstrap version 3, so if you want to use version 4 (even though it _is_ alpha) you're out of luck. Reactstrap is built with version 4 support, but still might be overkill for some particular cases. 
 
 It's not too difficult to take a Bootstrap component and create a React-ready component from it. Here is an example
-of the [Dropdown component on CodePen](https://codepen.io/michaelehead/pen/gRPqYQ):
+of the [dropdown component on CodePen](https://codepen.io/michaelehead/pen/gRPqYQ):
 
 <p data-height="265" data-theme-id="0" data-slug-hash="gRPqYQ" data-default-tab="js,result" data-user="michaelehead" data-embed-version="2" data-pen-title="React Bootstrap Dropdown" class="codepen">See the Pen <a href="https://codepen.io/michaelehead/pen/gRPqYQ/">React Bootstrap Dropdown</a> by Michael Head (<a href="https://codepen.io/michaelehead">@michaelehead</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
