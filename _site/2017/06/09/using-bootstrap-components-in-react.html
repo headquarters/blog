@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+               _
+              | |
+              | |
+           ___|  \____
+          |___]   
+         |____]     
+          |___]    |___
+           |___]__/
+           
+           Cool.
+        -->
+  <title>Using Twitter Bootstrap Components with React | Michael Head</title>
+  <meta name="description" content="React continues to gain traction as a library for creating user interfaces for the web (and for other platforms). React is great for building UI components a...">
+
+  <link rel="stylesheet" href="/css/main.css">
+        
+  <link rel="canonical" href="http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+
+<div class="site-header">
+    <a href="#main" id="go-to-main" class="site-header--content-link">Go to content &darr;</a>
+    <header class="site-header--titles">
+        <h1 class="site-header--title">Michael's Headquarters</h1>
+        <h2 class="site-header--subtitle">On UX Design and Development</h2>
+    </header>
+    <nav class="main-nav">
+        <ul class="main-nav--list">
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/">About</a></li>
+          <li class="main-nav--list-item active"><a class="main-nav--link" href="/blog/">Blog</a></li>
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/work/">Work</a></li>
+        </ul>
+    </nav>        
+</div>
+
+<main id="main" class="blog">
+  <div class="post content">
+	<header class="post-header">
+        <h1 class="post-title">Using Twitter Bootstrap Components with React</h1>
+        <time class="post-date" datetime="">
+            Jun 9, 2017
+        </time>
+    </header>
+	<article class="post-content">
+	<p><a href="facebook.github.io/react/">React</a> continues to gain traction as a library for creating 
+user interfaces for the web (and for other <a href="https://facebook.github.io/react-native/">platforms</a>). 
+React is great for building UI components at a lower level than what you might get from a framework. 
+Nonetheless, many frameworks remain popular such as Twitter <a href="getbootstrap.com">Bootstrap</a>, which provides a lot more
+ready-made components out of the box.</p>
+
+<p>Twitter Bootstrap’s components that have interactivity (e.g. Dropdown, Modal, etc), utilize jQuery as the
+JavaScript library for handling the state of these components and the event binding. What if you find
+yourself wanting to mix Bootstrap and React? If you utilize React elsewhere but want to use a single Bootstrap 
+component, it’s not a great idea to include jQuery to make the Bootstrap component “functional”.</p>
+
+<p>Some options exist, such as <a href="https://react-bootstrap.github.io/">React Bootstrap</a> and <a href="https://reactstrap.github.io/">Reactstrap</a>. Unfortunately for React Bootstrap, it appears to still be using Bootstrap version 3, so if you want to use version 4 (even though it <em>is</em> alpha) you’re out of luck. Reactstrap is built with version 4 support, but still might be overkill for some particular cases.</p>
+
+<p>It’s not too difficult to take a Bootstrap component and create a React-ready component from it. Here is an example
+of the <a href="https://codepen.io/michaelehead/pen/gRPqYQ">Dropdown component on CodePen</a>:</p>
+
+<p data-height="265" data-theme-id="0" data-slug-hash="gRPqYQ" data-default-tab="js,result" data-user="michaelehead" data-embed-version="2" data-pen-title="React Bootstrap Dropdown" class="codepen">See the Pen <a href="https://codepen.io/michaelehead/pen/gRPqYQ/">React Bootstrap Dropdown</a> by Michael Head (<a href="https://codepen.io/michaelehead">@michaelehead</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async="" src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>The process was to copy the markup from the <a href="https://v4-alpha.getbootstrap.com/components/dropdowns/">documentation</a>, 
+use that as the JSX for the React component to render (which will require all the Bootstrap CSS to render properly),
+then adding an event handler for the button to toggle the dropdown state. I watched the DOM for changes
+in Chrome DevTools in order to see that the outermost DOM element receives the class “show” when toggled open and
+the ARIA attributes update to reflect the open state.</p>
+
+<p>Word of caution: this method will only get you so far; the <a href="https://github.com/twbs/bootstrap/blob/v4-dev/js/src/dropdown.js">JavaScript for the Bootstrap dropdown</a> component manages a lot more state 
+and binds to more events so this may not be the best approach if you want a 100% compliant Bootstrap dropdown
+using React for the JS behavior. Nonetheless, it gets you pretty far toward using React with Bootstrap
+and avoiding the extra overhead of jQuery being included in your web application just for use with Bootstrap.</p>
+
+	</article>
+</div>
+
+</main>
+
+        <footer class="footer row">
+          <div class="col">
+                <div class="footer--social">
+                    <a class="footer--link" href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
+                    <a class="footer--link" href="http://linkedin.com/in/michaelehead"><img src="/images/icons/LinkedIn.png" alt="LinkedIn" /></a>
+                    <a class="footer--link" href="http://twitter.com/michaelehead"><img src="/images/icons/Twitter.png" alt="Twitter" /></a>
+                </div>
+                <section class="footer--blog-info">
+                  <div class="footer--copyright">&copy; 2015</div>
+                  <div class="footer--poweredby">Generated by <a href="http://jeykyllrb.com">Jekyll</a></div>
+              </section>
+              <a class="footer--go-to-top" href="#go-to-main">&uarr; Top</a>
+          </div>
+        </footer>
+    </body>
+</html>
+

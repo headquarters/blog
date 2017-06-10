@@ -4,11 +4,50 @@
     <title>Michael's Headquarters</title>
     <description>Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
 </description>
-    <link>http://michaelehead.com/</link>
-    <atom:link href="http://michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 24 Feb 2017 21:47:55 -0500</pubDate>
-    <lastBuildDate>Fri, 24 Feb 2017 21:47:55 -0500</lastBuildDate>
+    <link>http://0.0.0.0:4000/</link>
+    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 09 Jun 2017 23:11:44 -0400</pubDate>
+    <lastBuildDate>Fri, 09 Jun 2017 23:11:44 -0400</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>Using Twitter Bootstrap Components with React</title>
+        <description>&lt;p&gt;&lt;a href=&quot;facebook.github.io/react/&quot;&gt;React&lt;/a&gt; continues to gain traction as a library for creating 
+user interfaces for the web (and for other &lt;a href=&quot;https://facebook.github.io/react-native/&quot;&gt;platforms&lt;/a&gt;). 
+React is great for building UI components at a lower level than what you might get from a framework. 
+Nonetheless, many frameworks remain popular such as Twitter &lt;a href=&quot;getbootstrap.com&quot;&gt;Bootstrap&lt;/a&gt;, which provides a lot more
+ready-made components out of the box.&lt;/p&gt;
+
+&lt;p&gt;Twitter Bootstrap’s components that have interactivity (e.g. Dropdown, Modal, etc), utilize jQuery as the
+JavaScript library for handling the state of these components and the event binding. What if you find
+yourself wanting to mix Bootstrap and React? If you utilize React elsewhere but want to use a single Bootstrap 
+component, it’s not a great idea to include jQuery to make the Bootstrap component “functional”.&lt;/p&gt;
+
+&lt;p&gt;Some options exist, such as &lt;a href=&quot;https://react-bootstrap.github.io/&quot;&gt;React Bootstrap&lt;/a&gt; and &lt;a href=&quot;https://reactstrap.github.io/&quot;&gt;Reactstrap&lt;/a&gt;. Unfortunately for React Bootstrap, it appears to still be using Bootstrap version 3, so if you want to use version 4 (even though it &lt;em&gt;is&lt;/em&gt; alpha) you’re out of luck. Reactstrap is built with version 4 support, but still might be overkill for some particular cases.&lt;/p&gt;
+
+&lt;p&gt;It’s not too difficult to take a Bootstrap component and create a React-ready component from it. Here is an example
+of the &lt;a href=&quot;https://codepen.io/michaelehead/pen/gRPqYQ&quot;&gt;Dropdown component on CodePen&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p data-height=&quot;265&quot; data-theme-id=&quot;0&quot; data-slug-hash=&quot;gRPqYQ&quot; data-default-tab=&quot;js,result&quot; data-user=&quot;michaelehead&quot; data-embed-version=&quot;2&quot; data-pen-title=&quot;React Bootstrap Dropdown&quot; class=&quot;codepen&quot;&gt;See the Pen &lt;a href=&quot;https://codepen.io/michaelehead/pen/gRPqYQ/&quot;&gt;React Bootstrap Dropdown&lt;/a&gt; by Michael Head (&lt;a href=&quot;https://codepen.io/michaelehead&quot;&gt;@michaelehead&lt;/a&gt;) on &lt;a href=&quot;https://codepen.io&quot;&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
+&lt;script async=&quot;&quot; src=&quot;https://production-assets.codepen.io/assets/embed/ei.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The process was to copy the markup from the &lt;a href=&quot;https://v4-alpha.getbootstrap.com/components/dropdowns/&quot;&gt;documentation&lt;/a&gt;, 
+use that as the JSX for the React component to render (which will require all the Bootstrap CSS to render properly),
+then adding an event handler for the button to toggle the dropdown state. I watched the DOM for changes
+in Chrome DevTools in order to see that the outermost DOM element receives the class “show” when toggled open and
+the ARIA attributes update to reflect the open state.&lt;/p&gt;
+
+&lt;p&gt;Word of caution: this method will only get you so far; the &lt;a href=&quot;https://github.com/twbs/bootstrap/blob/v4-dev/js/src/dropdown.js&quot;&gt;JavaScript for the Bootstrap dropdown&lt;/a&gt; component manages a lot more state 
+and binds to more events so this may not be the best approach if you want a 100% compliant Bootstrap dropdown
+using React for the JS behavior. Nonetheless, it gets you pretty far toward using React with Bootstrap
+and avoiding the extra overhead of jQuery being included in your web application just for use with Bootstrap.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 09 Jun 2017 11:50:00 -0400</pubDate>
+        <link>http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>JavaScript Object Mutation Gotchas</title>
@@ -54,8 +93,8 @@ I have a &lt;a href=&quot;https://github.com/headquarters/react-es6-template/blo
 &lt;p&gt;So, be mindful of the sort-of-pass-by-reference treatment of objects in JavaScript to avoid object mutation gotchas.&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 Jan 2017 06:40:00 -0500</pubDate>
-        <link>http://michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</guid>
+        <link>http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</guid>
         
         
       </item>
@@ -91,8 +130,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 (this works in El Capitan) without requiring &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;, this should do it.&lt;/p&gt;
 </description>
         <pubDate>Sat, 06 Feb 2016 05:24:00 -0500</pubDate>
-        <link>http://michaelehead.com/2016/02/06/installing-gems-without-sudo.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2016/02/06/installing-gems-without-sudo.html</guid>
+        <link>http://0.0.0.0:4000/2016/02/06/installing-gems-without-sudo.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2016/02/06/installing-gems-without-sudo.html</guid>
         
         
       </item>
@@ -119,8 +158,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;A better approach is to change the text of the link itself. Instead of having &lt;a href=&quot;#nogo&quot;&gt;http://some/really/long/link?withabunchoftextinit&lt;/a&gt;, you can just link an &lt;a href=&quot;#nogo&quot;&gt;appropriate keyword&lt;/a&gt; or two. Better for SEO and better for users. &lt;/p&gt;
 </description>
         <pubDate>Mon, 20 Apr 2015 00:26:38 -0400</pubDate>
-        <link>http://michaelehead.com/2015/04/20/wrap-long-links-on-small-screens.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2015/04/20/wrap-long-links-on-small-screens.html</guid>
+        <link>http://0.0.0.0:4000/2015/04/20/wrap-long-links-on-small-screens.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2015/04/20/wrap-long-links-on-small-screens.html</guid>
         
         
       </item>
@@ -134,8 +173,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;Instead of going the “easy” route of requesting an auth code online, just call the customer support number listed there. Navigate the phone tree with 1, 1, and 2, and let the rep know you want to request an auth code for your domain. I was put on hold, then received an email, and finished the call all within 10 minutes. That beats the heck out of waiting 3-4 days. &lt;/p&gt;
 </description>
         <pubDate>Wed, 18 Feb 2015 19:24:27 -0500</pubDate>
-        <link>http://michaelehead.com/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</guid>
+        <link>http://0.0.0.0:4000/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</guid>
         
         
       </item>
@@ -150,8 +189,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;Ignoring the syntax (which isn’t very Ruby-like) and the use of a global variable (oh no!), this worked for me on OpenShift. Now, instead of getting a reverse proxy IP, I get the user’s real IP address. &lt;/p&gt;
 </description>
         <pubDate>Thu, 12 Feb 2015 16:22:00 -0500</pubDate>
-        <link>http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</guid>
+        <link>http://0.0.0.0:4000/2015/02/12/accessing-real-ip-addresses-on-openshift.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2015/02/12/accessing-real-ip-addresses-on-openshift.html</guid>
         
         
       </item>
@@ -169,8 +208,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;When using DataMapper on OpenShift, though, follow the DataMapper documentation, &lt;strong&gt;not&lt;/strong&gt; the OpenShift documentation. The DataMapper gem attempts to require adapters based on the prefix name, so if you use “postgresql” as the prefix, it attempts to load the “dm-postgresql-adapter” gem, which does not exist. You will get a “cannot load file – dm-postgresql-adapter” error. So, stick with the DataMapper version and use the “postgres” prefix. &lt;/p&gt;
 </description>
         <pubDate>Tue, 10 Feb 2015 11:43:42 -0500</pubDate>
-        <link>http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</guid>
+        <link>http://0.0.0.0:4000/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</guid>
         
         <category>development</category>
         
@@ -192,8 +231,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;to the bottom the &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; file. Next time you SSH into your Vagrant VM, you’ll be where you want to be without having to change directories manually every time. Verified on Ubuntu 14.04. Tip inspired by &lt;a href=&quot;http://unix.stackexchange.com/a/32471&quot;&gt;http://unix.stackexchange.com/a/32471&lt;/a&gt;. &lt;/p&gt;
 </description>
         <pubDate>Thu, 18 Dec 2014 15:41:17 -0500</pubDate>
-        <link>http://michaelehead.com/2014/12/18/automatically-go-to-folder-when-logging-into.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2014/12/18/automatically-go-to-folder-when-logging-into.html</guid>
+        <link>http://0.0.0.0:4000/2014/12/18/automatically-go-to-folder-when-logging-into.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2014/12/18/automatically-go-to-folder-when-logging-into.html</guid>
         
         
       </item>
@@ -213,8 +252,8 @@ Doing some research online, I found some recommendations for ways to possibly im
 &lt;p&gt;So far, I think I’ll stick with Yosemite. Fixing the boot time issue helped sway me a bit, but it’s really disappointing that users, in 2014, have to resort to such “technical” things to fix performance with a clean install of an operating system. &lt;/p&gt;
 </description>
         <pubDate>Sat, 13 Dec 2014 15:10:26 -0500</pubDate>
-        <link>http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</guid>
+        <link>http://0.0.0.0:4000/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</guid>
         
         
       </item>
@@ -232,23 +271,8 @@ Doing some research online, I found some recommendations for ways to possibly im
 &lt;p&gt;So, when your programmer can spend a few extra minutes to save your entire user population hours per year, I think that’s worth the effort. Always automate the automatable for your users.&lt;/p&gt;
 </description>
         <pubDate>Mon, 13 Oct 2014 12:48:50 -0400</pubDate>
-        <link>http://michaelehead.com/2014/10/13/automate-the-automatable-for-your-users.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2014/10/13/automate-the-automatable-for-your-users.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Integer to Float coercion in PHP</title>
-        <description>&lt;p&gt;I take for granted the coercing from integer to float in PHP when I work in that language. When I finally dove into Ruby to use it on a project recently, I discovered it does not do this coercing for you. Nor does Python.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/posts/php-ruby-python-floats.png&quot; alt=&quot;Python vs. Ruby vs. PHP float coercion code examples&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;This can be tricky to grasp at first–we learn for many years in math classes how to divide something like 100/33 into 3 and some remainder after the decimal. In math classrooms, there is no discussion of number “types” when doing this type of arithmetic. So, while Ruby and Python are very internally consistent with regard to their loose type systems (i.e. dividing integers gives an integer result), PHP’s coercing makes a bit more sense based on non-programming mathematics experience. &lt;/p&gt;
-</description>
-        <pubDate>Thu, 10 Jul 2014 15:20:56 -0400</pubDate>
-        <link>http://michaelehead.com/2014/07/10/integer-to-float-coercion-in-php.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2014/07/10/integer-to-float-coercion-in-php.html</guid>
+        <link>http://0.0.0.0:4000/2014/10/13/automate-the-automatable-for-your-users.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2014/10/13/automate-the-automatable-for-your-users.html</guid>
         
         
       </item>
