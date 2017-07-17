@@ -5,6 +5,10 @@ date: '2017-06-09T10:50:00-05:00'
 tags: []
 ---
 
+Updated July 2017: The CodePen now handles focus and blur events in a self-contained manner (no need
+for a parent or app-level component to track the state) so that keyboard events work better than they did
+in the original version. 
+
 [React](facebook.github.io/react/) continues to gain traction as a library for creating 
 user interfaces for the web (and for other [platforms](https://facebook.github.io/react-native/)). 
 React is great for building UI components at a lower level than what you might get from a framework. 

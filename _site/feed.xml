@@ -6,13 +6,59 @@
 </description>
     <link>http://michaelehead.com/</link>
     <atom:link href="http://michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 18 Jun 2017 00:03:25 -0400</pubDate>
-    <lastBuildDate>Sun, 18 Jun 2017 00:03:25 -0400</lastBuildDate>
+    <pubDate>Sun, 16 Jul 2017 22:25:58 -0400</pubDate>
+    <lastBuildDate>Sun, 16 Jul 2017 22:25:58 -0400</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
+        <title>Some Personal Notes on UX Design</title>
+        <description>&lt;p&gt;Below are some random personal notes on UX design I’ve put together over the years. I’ve tried to site sources where it makes sense. This used to be a note on my computer, but I think it makes sense to share it here so others might find it useful.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Systems cannot be purely “simple”. A single button is very simple, but provides no usefulness. Balance simplicity with functionality.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Everything&lt;/em&gt; competes for attention.&lt;/p&gt;
+
+&lt;p&gt;Contrast is the strongest visual cue (Dondis, Primer on Visual Literacy).&lt;/p&gt;
+
+&lt;p&gt;If possible, avoid using &lt;em&gt;lorem ipsum&lt;/em&gt; placeholder text in wireframes. It creates extra unnecessary cognitive load on 
+users to decipher the language.&lt;/p&gt;
+
+&lt;p&gt;Minimize mouse movement (i.e. drag n’ drop). By minimizing mouse movement, we step around Fitts’ Law and
+eliminate the need for fine-grain motor control in user interfaces.&lt;/p&gt;
+
+&lt;p&gt;Be mindful of unintended consequences. (Kind of an oxymoron, huh?)&lt;/p&gt;
+
+&lt;p&gt;User intentions and motivations are more stable than their preferences or actions. Preferences or actions can change when a system is upgraded, but the intentions and motivations rarely change.&lt;/p&gt;
+
+&lt;p&gt;Some things just aren’t intuitive: what is an “intuitive” hand gesture to change the color of a square from purple to yellow or duplicate a square? Every new thing has to be learned. (from a talk called Tenets+Traps at Microsoft Build)&lt;/p&gt;
+
+&lt;p&gt;Expectations drive attention: sometimes once you see something, you can’t stop seeing it. Especially relevant as a developer of 
+user interfaces. (also Tenets+Traps)&lt;/p&gt;
+
+&lt;p&gt;Letters are shapes, too. Sometimes that’s all a foreign language speaker needs. “OK” and “TV” are examples.&lt;/p&gt;
+
+&lt;p&gt;Design is biased towards action. If you can’t take action on a problem, it’s not a problem, it’s a circumstance. A lot of people have a problem that isn’t a problem, it’s a circumstance. (adapted from http://www.npr.org/templates/transcript/transcript.php?storyId=507901716)&lt;/p&gt;
+</description>
+        <pubDate>Sun, 16 Jul 2017 11:07:00 -0400</pubDate>
+        <link>http://michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</guid>
+        
+        <category>ux</category>
+        
+        <category>design</category>
+        
+        
+      </item>
+    
+      <item>
         <title>Using Twitter Bootstrap Components with React</title>
-        <description>&lt;p&gt;&lt;a href=&quot;facebook.github.io/react/&quot;&gt;React&lt;/a&gt; continues to gain traction as a library for creating 
+        <description>&lt;p&gt;Updated July 2017: The CodePen now handles focus and blur events in a self-contained manner (no need
+for a parent or app-level component to track the state) so that keyboard events work better than they did
+in the original version.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;facebook.github.io/react/&quot;&gt;React&lt;/a&gt; continues to gain traction as a library for creating 
 user interfaces for the web (and for other &lt;a href=&quot;https://facebook.github.io/react-native/&quot;&gt;platforms&lt;/a&gt;). 
 React is great for building UI components at a lower level than what you might get from a framework. 
 Nonetheless, many frameworks remain popular such as Twitter &lt;a href=&quot;getbootstrap.com&quot;&gt;Bootstrap&lt;/a&gt;, which provides a lot more
@@ -254,25 +300,6 @@ Doing some research online, I found some recommendations for ways to possibly im
         <pubDate>Sat, 13 Dec 2014 15:10:26 -0500</pubDate>
         <link>http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</link>
         <guid isPermaLink="true">http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Automate the automatable for your users</title>
-        <description>&lt;p&gt;In user experience design, we must automate the automatable for our users. Something may only take seconds for an individual user to do, which may seem like it’s a waste of time to automate. However, when something that can be automated isn’t automated, consider the wasted time as it multiplies across all of your users.&lt;/p&gt;
-
-&lt;p&gt;For example, if I want to pay my water bill with the City of Durham website, I have to put in two different numbers to identify myself–an account number and a customer ID. These numbers, though, are actually just the last 6 digits of my account number on my paper bill and the first 6 digits of my account number on my paper bill, respectively.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/posts/utility-billing.png&quot; alt=&quot;Screenshot of City of Durham utility billing website&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;As a users, splitting the numbers into two fields isn’t a challenge, but it’s annoying. It only takes seconds for me to split them up mentally, type one set into one field, and then type the other set into the other field. But why do I need to do that at all? Computers can split numbers in microseconds. I could be given a single input field to type the full number into and then the server can do the splitting. This would save me, a single user, seconds each time I want to pay my bill. Aggregated across all users, this would save hours per year, at least. &lt;/p&gt;
-
-&lt;p&gt;So, when your programmer can spend a few extra minutes to save your entire user population hours per year, I think that’s worth the effort. Always automate the automatable for your users.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 13 Oct 2014 12:48:50 -0400</pubDate>
-        <link>http://michaelehead.com/2014/10/13/automate-the-automatable-for-your-users.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2014/10/13/automate-the-automatable-for-your-users.html</guid>
         
         
       </item>
