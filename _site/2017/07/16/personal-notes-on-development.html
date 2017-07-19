@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+               _
+              | |
+              | |
+           ___|  \____
+          |___]   
+         |____]     
+          |___]    |___
+           |___]__/
+           
+           Cool.
+        -->
+  <title>Some Personal Notes on Development | Michael Head</title>
+  <meta name="description" content="After posting some personal notes on UX design, I figured why not publish all the notesI keep for development, too? Below are random snippets of code I’ve fo...">
+
+  <link rel="stylesheet" href="/css/main.css">
+        
+  <link rel="canonical" href="http://0.0.0.0:4000/2017/07/16/personal-notes-on-development.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+
+<div class="site-header">
+    <a href="#main" id="go-to-main" class="site-header--content-link">Go to content &darr;</a>
+    <header class="site-header--titles">
+        <h1 class="site-header--title">Michael's Headquarters</h1>
+        <h2 class="site-header--subtitle">On UX Design and Development</h2>
+    </header>
+    <nav class="main-nav">
+        <ul class="main-nav--list">
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/">About</a></li>
+          <li class="main-nav--list-item active"><a class="main-nav--link" href="/blog/">Blog</a></li>
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/work/">Work</a></li>
+        </ul>
+    </nav>        
+</div>
+
+<main id="main" class="blog">
+  <div class="post content">
+	<header class="post-header">
+        <h1 class="post-title">Some Personal Notes on Development</h1>
+        <time class="post-date" datetime="">
+            Jul 16, 2017
+        </time>
+    </header>
+	<article class="post-content">
+	<p>After posting <a href="/2017/07/16/personal-notes-on-ux-design.html">some personal notes on UX design</a>, I figured why not publish all the notes
+I keep for development, too? Below are random snippets of code I’ve found useful, CLI commands, and other tidbits that I 
+always find myself coming back to for reference.</p>
+
+<hr />
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Kill a process by name (only verified on macOS)</span>
+<span class="c"># Example: `sudo pkill node`</span>
+sudo pkill <span class="nv">$PROCESSNAME</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># SSH config with multiple hostnames and a domain controller prefix for username, ~/.ssh/config</span>
+<span class="c"># This allows you to do something like `ssh name1` and it will expand to include the username and proper key </span>
+<span class="c"># It's counterintuitive, but the generic settings (Host *) go at the bottom of the file</span>
+Host name1 name2 name3 
+  HostName %h.domain.tld
+  <span class="c"># Rarely needed, more likely your username does not have a prefix</span>
+  User <span class="s2">"controller</span><span class="se">\u</span><span class="s2">sername"</span>
+
+<span class="c"># Override specific properties of the "*" Host setting</span>
+Host name4
+  HostName differentdomain.tld
+  IdentityFile ~/.ssh/private_key2
+
+Host <span class="k">*</span>
+  IdentityFile ~/.ssh/private_key
+  ForwardAgent yes
+  <span class="c"># These two are macOS specific</span>
+  AddKeysToAgent yes
+  UseKeychain yes  </code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Snippets from .bash_profile </span>
+<span class="c"># Edit the profile itself</span>
+<span class="nb">alias </span><span class="nv">showprofile</span><span class="o">=</span><span class="s2">"cat ~/.bash_profile"</span>
+<span class="nb">alias </span><span class="nv">editprofile</span><span class="o">=</span><span class="s2">"nano ~/.bash_profile"</span>
+<span class="nb">alias </span><span class="nv">loadprofile</span><span class="o">=</span><span class="s2">"source ~/.bash_profile"</span>
+
+<span class="c"># macOS flushdns</span>
+<span class="nb">alias </span><span class="nv">flushdns</span><span class="o">=</span><span class="s2">"sudo killall -HUP mDNSResponder"</span>
+
+<span class="c"># Spin up simple Python server in current directory (wherever the command is run)</span>
+<span class="nb">alias </span><span class="nv">pythonserver</span><span class="o">=</span><span class="s2">"python -m SimpleHTTPServer 8000"</span>
+
+<span class="c"># Node.js ENV shortcuts</span>
+<span class="nb">alias </span><span class="nv">setprod</span><span class="o">=</span><span class="s2">"export NODE_ENV=production"</span>
+<span class="nb">alias </span><span class="nv">setdev</span><span class="o">=</span><span class="s2">"unset NODE_ENV"</span>
+<span class="nb">alias </span><span class="nv">checkenv</span><span class="o">=</span><span class="s2">"echo </span><span class="se">\$</span><span class="s2">NODE_ENV"</span>
+
+<span class="c"># macOS IPv6 toggling</span>
+<span class="nb">alias </span><span class="nv">disableipv6</span><span class="o">=</span><span class="s2">"networksetup -setv6off Wi-Fi"</span>
+<span class="nb">alias </span><span class="nv">enableipv6</span><span class="o">=</span><span class="s2">"networksetup -setv6automatic Wi-Fi"</span>
+
+<span class="c"># macOS copy IP addresses to clipboard</span>
+<span class="nb">alias </span><span class="nv">getethernetip</span><span class="o">=</span><span class="s2">"ipconfig getifaddr en0 | pbcopy"</span>
+<span class="nb">alias </span><span class="nv">getwirelessip</span><span class="o">=</span><span class="s2">"ipconfig getifaddr en1 | pbcopy"</span>
+
+<span class="c"># Configure git CLI (requires .git-prompt shell file)</span>
+<span class="nb">source</span> ~/.git-prompt.sh
+<span class="nv">PS1</span><span class="o">=</span><span class="s1">'[\u@\h \W$(__git_ps1 " (%s)")]\$ '</span>
+
+<span class="c"># Make nano the default editor because who wants to deal with vi when doing git commit? ;)</span>
+<span class="nb">export </span><span class="nv">EDITOR</span><span class="o">=</span>nano
+
+<span class="c"># Load SSH identities since macOS forgets on reboot</span>
+<span class="nb">eval</span> <span class="sb">`</span>ssh-agent -s<span class="sb">`</span>
+ssh-add -A &gt; /dev/null 2&gt;&amp;1</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Symlink a folder; notice there are no trailing slashes (only verified on macOS)</span>
+ln -sFv /path/to/original-folder /path/to/folder-symlink</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Tail multiple logs at the same time</span>
+tail -f /var/log/name<span class="k">*</span>.log</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Delete files older than 5 days</span>
+find ./<span class="k">*</span> -mtime +5 -exec rm <span class="o">{}</span> <span class="se">\;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Find processes listening on $PORT</span>
+lsof -n -i:<span class="nv">$PORT</span> | grep LISTEN</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># git commands</span>
+git diff branch1..branch2 -- filename
+
+git cherry-pick &lt;commit <span class="nb">hash</span>&gt;</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Show disk space used with human readable file format</span>
+df -h
+
+<span class="c"># Find the top 10 largest directories in /path</span>
+du -Sh /path | sort -rh | head -10</code></pre></figure>
+
+	</article>
+</div>
+
+</main>
+
+        <footer class="footer row">
+          <div class="col">
+                <div class="footer--social">
+                    <a class="footer--link" href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
+                    <a class="footer--link" href="http://linkedin.com/in/michaelehead"><img src="/images/icons/LinkedIn.png" alt="LinkedIn" /></a>
+                    <a class="footer--link" href="http://twitter.com/michaelehead"><img src="/images/icons/Twitter.png" alt="Twitter" /></a>
+                </div>
+                <section class="footer--blog-info">
+                  <div class="footer--copyright">&copy; 2015</div>
+                  <div class="footer--poweredby">Generated by <a href="http://jeykyllrb.com">Jekyll</a></div>
+              </section>
+              <a class="footer--go-to-top" href="#go-to-main">&uarr; Top</a>
+          </div>
+        </footer>
+    </body>
+</html>
+

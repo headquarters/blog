@@ -5,6 +5,7 @@ date: '2017-07-16T10:07:00-05:00'
 tags: [ux, design]
 ---
 
+
 Below are some random personal notes on UX design I've put together over the years. I've tried to site sources where it makes sense. This used to be a note on my computer, but I think it makes sense to share it here so others might find it useful.
 
 ---
