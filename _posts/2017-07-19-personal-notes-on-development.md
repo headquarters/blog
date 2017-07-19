@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Some Personal Notes on Development 
-date: '2017-07-19T11:05:00-05:00'
+date: '2017-07-19T3:15:00-05:00'
 tags: [ux, design]
 ---
 
