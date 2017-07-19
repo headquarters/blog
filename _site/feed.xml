@@ -4,113 +4,11 @@
     <title>Michael's Headquarters</title>
     <description>Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
 </description>
-    <link>http://0.0.0.0:4000/</link>
-    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 19 Jul 2017 11:03:54 -0400</pubDate>
-    <lastBuildDate>Wed, 19 Jul 2017 11:03:54 -0400</lastBuildDate>
+    <link>http://michaelehead.com/</link>
+    <atom:link href="http://michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 19 Jul 2017 11:06:48 -0400</pubDate>
+    <lastBuildDate>Wed, 19 Jul 2017 11:06:48 -0400</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
-    
-      <item>
-        <title>Some Personal Notes on Development</title>
-        <description>&lt;p&gt;After posting &lt;a href=&quot;/2017/07/16/personal-notes-on-ux-design.html&quot;&gt;some personal notes on UX design&lt;/a&gt;, I figured why not publish all the notes
-I keep for development, too? Below are random snippets of code I’ve found useful, CLI commands, and other tidbits that I 
-always find myself coming back to for reference.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Kill a process by name (only verified on macOS)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Example: `sudo pkill node`&lt;/span&gt;
-sudo pkill &lt;span class=&quot;nv&quot;&gt;$PROCESSNAME&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# SSH config with multiple hostnames and a domain controller prefix for username, ~/.ssh/config&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# This allows you to do something like `ssh name1` and it will expand to include the username and proper key &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# It's counterintuitive, but the generic settings (Host *) go at the bottom of the file&lt;/span&gt;
-Host name1 name2 name3 
-  HostName %h.domain.tld
-  &lt;span class=&quot;c&quot;&gt;# Rarely needed, more likely your username does not have a prefix&lt;/span&gt;
-  User &lt;span class=&quot;s2&quot;&gt;&quot;controller&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\u&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sername&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Override specific properties of the &quot;*&quot; Host setting&lt;/span&gt;
-Host name4
-  HostName differentdomain.tld
-  IdentityFile ~/.ssh/private_key2
-
-Host &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-  IdentityFile ~/.ssh/private_key
-  ForwardAgent yes
-  &lt;span class=&quot;c&quot;&gt;# These two are macOS specific&lt;/span&gt;
-  AddKeysToAgent yes
-  UseKeychain yes  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Snippets from .bash_profile &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Edit the profile itself&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;showprofile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cat ~/.bash_profile&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;editprofile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nano ~/.bash_profile&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;loadprofile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;source ~/.bash_profile&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# macOS flushdns&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;flushdns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sudo killall -HUP mDNSResponder&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Spin up simple Python server in current directory (wherever the command is run)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;pythonserver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;python -m SimpleHTTPServer 8000&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Node.js ENV shortcuts&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setprod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;export NODE_ENV=production&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setdev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;unset NODE_ENV&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;checkenv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;NODE_ENV&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# macOS IPv6 toggling&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;disableipv6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;networksetup -setv6off Wi-Fi&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;enableipv6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;networksetup -setv6automatic Wi-Fi&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# macOS copy IP addresses to clipboard&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getethernetip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipconfig getifaddr en0 | pbcopy&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getwirelessip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipconfig getifaddr en1 | pbcopy&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Configure git CLI (requires .git-prompt shell file)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.git-prompt.sh
-&lt;span class=&quot;nv&quot;&gt;PS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'[\u@\h \W$(__git_ps1 &quot; (%s)&quot;)]\$ '&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Make nano the default editor because who wants to deal with vi when doing git commit? ;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EDITOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;nano
-
-&lt;span class=&quot;c&quot;&gt;# Load SSH identities since macOS forgets on reboot&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ssh-agent -s&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-ssh-add -A &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Symlink a folder; notice there are no trailing slashes (only verified on macOS)&lt;/span&gt;
-ln -sFv /path/to/original-folder /path/to/folder-symlink&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Tail multiple logs at the same time&lt;/span&gt;
-tail -f /var/log/name&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.log&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Delete files older than 5 days&lt;/span&gt;
-find ./&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; -mtime +5 -exec rm &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Find processes listening on $PORT&lt;/span&gt;
-lsof -n -i:&lt;span class=&quot;nv&quot;&gt;$PORT&lt;/span&gt; | grep LISTEN&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# git commands&lt;/span&gt;
-git diff branch1..branch2 -- filename
-
-git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Show disk space used with human readable file format&lt;/span&gt;
-df -h
-
-&lt;span class=&quot;c&quot;&gt;# Find the top 10 largest directories in /path&lt;/span&gt;
-du -Sh /path | sort -rh | head -10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-</description>
-        <pubDate>Sun, 16 Jul 2017 11:07:00 -0400</pubDate>
-        <link>http://0.0.0.0:4000/2017/07/16/personal-notes-on-development.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/16/personal-notes-on-development.html</guid>
-        
-        <category>ux</category>
-        
-        <category>design</category>
-        
-        
-      </item>
     
       <item>
         <title>Some Personal Notes on UX Design</title>
@@ -144,8 +42,8 @@ user interfaces. (also Tenets+Traps)&lt;/p&gt;
 &lt;p&gt;Design is biased towards action. If you can’t take action on a problem, it’s not a problem, it’s a circumstance. A lot of people have a problem that isn’t a problem, it’s a circumstance. (adapted from http://www.npr.org/templates/transcript/transcript.php?storyId=507901716)&lt;/p&gt;
 </description>
         <pubDate>Sun, 16 Jul 2017 11:07:00 -0400</pubDate>
-        <link>http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</guid>
+        <link>http://michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</guid>
         
         <category>ux</category>
         
@@ -191,8 +89,8 @@ using React for the JS behavior. Nonetheless, it gets you pretty far toward usin
 and avoiding the extra overhead of jQuery being included in your web application just for use with Bootstrap.&lt;/p&gt;
 </description>
         <pubDate>Fri, 09 Jun 2017 11:50:00 -0400</pubDate>
-        <link>http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</guid>
+        <link>http://michaelehead.com/2017/06/09/using-bootstrap-components-in-react.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2017/06/09/using-bootstrap-components-in-react.html</guid>
         
         
       </item>
@@ -241,8 +139,8 @@ I have a &lt;a href=&quot;https://github.com/headquarters/react-es6-template/blo
 &lt;p&gt;So, be mindful of the sort-of-pass-by-reference treatment of objects in JavaScript to avoid object mutation gotchas.&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 Jan 2017 06:40:00 -0500</pubDate>
-        <link>http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</guid>
+        <link>http://michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</guid>
         
         
       </item>
@@ -278,8 +176,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 (this works in El Capitan) without requiring &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;, this should do it.&lt;/p&gt;
 </description>
         <pubDate>Sat, 06 Feb 2016 05:24:00 -0500</pubDate>
-        <link>http://0.0.0.0:4000/2016/02/06/installing-gems-without-sudo.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2016/02/06/installing-gems-without-sudo.html</guid>
+        <link>http://michaelehead.com/2016/02/06/installing-gems-without-sudo.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2016/02/06/installing-gems-without-sudo.html</guid>
         
         
       </item>
@@ -306,8 +204,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;A better approach is to change the text of the link itself. Instead of having &lt;a href=&quot;#nogo&quot;&gt;http://some/really/long/link?withabunchoftextinit&lt;/a&gt;, you can just link an &lt;a href=&quot;#nogo&quot;&gt;appropriate keyword&lt;/a&gt; or two. Better for SEO and better for users. &lt;/p&gt;
 </description>
         <pubDate>Mon, 20 Apr 2015 00:26:38 -0400</pubDate>
-        <link>http://0.0.0.0:4000/2015/04/20/wrap-long-links-on-small-screens.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2015/04/20/wrap-long-links-on-small-screens.html</guid>
+        <link>http://michaelehead.com/2015/04/20/wrap-long-links-on-small-screens.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/04/20/wrap-long-links-on-small-screens.html</guid>
         
         
       </item>
@@ -321,8 +219,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;Instead of going the “easy” route of requesting an auth code online, just call the customer support number listed there. Navigate the phone tree with 1, 1, and 2, and let the rep know you want to request an auth code for your domain. I was put on hold, then received an email, and finished the call all within 10 minutes. That beats the heck out of waiting 3-4 days. &lt;/p&gt;
 </description>
         <pubDate>Wed, 18 Feb 2015 19:24:27 -0500</pubDate>
-        <link>http://0.0.0.0:4000/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</guid>
+        <link>http://michaelehead.com/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/02/18/how-to-quickly-get-a-domain-auth-code-from.html</guid>
         
         
       </item>
@@ -337,8 +235,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;Ignoring the syntax (which isn’t very Ruby-like) and the use of a global variable (oh no!), this worked for me on OpenShift. Now, instead of getting a reverse proxy IP, I get the user’s real IP address. &lt;/p&gt;
 </description>
         <pubDate>Thu, 12 Feb 2015 16:22:00 -0500</pubDate>
-        <link>http://0.0.0.0:4000/2015/02/12/accessing-real-ip-addresses-on-openshift.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2015/02/12/accessing-real-ip-addresses-on-openshift.html</guid>
+        <link>http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</guid>
         
         
       </item>
@@ -356,8 +254,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;When using DataMapper on OpenShift, though, follow the DataMapper documentation, &lt;strong&gt;not&lt;/strong&gt; the OpenShift documentation. The DataMapper gem attempts to require adapters based on the prefix name, so if you use “postgresql” as the prefix, it attempts to load the “dm-postgresql-adapter” gem, which does not exist. You will get a “cannot load file – dm-postgresql-adapter” error. So, stick with the DataMapper version and use the “postgres” prefix. &lt;/p&gt;
 </description>
         <pubDate>Tue, 10 Feb 2015 11:43:42 -0500</pubDate>
-        <link>http://0.0.0.0:4000/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</guid>
+        <link>http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</guid>
         
         <category>development</category>
         
@@ -379,8 +277,29 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 &lt;p&gt;to the bottom the &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt; file. Next time you SSH into your Vagrant VM, you’ll be where you want to be without having to change directories manually every time. Verified on Ubuntu 14.04. Tip inspired by &lt;a href=&quot;http://unix.stackexchange.com/a/32471&quot;&gt;http://unix.stackexchange.com/a/32471&lt;/a&gt;. &lt;/p&gt;
 </description>
         <pubDate>Thu, 18 Dec 2014 15:41:17 -0500</pubDate>
-        <link>http://0.0.0.0:4000/2014/12/18/automatically-go-to-folder-when-logging-into.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2014/12/18/automatically-go-to-folder-when-logging-into.html</guid>
+        <link>http://michaelehead.com/2014/12/18/automatically-go-to-folder-when-logging-into.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/12/18/automatically-go-to-folder-when-logging-into.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Speeding up Yosemite boot time on a 2010 MacBook Pro</title>
+        <description>&lt;p&gt;I have a mid-2010 MacBook Pro with a dual core i7, 8GB of RAM, and a solid state drive (SSD). In its heyday, with Snow Leopard, it was pretty damn fast. In 2014, this once-majestic laptop has finally succumbed to &lt;a href=&quot;http://en.wikipedia.org/wiki/Wirth%27s_law&quot;&gt;Wirth’s law&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;Mavericks ran on it well enough, but there were definitely visual glitches and problems here and there, so I decided to give Yosemite a chance. I did a clean install of Yosemite and found that things weren’t as bad as I had expected. However, the first time I restarted the computer, the boot time was 1 minute and 15 seconds from chime sound to log in screen. On an SSD with an i7 processor, that was unacceptable. 
+Doing some research online, I found some recommendations for ways to possibly improve the performance. So, I tried two of these:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://support.apple.com/en-us/HT201295&quot;&gt;Resetting the SMC&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://support.apple.com/kb/PH18761&quot;&gt;Resetting the PRAM&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Following those two steps, the boot time dropped from 1:15 to 15 seconds. So, resetting the SMC and the PRAM reduced the boot time in Yosemite by a full minute. Thank goodness.&lt;/p&gt;
+
+&lt;p&gt;So far, I think I’ll stick with Yosemite. Fixing the boot time issue helped sway me a bit, but it’s really disappointing that users, in 2014, have to resort to such “technical” things to fix performance with a clean install of an operating system. &lt;/p&gt;
+</description>
+        <pubDate>Sat, 13 Dec 2014 15:10:26 -0500</pubDate>
+        <link>http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2014/12/13/speeding-up-yosemite-boot-time-on-a-2010-macbook.html</guid>
         
         
       </item>
