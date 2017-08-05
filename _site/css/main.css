@@ -661,13 +661,15 @@ article {
     float: left; }
     .work-image--bordered {
       box-shadow: 0px 1px 5px #999; }
-  .work figure {
+  .post figure,
+  figure {
     margin: 1em 0;
     padding: 1.5em;
     background-color: #eee;
     clear: both;
     text-align: center; }
-    .work figure figcaption {
+    .post figure figcaption,
+    figure figcaption {
       text-align: left; }
 
 .panel {
