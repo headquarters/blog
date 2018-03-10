@@ -53,7 +53,7 @@
 	<article class="post-content">
 	<p>While working on a PhoneGap project for an iPad app that utilizes the PGBarcodeScanner plugin, I was trying to find a solution to using the front-facing camera on an iPad 2 by default–not allowing the user to swap back and forth via the UI. I found a helpful <a href="http://stackoverflow.com/questions/5886719/what-is-the-front-cameras-deviceuniqueid">Stack Overflow post</a> on finding the front-facing camera’s device ID. The code below is from the Stack Overflow answer:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>-(AVCaptureDevice *)frontFacingCameraIfAvailable
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(AVCaptureDevice *)frontFacingCameraIfAvailable
 {
 	NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
 	AVCaptureDevice *captureDevice = nil;
@@ -74,14 +74,12 @@
 
 	return captureDevice;
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Placing this code in the <code class="highlighter-rouge">PGBarcodeScanner.mm</code> file, above the <code class="highlighter-rouge">setUpCaptureSession</code> function, I was able to call it inside the setUpCaptureSession function:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>AVCaptureDevice* device = [self frontFacingCameraIfAvailable]; //[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AVCaptureDevice* device = [self frontFacingCameraIfAvailable]; //[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+</code></pre></div></div>
 
 <p>The commented-out line is the original PGBarcodeScanner.mm code, which I’ve left for others to reference.</p>
 

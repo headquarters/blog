@@ -59,7 +59,7 @@ always find myself coming back to for reference.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Kill a process by name (only verified on macOS)</span>
 <span class="c"># Example: `sudo pkill node`</span>
-sudo pkill <span class="nv">$PROCESSNAME</span></code></pre></figure>
+<span class="nb">sudo </span>pkill <span class="nv">$PROCESSNAME</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># SSH config with multiple hostnames and a domain controller prefix for username, ~/.ssh/config</span>
 <span class="c"># This allows you to do something like `ssh name1` and it will expand to include the username and proper key </span>
@@ -76,10 +76,10 @@ Host name4
 
 Host <span class="k">*</span>
   IdentityFile ~/.ssh/private_key
-  ForwardAgent yes
+  ForwardAgent <span class="nb">yes</span>
   <span class="c"># These two are macOS specific</span>
-  AddKeysToAgent yes
-  UseKeychain yes  </code></pre></figure>
+  AddKeysToAgent <span class="nb">yes
+  </span>UseKeychain <span class="nb">yes</span>  </code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Snippets from .bash_profile </span>
 <span class="c"># Edit the profile itself</span>
@@ -114,31 +114,31 @@ Host <span class="k">*</span>
 <span class="nb">export </span><span class="nv">EDITOR</span><span class="o">=</span>nano
 
 <span class="c"># Load SSH identities since macOS forgets on reboot</span>
-<span class="nb">eval</span> <span class="sb">`</span>ssh-agent -s<span class="sb">`</span>
-ssh-add -A &gt; /dev/null 2&gt;&amp;1</code></pre></figure>
+<span class="nb">eval</span> <span class="sb">`</span>ssh-agent <span class="nt">-s</span><span class="sb">`</span>
+ssh-add <span class="nt">-A</span> <span class="o">&gt;</span> /dev/null 2&gt;&amp;1</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Symlink a folder; notice there are no trailing slashes (only verified on macOS)</span>
-ln -sFv /path/to/original-folder /path/to/folder-symlink</code></pre></figure>
+<span class="nb">ln</span> <span class="nt">-sFv</span> /path/to/original-folder /path/to/folder-symlink</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Tail multiple logs at the same time</span>
-tail -f /var/log/name<span class="k">*</span>.log</code></pre></figure>
+<span class="nb">tail</span> <span class="nt">-f</span> /var/log/name<span class="k">*</span>.log</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Delete files older than 5 days</span>
-find ./<span class="k">*</span> -mtime +5 -exec rm <span class="o">{}</span> <span class="se">\;</span></code></pre></figure>
+find ./<span class="k">*</span> <span class="nt">-mtime</span> +5 <span class="nt">-exec</span> <span class="nb">rm</span> <span class="o">{}</span> <span class="se">\;</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Find processes listening on $PORT</span>
-lsof -n -i:<span class="nv">$PORT</span> | grep LISTEN</code></pre></figure>
+lsof <span class="nt">-n</span> <span class="nt">-i</span>:<span class="nv">$PORT</span> | <span class="nb">grep </span>LISTEN</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># git commands</span>
-git diff branch1..branch2 -- filename
+git diff branch1..branch2 <span class="nt">--</span> filename
 
-git cherry-pick &lt;commit <span class="nb">hash</span>&gt;</code></pre></figure>
+git cherry-pick &lt;commit <span class="nb">hash</span><span class="o">&gt;</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># Show disk space used with human readable file format</span>
-df -h
+<span class="nb">df</span> <span class="nt">-h</span>
 
 <span class="c"># Find the top 10 largest directories in /path</span>
-du -Sh /path | sort -rh | head -10</code></pre></figure>
+<span class="nb">du</span> <span class="nt">-Sh</span> /path | <span class="nb">sort</span> <span class="nt">-rh</span> | <span class="nb">head</span> <span class="nt">-10</span></code></pre></figure>
 
 	</article>
 </div>

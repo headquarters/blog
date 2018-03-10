@@ -54,7 +54,7 @@
 	<p>If you’re using the Rerun gem to watch for file changes in your Ruby web application, you may find it annoying that CSS and JS file changes cause the entire application to restart. Use the –ignore flag to ignore certain file types when calling Rerun. For example, below is a shell script I use to start a Sinatra application in my project:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#! /bin/bash</span>
-rerun --ignore <span class="s2">"**/*.{js,css}"</span> ruby app.rb</code></pre></figure>
+rerun <span class="nt">--ignore</span> <span class="s2">"**/*.{js,css}"</span> ruby app.rb</code></pre></figure>
 
 	</article>
 </div>

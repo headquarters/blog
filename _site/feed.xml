@@ -6,9 +6,9 @@
 </description>
     <link>http://michaelehead.com/</link>
     <atom:link href="http://michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 05 Aug 2017 12:53:22 -0400</pubDate>
-    <lastBuildDate>Sat, 05 Aug 2017 12:53:22 -0400</lastBuildDate>
-    <generator>Jekyll v3.3.1</generator>
+    <pubDate>Sat, 10 Mar 2018 08:49:44 -0500</pubDate>
+    <lastBuildDate>Sat, 10 Mar 2018 08:49:44 -0500</lastBuildDate>
+    <generator>Jekyll v3.7.3</generator>
     
       <item>
         <title>Baby Registries and Service Design</title>
@@ -140,7 +140,7 @@ always find myself coming back to for reference.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Kill a process by name (only verified on macOS)&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# Example: `sudo pkill node`&lt;/span&gt;
-sudo pkill &lt;span class=&quot;nv&quot;&gt;$PROCESSNAME&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pkill &lt;span class=&quot;nv&quot;&gt;$PROCESSNAME&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# SSH config with multiple hostnames and a domain controller prefix for username, ~/.ssh/config&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# This allows you to do something like `ssh name1` and it will expand to include the username and proper key &lt;/span&gt;
@@ -157,10 +157,10 @@ Host name4
 
 Host &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
   IdentityFile ~/.ssh/private_key
-  ForwardAgent yes
+  ForwardAgent &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;
   &lt;span class=&quot;c&quot;&gt;# These two are macOS specific&lt;/span&gt;
-  AddKeysToAgent yes
-  UseKeychain yes  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+  AddKeysToAgent &lt;span class=&quot;nb&quot;&gt;yes
+  &lt;/span&gt;UseKeychain &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Snippets from .bash_profile &lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# Edit the profile itself&lt;/span&gt;
@@ -195,31 +195,31 @@ Host &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EDITOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;nano
 
 &lt;span class=&quot;c&quot;&gt;# Load SSH identities since macOS forgets on reboot&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ssh-agent -s&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-ssh-add -A &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ssh-agent &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+ssh-add &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Symlink a folder; notice there are no trailing slashes (only verified on macOS)&lt;/span&gt;
-ln -sFv /path/to/original-folder /path/to/folder-symlink&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;nb&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-sFv&lt;/span&gt; /path/to/original-folder /path/to/folder-symlink&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Tail multiple logs at the same time&lt;/span&gt;
-tail -f /var/log/name&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.log&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; /var/log/name&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.log&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Delete files older than 5 days&lt;/span&gt;
-find ./&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; -mtime +5 -exec rm &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+find ./&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-mtime&lt;/span&gt; +5 &lt;span class=&quot;nt&quot;&gt;-exec&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Find processes listening on $PORT&lt;/span&gt;
-lsof -n -i:&lt;span class=&quot;nv&quot;&gt;$PORT&lt;/span&gt; | grep LISTEN&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+lsof &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;:&lt;span class=&quot;nv&quot;&gt;$PORT&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;LISTEN&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# git commands&lt;/span&gt;
-git diff branch1..branch2 -- filename
+git diff branch1..branch2 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; filename
 
-git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Show disk space used with human readable file format&lt;/span&gt;
-df -h
+&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Find the top 10 largest directories in /path&lt;/span&gt;
-du -Sh /path | sort -rh | head -10&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;nb&quot;&gt;du&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Sh&lt;/span&gt; /path | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rh&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Wed, 19 Jul 2017 04:15:00 -0400</pubDate>
         <link>http://michaelehead.com/2017/07/19/personal-notes-on-development.html</link>

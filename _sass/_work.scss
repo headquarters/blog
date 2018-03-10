@@ -13,8 +13,8 @@
         }
     }
 
-    @at-root .post figure,
-    figure {
+    @at-root .post figure:not(.highlight),
+    figure:not(.highlight) {
         margin: 1em 0;
         padding: 1.5em;
         background-color: #eee;
