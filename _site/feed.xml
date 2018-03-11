@@ -6,9 +6,100 @@
 </description>
     <link>http://michaelehead.com/</link>
     <atom:link href="http://michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 10 Mar 2018 08:49:44 -0500</pubDate>
-    <lastBuildDate>Sat, 10 Mar 2018 08:49:44 -0500</lastBuildDate>
+    <pubDate>Sat, 10 Mar 2018 21:48:49 -0500</pubDate>
+    <lastBuildDate>Sat, 10 Mar 2018 21:48:49 -0500</lastBuildDate>
     <generator>Jekyll v3.7.3</generator>
+    
+      <item>
+        <title>How to Create a Bookmarklet</title>
+        <description>&lt;p&gt;JavaScript bookmarklets are snippets of code that can manipulate webpages. They’re sometimes
+useful for small automation tasks, such as filling out a form or clicking buttons. In
+this post I’ll walk through one way to create a bookmarklet.&lt;/p&gt;
+
+&lt;p&gt;I used node version 8.1.2 and npm version 5.0.3 for the following steps. You can also 
+do all this in a simple text editor, but the addition of a build step makes the workflow a bit faster. 
+Without the build step, you have to escape the output and put it in an &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Glossary/IIFE&quot;&gt;IIFE&lt;/a&gt; 
+yourself or use an &lt;a href=&quot;http://userjs.up.seesaa.net/js/bookmarklet.html&quot;&gt;online bookmarklet generator&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;In this example, we’re going to create a bookmarklet that takes the page title and displays 
+it at the top of the page.&lt;/p&gt;
+
+&lt;p&gt;Start by creating a directory for the project, going into it, and initializing an NPM package:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;show-title-bookmarklet
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;show-title-bookmarklet
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm init&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;When prompted for all the NPM init steps, just keep hitting enter (for the sake of the example).&lt;/p&gt;
+
+&lt;p&gt;Next, we’ll install the &lt;a href=&quot;https://www.npmjs.com/package/bookmarklet&quot;&gt;bookmarklet&lt;/a&gt; NPM 
+package that can create our bookmarklet. Then, create a &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; directory to contain our source
+file:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;bookmarklet &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;src&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now, edit the &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file at the root of your project and add a “build” script
+that invokes the bookmarklet on the file in “src/index.js” and outputs it to 
+“dist/bookmarklet.js”, like so:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;  &lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;bookmarklet src/index.js dist/bookmarklet.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;echo &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Error: no test specified&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;amp;&amp;amp; exit 1&quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Let’s create the file at src/index.js that will be our bookmarklet source:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.title__bookmarklet'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+  &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'div'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'title__bookmarklet'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textAlign&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'center'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'16px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontFamily&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Arial'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'lightyellow'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'absolute'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'100vw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;zIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'99999'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Back at the command line, run &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; in order to create your bookmarklet.js
+in the “dist” folder. The file will contain code in the following format:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;javascript:&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; your code here &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;o&quot;&gt;})()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Copy the contents of dist/bookmarklet.js. In your browser (other than Edge :),
+add a new bookmark and paste the bookmarklet contents in the URL field and set
+the page title to whatever you want. These steps are highlighted in the GIF below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/gifs/bookmarklet.gif&quot; alt=&quot;Animation showing the steps in the preceding paragraph&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And done! Congratulations, you made a bookmarklet with a build step. Now, if you want to edit
+the source file you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; and regenerate it to have a completely new
+version. The example we created here is available as a 
+&lt;a href=&quot;https://github.com/headquarters/show-title-bookmarklet&quot;&gt;GitHub repo&lt;/a&gt;, too.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 10 Mar 2018 04:48:00 -0500</pubDate>
+        <link>http://michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</link>
+        <guid isPermaLink="true">http://michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</guid>
+        
+        <category>javascript</category>
+        
+        <category>development</category>
+        
+        
+      </item>
     
       <item>
         <title>Baby Registries and Service Design</title>
@@ -459,31 +550,6 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
         <pubDate>Thu, 12 Feb 2015 16:22:00 -0500</pubDate>
         <link>http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</link>
         <guid isPermaLink="true">http://michaelehead.com/2015/02/12/accessing-real-ip-addresses-on-openshift.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>DataMapper settings on OpenShift with PostgreSQL</title>
-        <description>&lt;p&gt;The OpenShift documentation shows that a PostgreSQL connection string should look like this:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;postgresql://user:password@host:port&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;However, the DataMapper documentation shows that a PostgreSQL connection string should look like this:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;postgres://user:password@hostname/database&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;When using DataMapper on OpenShift, though, follow the DataMapper documentation, &lt;strong&gt;not&lt;/strong&gt; the OpenShift documentation. The DataMapper gem attempts to require adapters based on the prefix name, so if you use “postgresql” as the prefix, it attempts to load the “dm-postgresql-adapter” gem, which does not exist. You will get a “cannot load file – dm-postgresql-adapter” error. So, stick with the DataMapper version and use the “postgres” prefix. &lt;/p&gt;
-</description>
-        <pubDate>Tue, 10 Feb 2015 11:43:42 -0500</pubDate>
-        <link>http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</link>
-        <guid isPermaLink="true">http://michaelehead.com/2015/02/10/datamapper-settings-on-openshift-with-postgresql.html</guid>
-        
-        <category>development</category>
-        
-        <category>ruby</category>
-        
-        <category>databases</category>
         
         
       </item>
