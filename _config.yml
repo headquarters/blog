@@ -7,7 +7,7 @@ description: > #
   Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences
   for small agencies, mid-sized companies, and Fortune 50 corporations.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://michaelehead.com" # the base hostname & protocol for your site
+url: "https://www.michaelehead.com" # the base hostname & protocol for your site
 twitter_username: michaelehead
 github_username:  headquarters
 linkedin_username: michaelehead
