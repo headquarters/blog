@@ -656,6 +656,11 @@ article {
   padding: 0 1em;
   margin: 0 auto; }
 
+.founders-devop-agile table td {
+  border: 1px solid gray;
+  padding: 10px;
+  font-size: 14px; }
+
 .work {
   max-width: 60em;
   margin: 0 auto; }

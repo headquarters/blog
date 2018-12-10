@@ -1,1 +1,1 @@
-jekyll serve -w --trace --host 0.0.0.0
+docker run -p 8080:4000 -v $(pwd):/site bretfisher/jekyll-serve
