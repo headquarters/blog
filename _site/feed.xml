@@ -4,11 +4,45 @@
     <title>Michael's Headquarters</title>
     <description>Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
 </description>
-    <link>http://0.0.0.0:4000/</link>
-    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 25 Jun 2019 02:03:09 +0000</pubDate>
-    <lastBuildDate>Tue, 25 Jun 2019 02:03:09 +0000</lastBuildDate>
-    <generator>Jekyll v3.7.3</generator>
+    <link>https://www.michaelehead.com/</link>
+    <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 28 Dec 2019 03:12:26 +0000</pubDate>
+    <lastBuildDate>Sat, 28 Dec 2019 03:12:26 +0000</lastBuildDate>
+    <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Unzipping a large gzip file in Python</title>
+        <description>&lt;h1 id=&quot;the-project&quot;&gt;The Project&lt;/h1&gt;
+&lt;p&gt;I worked on a project recently that required ingesting a large flat file that my team received as a gzipped file. The gzipped file was 3GB in size and uncompressed it was about 55GB. It had around 200 million rows in it. The ingest process involved taking that file and getting the data into an Aurora RDS MySQL database.&lt;/p&gt;
+
+&lt;p&gt;I inherited the project from a previous team that had implemented a way of ingesting the file via the Python library Pandas. Pandas can “stream” unzip and decompress a file, grabbing lines of a few chunks at a time (say 10000 lines), and inserting it into a database. I was pretty impressed, given the gzipped file size. Inserting all those records via Pandas took between 4-5 hours.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-environment&quot;&gt;The Environment&lt;/h1&gt;
+&lt;p&gt;The gzipped file sat in an S3 bucket that a Python script would read from. The Python script ran in an AWS Step Function that spun up a container via Fargate. The container was maxed out in its resources in ECS with a soft limit of RAM around 30GB and a max disk space of 14GB. So, unzipping this file into memory or onto disk was not an option and the Pandas process worked really well to avoid exhausting memory or disk space.&lt;/p&gt;
+
+&lt;h1 id=&quot;performance&quot;&gt;Performance&lt;/h1&gt;
+&lt;p&gt;After doing some performance analysis I found that using the native MySQL &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA LOCAL INFILE&lt;/code&gt;, and more specifically its AWS-specific cousin &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt;, would be a lot faster than the Pandas process. In fact, it shaved off around 2.5 hours. However, MySQL only supports loading uncompressed files via the &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p&gt;We updated the ingest process to use &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt; and saw a performance uptick, but we then had to manually uncompress the file before uploading it to its original S3 bucket. This took a long time—uploading a 55GB file via &lt;code class=&quot;highlighter-rouge&quot;&gt;aws s3 cp&lt;/code&gt; would take about an hour from our local machines on our office network. This wasn’t a great compromise because we introduced a manual step that was time consuming and prone to failing (if a computer went to sleep while uploading, for example).&lt;/p&gt;
+
+&lt;p&gt;I started testing out whether we could download the gzipped file to our Fargate container and unzip it there before loading to MySQL. Unfortunately, I ran into memory constraints and disk space constraints in Fargate. At that point we could have scrapped that infrastructure and gone with something else like EC2, but the existing infrastructure was very appealing and it seemed possible to do this without exhausting the container’s memory or disk space. Pandas got away with it, right?&lt;/p&gt;
+
+&lt;h1 id=&quot;the-solution&quot;&gt;The Solution&lt;/h1&gt;
+&lt;p&gt;After several rounds of searching online, reading through various StackOverflow answers, and lots of trial and error I finally found a solution. Python could open the gzipped file without reading its entire contents to memory or saving it to disk and boto3 could &lt;a href=&quot;https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.upload_fileobj&quot;&gt;upload it back to S3 as a file object&lt;/a&gt;. Then, since the file is back in S3 as a decompressed file as if we’d uploaded it ourselves, we can continue to use &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt; as normal. Voila! Problem solved with &lt;a href=&quot;https://github.com/headquarters/python-streaming-unzip/blob/master/src/main.py#L22-L23&quot;&gt;two lines of Python code&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To showcase the power of this method for decompressing a large file without exhausting memory or disk space, I put together a repository that demonstrates the various scenarios I tried: https://github.com/headquarters/python-streaming-unzip. Here you can play around with a Docker container that can execute a Python script that attempts to decompress a gzipped file into memory, onto disk, or via the streaming method. You’ll have to provide your own large compressed file in S3, though.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 28 Dec 2019 03:11:00 +0000</pubDate>
+        <link>https://www.michaelehead.com/2019/12/28/python-streaming-unzip.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2019/12/28/python-streaming-unzip.html</guid>
+        
+        <category>javascript</category>
+        
+        <category>development</category>
+        
+        
+      </item>
     
       <item>
         <title>The Founder's Mentality, DevOps, and Agile</title>
@@ -66,8 +100,8 @@
 &lt;p&gt;There is a ton of overlap between these 3 topics. In my mind, The Founder’s Mentality is DevOps/Agile explained in a way that non-technology-centric business executives can relate to. It reinforces to me that, at the end of the day, product, design, development, operations, and every other unit of business are all trying to achieve the same thing, but we have various ways to execute on that vision and occasionally our terminology doesn’t line up. Hopefully a comparison like this will help bridge the gap for some folks out there.&lt;/p&gt;
 </description>
         <pubDate>Mon, 10 Dec 2018 08:30:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</guid>
+        <link>https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</guid>
         
         <category>javascript</category>
         
@@ -104,8 +138,8 @@
 
 </description>
         <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</guid>
+        <link>https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</guid>
         
         <category>javascript</category>
         
@@ -147,32 +181,32 @@ file:&lt;/p&gt;
 that invokes the bookmarklet on the file in “src/index.js” and outputs it to 
 “dist/bookmarklet.js”, like so:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;  &lt;span class=&quot;s2&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;bookmarklet src/index.js dist/bookmarklet.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;echo &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Error: no test specified&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;amp;&amp;amp; exit 1&quot;&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;  &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;scripts&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;bookmarklet src/index.js dist/bookmarklet.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;echo &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Error: no test specified&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &amp;amp;&amp;amp; exit 1&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Let’s create the file at src/index.js that will be our bookmarklet source:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'.title__bookmarklet'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.title__bookmarklet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
   &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'div'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'title__bookmarklet'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textAlign&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'center'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'16px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontFamily&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Arial'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'20px'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'lightyellow'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'absolute'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;title__bookmarklet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textAlign&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;16px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontFamily&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Arial&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;lightyellow&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'100vw'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;zIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'99999'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;100vw&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;zIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;99999&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
@@ -195,8 +229,8 @@ version. The example we created here is available as a
 &lt;a href=&quot;https://github.com/headquarters/show-title-bookmarklet&quot;&gt;GitHub repo&lt;/a&gt;, too.&lt;/p&gt;
 </description>
         <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</guid>
+        <link>https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</guid>
         
         <category>javascript</category>
         
@@ -315,8 +349,8 @@ ease the frustration of dealing with their service.&lt;/p&gt;
 &lt;p&gt;Update: they’ve undergone a redesign so some screenshots are out of date and they now use babiesrus.com, so they’re improving!&lt;/p&gt;
 </description>
         <pubDate>Sat, 05 Aug 2017 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</guid>
+        <link>https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</guid>
         
         <category>ux</category>
         
@@ -417,8 +451,8 @@ git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt
 &lt;span class=&quot;nb&quot;&gt;du&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Sh&lt;/span&gt; /path | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rh&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Wed, 19 Jul 2017 08:15:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</guid>
+        <link>https://www.michaelehead.com/2017/07/19/personal-notes-on-development.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/07/19/personal-notes-on-development.html</guid>
         
         <category>ux</category>
         
@@ -459,8 +493,8 @@ user interfaces. (also Tenets+Traps)&lt;/p&gt;
 &lt;p&gt;Design is biased towards action. If you can’t take action on a problem, it’s not a problem, it’s a circumstance. A lot of people have a problem that isn’t a problem, it’s a circumstance. (adapted from http://www.npr.org/templates/transcript/transcript.php?storyId=507901716)&lt;/p&gt;
 </description>
         <pubDate>Sun, 16 Jul 2017 15:07:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</guid>
+        <link>https://www.michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</guid>
         
         <category>ux</category>
         
@@ -506,8 +540,8 @@ using React for the JS behavior. Nonetheless, it gets you pretty far toward usin
 and avoiding the extra overhead of jQuery being included in your web application just for use with Bootstrap.&lt;/p&gt;
 </description>
         <pubDate>Fri, 09 Jun 2017 15:50:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</guid>
+        <link>https://www.michaelehead.com/2017/06/09/using-bootstrap-components-in-react.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/06/09/using-bootstrap-components-in-react.html</guid>
         
         
       </item>
@@ -528,9 +562,9 @@ You’ll see that primitive types in JavaScript are “passed” by value in ass
 
 &lt;p&gt;However, this is not what happens with objects and their properties. Here’s another example:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'The green book'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The green book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// this still references firstBook&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'The blue book'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The blue book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 'The blue book'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/a/3638034/360509&quot;&gt;This StackOverflow answer&lt;/a&gt; calls this “call-by-sharing”. 
@@ -542,22 +576,22 @@ I have a &lt;a href=&quot;https://github.com/headquarters/react-es6-template/blo
 
 &lt;p&gt;Two of my preferred solutions for this, depending on your development environment (browser or server), are to use Object.assign or the ES6 spread operator:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'The green book'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The green book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'The blue book'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The blue book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 'The green book' is unchanged&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// ES6 spread operator doesn't work in most browsers yet as of 2017-01-05,&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;// have to test this in the Node REPL&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'The green book'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'The blue book'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// The title property will overwrite the property brought in from via the spread operator&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The green book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The blue book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// The title property will overwrite the property brought in from via the spread operator&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 'The green book' is unchanged&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;So, be mindful of the sort-of-pass-by-reference treatment of objects in JavaScript to avoid object mutation gotchas.&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 Jan 2017 11:40:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</guid>
+        <link>https://www.michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</guid>
         
         
       </item>
@@ -593,36 +627,8 @@ same benefit. If you simply want to use the default installed Ruby version on Ma
 (this works in El Capitan) without requiring &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;, this should do it.&lt;/p&gt;
 </description>
         <pubDate>Sat, 06 Feb 2016 10:24:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2016/02/06/installing-gems-without-sudo.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2016/02/06/installing-gems-without-sudo.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Wrap long links on small screens</title>
-        <description>&lt;p&gt;When building mobile-friendly web pages, you may come across long links in your content that cause horizontal scrollbars on smaller screens. Since links don’t contain spaces, there is no natural break for them to wrap when their parent container shrinks in width. You can use the following CSS rule to fix this:&lt;/p&gt;
-
-&lt;!-- 
-	Unfortunately, the syntax highlighting CSS thinks &quot;overflow&quot; in &quot;overflow-wrap&quot; needs to be bold.
-	Forgive this inline style as a workaround.
---&gt;
-&lt;style&gt;
-	.highlight .k { font-weight: normal; }
-&lt;/style&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;/* standard syntax for modern browsers */&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;overflow-wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break-word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;/* older browser syntax */&lt;/span&gt;
-    &lt;span class=&quot;nl&quot;&gt;word-wrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;break-word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;A better approach is to change the text of the link itself. Instead of having &lt;a href=&quot;#nogo&quot;&gt;http://some/really/long/link?withabunchoftextinit&lt;/a&gt;, you can just link an &lt;a href=&quot;#nogo&quot;&gt;appropriate keyword&lt;/a&gt; or two. Better for SEO and better for users. &lt;/p&gt;
-</description>
-        <pubDate>Mon, 20 Apr 2015 04:26:38 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2015/04/20/wrap-long-links-on-small-screens.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2015/04/20/wrap-long-links-on-small-screens.html</guid>
+        <link>https://www.michaelehead.com/2016/02/06/installing-gems-without-sudo.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2016/02/06/installing-gems-without-sudo.html</guid>
         
         
       </item>

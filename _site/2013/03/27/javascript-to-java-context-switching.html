@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2013/03/27/javascript-to-java-context-switching.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="https://www.michaelehead.com/2013/03/27/javascript-to-java-context-switching.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="https://www.michaelehead.com/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -55,11 +55,11 @@
 
 <p>Recently, I was trying to split a string into two separate array values in a JSP, for displaying them separately through JSTL. I commented out</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">someVar</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">String</span> <span class="n">someVar</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span></code></pre></figure>
 
 <p>and added</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Array</span> <span class="n">someVarArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Array</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Array</span> <span class="n">someVarArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span></code></pre></figure>
 
 <p>and Eclipse seemed to be fine with it. So, I went on to write more code utilizing my new array, and refreshed the page…everything worked fine. But, the page markup was not changing to reflect the JSP changes. It was heavily cached for some reason. So, I restarted the server, and reloaded the page, and got the following error:</p>
 
@@ -67,7 +67,7 @@
 
 <p>After finally getting over my JavaScript tunnel vision, I realized I needed a type for the array:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">String</span><span class="o">[]</span> <span class="n">someVarArray</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">String</span><span class="o">[]</span> <span class="n">someVarArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span></code></pre></figure>
 
 <p>This is difficult to track down because my IDE effectively told me there was a ClassNotFoundException, which every StackOverflow post points to being an issue with class paths or output folders for a project; none of them point to actual code problems. Also, the compiler did not catch this as a problem, either. Where is your strong type handling now, Java?</p>
 
