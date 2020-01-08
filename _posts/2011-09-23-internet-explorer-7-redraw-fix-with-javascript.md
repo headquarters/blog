@@ -18,4 +18,4 @@ var productContainerTop = productContainer.offset().top;
 productContainer.css("display", "block"); //or whatever display type needs to be reset
 {% endhighlight %}
 
-You grab the element, hide it, access it's offset (while hidden), then restore it. I'm guessing this forces IE7 to re-calculate the offset when the item is hidden, even though you store the value and never use it, then making it visible again causes it to redraw properly. A wild guess, but these few lines work nonetheless. 
+You grab the element, hide it, access its offset (while hidden), then restore it. I'm guessing this forces IE7 to re-calculate the offset when the item is hidden, even though you store the value and never use it, then making it visible again causes it to redraw properly. A wild guess, but these few lines work nonetheless. 

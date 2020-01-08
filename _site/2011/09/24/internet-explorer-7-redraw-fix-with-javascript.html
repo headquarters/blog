@@ -58,7 +58,7 @@
 <span class="kd">var</span> <span class="nx">productContainerTop</span> <span class="o">=</span> <span class="nx">productContainer</span><span class="p">.</span><span class="nx">offset</span><span class="p">().</span><span class="nx">top</span><span class="p">;</span>  
 <span class="nx">productContainer</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">display</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">);</span> <span class="c1">//or whatever display type needs to be reset</span></code></pre></figure>
 
-<p>You grab the element, hide it, access it’s offset (while hidden), then restore it. I’m guessing this forces IE7 to re-calculate the offset when the item is hidden, even though you store the value and never use it, then making it visible again causes it to redraw properly. A wild guess, but these few lines work nonetheless. </p>
+<p>You grab the element, hide it, access its offset (while hidden), then restore it. I’m guessing this forces IE7 to re-calculate the offset when the item is hidden, even though you store the value and never use it, then making it visible again causes it to redraw properly. A wild guess, but these few lines work nonetheless. </p>
 
 	</article>
 </div>

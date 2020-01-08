@@ -6,9 +6,34 @@
 </description>
     <link>https://www.michaelehead.com/</link>
     <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 28 Dec 2019 03:16:44 +0000</pubDate>
-    <lastBuildDate>Sat, 28 Dec 2019 03:16:44 +0000</lastBuildDate>
+    <pubDate>Wed, 08 Jan 2020 15:59:30 +0000</pubDate>
+    <lastBuildDate>Wed, 08 Jan 2020 15:59:30 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Bug case studies</title>
+        <description>&lt;h1 id=&quot;bug-case-studies&quot;&gt;Bug Case Studies&lt;/h1&gt;
+
+&lt;p&gt;Occasionally bugs come across that are so insidious and hard to find that you spend hours or days trying to replicate them or fix them. This is a collection of case studies around bugs I’ve fixed in my career that were so hard to figure out to either replicate or fix at the time that they’ve stuck with me since.&lt;/p&gt;
+
+&lt;h2 id=&quot;session-leaking-in-nodejs-processes&quot;&gt;Session leaking in Node.js processes&lt;/h2&gt;
+
+&lt;p&gt;We had just launched a new home page built in React.js with a Node.js API backend that was intended to replace a legacy Ext.js application front-end talking to an old web framework built on TCL running on AOLServer (yeah, seriously). After launching, some users started mentioning they were seeing data that didn’t belong with their account, such as “Welcome, Mary” on the home page when they were not Mary. It didn’t happen very often and it was impossible to replicate locally. However, it definitely sounded like session data was leaking between users and we had to figure out how to fix it.&lt;/p&gt;
+
+&lt;p&gt;The first step in fixing the issue was recreating the bug–it was impossible to do so with a local version of the site running. So, I wrote a script in Node.js that would do a tiny load test against our development environment with different test user accounts. It would randomly pick an account, do some screen scraping for CSRF tokens and such, log into that account, and then inspect the resulting home page text results to determine if the resulting HTML had the expected user’s name. This was able to replicate the problem fairly reliably–it was an issue that only crept up given a large enough number of different requests and sessions.&lt;/p&gt;
+
+&lt;p&gt;The project for the new home page consisted of two node.js applications, one was the “parent” application that contained the backend API running in one node.js process that would spawn a child node.js process to create the front-end that would talk to that backend. Requests would hit the front-end, session state would be called from the API, and then the front-end application would server-render a page built with React.js.&lt;/p&gt;
+
+&lt;p&gt;After much digging into the code, debugging, testing, trial and error, swear words, and feelings of despair, with another engineer’s help I finally figured out where the problem was–the interprocess communication between parent and child Node.js processes. As the &lt;a href=&quot;https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options&quot;&gt;Node.js documentation says&lt;/a&gt;: “Keep in mind that spawned Node.js child processes are independent of the parent with exception of the IPC communication channel that is established between the two. Each process has its own memory, with their own V8 instances.” The solution we decided on was using a key/value object that stored a GUID for each request/response pair that our server created on a request, sending a message to the child process with that GUID included, sending the child’s message back with the same GUID, then returning the correct response based on GUID in the key/value pair. An example of the problem and solution can be found &lt;a href=&quot;https://github.com/headquarters/bugs/tree/master/node-ipc&quot;&gt;in this repo&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
+        <link>https://www.michaelehead.com/2020/01/08/bug-case-studies.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2020/01/08/bug-case-studies.html</guid>
+        
+        <category>development</category>
+        
+        
+      </item>
     
       <item>
         <title>Unzipping a large gzip file in Python</title>
@@ -30,7 +55,7 @@
 &lt;h1 id=&quot;the-solution&quot;&gt;The Solution&lt;/h1&gt;
 &lt;p&gt;After several rounds of searching online, reading through various StackOverflow answers, and lots of trial and error I finally found a solution. Python could open the gzipped file without reading its entire contents to memory or saving it to disk and boto3 could &lt;a href=&quot;https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.upload_fileobj&quot;&gt;upload it back to S3 as a file object&lt;/a&gt;. Then, since the file is back in S3 as a decompressed file as if we’d uploaded it ourselves, we can continue to use &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt; as normal. Voila! Problem solved with &lt;a href=&quot;https://github.com/headquarters/python-streaming-unzip/blob/master/src/main.py#L22-L23&quot;&gt;two lines of Python code&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;To showcase the power of this method for decompressing a large file without exhausting memory or disk space, I put together a repository that demonstrates the various scenarios I tried: https://github.com/headquarters/python-streaming-unzip. Here you can play around with a Docker container that can execute a Python script that attempts to decompress a gzipped file into memory, onto disk, or via the streaming method. You’ll have to provide your own large compressed file in S3, though.&lt;/p&gt;
+&lt;p&gt;To showcase the power of this method for decompressing a large file without exhausting memory or disk space, I put together a repository that demonstrates the various scenarios I tried: &lt;a href=&quot;https://github.com/headquarters/python-streaming-unzip&quot;&gt;https://github.com/headquarters/python-streaming-unzip&lt;/a&gt;. Here you can play around with a Docker container that can execute a Python script that attempts to decompress a gzipped file into memory, onto disk, or via the streaming method. You’ll have to provide your own large compressed file in S3, though.&lt;/p&gt;
 
 </description>
         <pubDate>Sat, 28 Dec 2019 03:11:00 +0000</pubDate>
@@ -272,10 +297,9 @@ rule at the lowest level of touchpoints with users, a form field.&lt;/p&gt;
 
 &lt;p&gt;Our original due date was in August, but we didn’t want to put that because
 they were already born (or “arrived” as the UI states). It seemed disenguous to say they weren’t born yet when they were. We decided we’d
-try to register in person, hoping that wouldn’t be a problem for an associate. 
-[screenshot of form field only allowing 2019 when month is June]&lt;/p&gt;
+try to register in person, hoping that wouldn’t be a problem for an associate.&lt;/p&gt;
 
-&lt;p&gt;amazon.com, on the other hand, allowed registering when the babies had already been born, 
+&lt;p&gt;Amazon.com, on the other hand, allowed registering when the babies had already been born, 
 but did provide a warning message in their form indicating that we had picked a date in the past. In the end, it didn’t seem to have affected any of the actual registry creation, though. One creepy
 thing Amazon did was pre-populate the registry with some “sponsored” items, which
 I promptly removed. If they had been “suggestions” and not just plopped into the list from the
@@ -592,43 +616,6 @@ I have a &lt;a href=&quot;https://github.com/headquarters/react-es6-template/blo
         <pubDate>Thu, 05 Jan 2017 11:40:00 +0000</pubDate>
         <link>https://www.michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</link>
         <guid isPermaLink="true">https://www.michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Install Ruby Gems on Mac OS X without sudo</title>
-        <description>&lt;p&gt;I have never had a default installation of Ruby gems on Mac OS X let me simply
-install new gems without requiring &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;. If you would like to install Ruby gems
-without requiring &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;, do the following:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Add &lt;code class=&quot;highlighter-rouge&quot;&gt;GEM_HOME&lt;/code&gt; to your .bash_profile&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;nano ~/.bash_profile&lt;/code&gt; and add &lt;code class=&quot;highlighter-rouge&quot;&gt;export GEM_HOME=/Users/Michael/.gem&lt;/code&gt;
-where the path is to your own Home folder&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Add the gem executables to your system path&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Also in .bash_profile, add &lt;code class=&quot;highlighter-rouge&quot;&gt;export PATH=&quot;$GEM_HOME/bin:$PATH&quot;&lt;/code&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;For some reason these simple steps don’t show up in the top StackOverflow answers.
-People often suggest using rvm to install a custom Ruby version that won’t require using
-&lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt; when installing gems or something like rbenv to create a Ruby environment for the
-same benefit. If you simply want to use the default installed Ruby version on Mac OS X
-(this works in El Capitan) without requiring &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo&lt;/code&gt;, this should do it.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 06 Feb 2016 10:24:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2016/02/06/installing-gems-without-sudo.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2016/02/06/installing-gems-without-sudo.html</guid>
         
         
       </item>

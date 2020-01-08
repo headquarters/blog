@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+               _
+              | |
+              | |
+           ___|  \____
+          |___]   
+         |____]     
+          |___]    |___
+           |___]__/
+           
+           Cool.
+        -->
+  <title>Bug case studies | Michael Head</title>
+  <meta name="description" content="Bug Case Studies">
+
+  <link rel="stylesheet" href="/css/main.css">
+        
+  <link rel="canonical" href="https://www.michaelehead.com/2020/01/08/bug-case-studies.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="https://www.michaelehead.com/feed.xml" />
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+
+<div class="site-header">
+    <a href="#main" id="go-to-main" class="site-header--content-link">Go to content &darr;</a>
+    <header class="site-header--titles">
+        <h1 class="site-header--title">Michael's Headquarters</h1>
+        <h2 class="site-header--subtitle">On UX Design and Development</h2>
+    </header>
+    <nav class="main-nav">
+        <ul class="main-nav--list">
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/">About</a></li>
+          <li class="main-nav--list-item active"><a class="main-nav--link" href="/blog/">Blog</a></li>
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/work/">Work</a></li>
+        </ul>
+    </nav>        
+</div>
+
+<main id="main" class="blog">
+  <div class="post content bug-case-studies">
+	<header class="post-header">
+        <h1 class="post-title">Bug case studies</h1>
+        <time class="post-date" datetime="">
+            Jan 8, 2020
+        </time>
+    </header>
+	<article class="post-content">
+	<h1 id="bug-case-studies">Bug Case Studies</h1>
+
+<p>Occasionally bugs come across that are so insidious and hard to find that you spend hours or days trying to replicate them or fix them. This is a collection of case studies around bugs I’ve fixed in my career that were so hard to figure out to either replicate or fix at the time that they’ve stuck with me since.</p>
+
+<h2 id="session-leaking-in-nodejs-processes">Session leaking in Node.js processes</h2>
+
+<p>We had just launched a new home page built in React.js with a Node.js API backend that was intended to replace a legacy Ext.js application front-end talking to an old web framework built on TCL running on AOLServer (yeah, seriously). After launching, some users started mentioning they were seeing data that didn’t belong with their account, such as “Welcome, Mary” on the home page when they were not Mary. It didn’t happen very often and it was impossible to replicate locally. However, it definitely sounded like session data was leaking between users and we had to figure out how to fix it.</p>
+
+<p>The first step in fixing the issue was recreating the bug–it was impossible to do so with a local version of the site running. So, I wrote a script in Node.js that would do a tiny load test against our development environment with different test user accounts. It would randomly pick an account, do some screen scraping for CSRF tokens and such, log into that account, and then inspect the resulting home page text results to determine if the resulting HTML had the expected user’s name. This was able to replicate the problem fairly reliably–it was an issue that only crept up given a large enough number of different requests and sessions.</p>
+
+<p>The project for the new home page consisted of two node.js applications, one was the “parent” application that contained the backend API running in one node.js process that would spawn a child node.js process to create the front-end that would talk to that backend. Requests would hit the front-end, session state would be called from the API, and then the front-end application would server-render a page built with React.js.</p>
+
+<p>After much digging into the code, debugging, testing, trial and error, swear words, and feelings of despair, with another engineer’s help I finally figured out where the problem was–the interprocess communication between parent and child Node.js processes. As the <a href="https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options">Node.js documentation says</a>: “Keep in mind that spawned Node.js child processes are independent of the parent with exception of the IPC communication channel that is established between the two. Each process has its own memory, with their own V8 instances.” The solution we decided on was using a key/value object that stored a GUID for each request/response pair that our server created on a request, sending a message to the child process with that GUID included, sending the child’s message back with the same GUID, then returning the correct response based on GUID in the key/value pair. An example of the problem and solution can be found <a href="https://github.com/headquarters/bugs/tree/master/node-ipc">in this repo</a>.</p>
+
+	</article>
+</div>
+
+</main>
+
+        <footer class="footer row">
+          <div class="col">
+                <div class="footer--social">
+                    <a class="footer--link" href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
+                    <a class="footer--link" href="http://linkedin.com/in/michaelehead"><img src="/images/icons/LinkedIn.png" alt="LinkedIn" /></a>
+                    <a class="footer--link" href="http://twitter.com/michaelehead"><img src="/images/icons/Twitter.png" alt="Twitter" /></a>
+                </div>
+                <section class="footer--blog-info">
+                  <div class="footer--copyright">&copy; 2015</div>
+                  <div class="footer--poweredby">Generated by <a href="http://jeykyllrb.com">Jekyll</a></div>
+              </section>
+              <a class="footer--go-to-top" href="#go-to-main">&uarr; Top</a>
+          </div>
+        </footer>
+    </body>
+</html>
+

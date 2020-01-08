@@ -15,6 +15,11 @@ linkedin_username: michaelehead
 # Build settings
 markdown: kramdown
 
+# Exclude scripts
+exclude: 
+  - build.sh
+  - run.sh
+
 # Defaults
 defaults:
   -

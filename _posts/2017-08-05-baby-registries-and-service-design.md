@@ -37,9 +37,8 @@ rule at the lowest level of touchpoints with users, a form field.
 Our original due date was in August, but we didn't want to put that because
 they were already born (or "arrived" as the UI states). It seemed disenguous to say they weren't born yet when they were. We decided we'd
 try to register in person, hoping that wouldn't be a problem for an associate. 
-[screenshot of form field only allowing 2019 when month is June]
 
-amazon.com, on the other hand, allowed registering when the babies had already been born, 
+Amazon.com, on the other hand, allowed registering when the babies had already been born, 
 but did provide a warning message in their form indicating that we had picked a date in the past. In the end, it didn't seem to have affected any of the actual registry creation, though. One creepy
 thing Amazon did was pre-populate the registry with some "sponsored" items, which
 I promptly removed. If they had been "suggestions" and not just plopped into the list from the
