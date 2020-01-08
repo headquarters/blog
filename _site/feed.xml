@@ -6,8 +6,8 @@
 </description>
     <link>https://www.michaelehead.com/</link>
     <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 08 Jan 2020 15:59:30 +0000</pubDate>
-    <lastBuildDate>Wed, 08 Jan 2020 15:59:30 +0000</lastBuildDate>
+    <pubDate>Wed, 08 Jan 2020 16:05:28 +0000</pubDate>
+    <lastBuildDate>Wed, 08 Jan 2020 16:05:28 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -24,7 +24,9 @@
 
 &lt;p&gt;The project for the new home page consisted of two node.js applications, one was the “parent” application that contained the backend API running in one node.js process that would spawn a child node.js process to create the front-end that would talk to that backend. Requests would hit the front-end, session state would be called from the API, and then the front-end application would server-render a page built with React.js.&lt;/p&gt;
 
-&lt;p&gt;After much digging into the code, debugging, testing, trial and error, swear words, and feelings of despair, with another engineer’s help I finally figured out where the problem was–the interprocess communication between parent and child Node.js processes. As the &lt;a href=&quot;https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options&quot;&gt;Node.js documentation says&lt;/a&gt;: “Keep in mind that spawned Node.js child processes are independent of the parent with exception of the IPC communication channel that is established between the two. Each process has its own memory, with their own V8 instances.” The solution we decided on was using a key/value object that stored a GUID for each request/response pair that our server created on a request, sending a message to the child process with that GUID included, sending the child’s message back with the same GUID, then returning the correct response based on GUID in the key/value pair. An example of the problem and solution can be found &lt;a href=&quot;https://github.com/headquarters/bugs/tree/master/node-ipc&quot;&gt;in this repo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;After much digging into the code, debugging, testing, trial and error, swear words, and feelings of despair, with another engineer’s help I finally figured out where the problem was–the interprocess communication between parent and child Node.js processes. As the &lt;a href=&quot;https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options&quot;&gt;Node.js documentation says&lt;/a&gt;: “Keep in mind that spawned Node.js child processes are independent of the parent with exception of the IPC communication channel that is established between the two. Each process has its own memory, with their own V8 instances.”&lt;/p&gt;
+
+&lt;p&gt;The solution we decided on was using a key/value object that stored a GUID for each request/response pair that our server created on a request, sending a message to the child process with that GUID included, sending the child’s message back with the same GUID, then returning the correct response based on GUID in the key/value pair. An example of the problem and solution can be found &lt;a href=&quot;https://github.com/headquarters/bugs/tree/master/node-ipc&quot;&gt;in this repo&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
         <link>https://www.michaelehead.com/2020/01/08/bug-case-studies.html</link>
