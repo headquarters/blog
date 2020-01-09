@@ -6,8 +6,8 @@
 </description>
     <link>https://www.michaelehead.com/</link>
     <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 08 Jan 2020 16:05:28 +0000</pubDate>
-    <lastBuildDate>Wed, 08 Jan 2020 16:05:28 +0000</lastBuildDate>
+    <pubDate>Thu, 09 Jan 2020 22:28:14 +0000</pubDate>
+    <lastBuildDate>Thu, 09 Jan 2020 22:28:14 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -27,6 +27,34 @@
 &lt;p&gt;After much digging into the code, debugging, testing, trial and error, swear words, and feelings of despair, with another engineer’s help I finally figured out where the problem was–the interprocess communication between parent and child Node.js processes. As the &lt;a href=&quot;https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options&quot;&gt;Node.js documentation says&lt;/a&gt;: “Keep in mind that spawned Node.js child processes are independent of the parent with exception of the IPC communication channel that is established between the two. Each process has its own memory, with their own V8 instances.”&lt;/p&gt;
 
 &lt;p&gt;The solution we decided on was using a key/value object that stored a GUID for each request/response pair that our server created on a request, sending a message to the child process with that GUID included, sending the child’s message back with the same GUID, then returning the correct response based on GUID in the key/value pair. An example of the problem and solution can be found &lt;a href=&quot;https://github.com/headquarters/bugs/tree/master/node-ipc&quot;&gt;in this repo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;cdn-caching-a-missing-file&quot;&gt;CDN caching a missing file&lt;/h2&gt;
+
+&lt;p&gt;I was part of a team that was responsible for building a single page application (SPA) in Ember.js. We had just deployed a new version of our application recently and after a few days started receiving some complaints from users that they were experiencing problems with the application. Our customer support folks were telling users to do the “normal” troubleshooting things–clear your browser’s cache, try a different browser, and so on. Nothing seemed to work.&lt;/p&gt;
+
+&lt;p&gt;Across several teams, folks were checking server logs and all kinds of metrics to try to determine the cause. We flushed Akamai’s (our CDN) cache at least once, if not more times. Finally, we had an inkling there was some sort of caching problem going on beyond the CDN so we deployed a new version of the application. Our Ember application used fingerprinting for individual files so that a hash was created when the file changed. We introduced some meaningless change in order to force the hash to change for each file and thus force new files to be pulled down from the origin server and the CDN to the browser.&lt;/p&gt;
+
+&lt;p&gt;This fixed it, but we weren’t quite sure why. I dug into some Splunk logs and finally found a smoking gun: a permission denied error on a JavaScript file that our app needed to run. That explained why the app would fail, but not why the caching seemed to be stuck pulling the wrong thing. Checking the next layer up, I found in our Apache configuration that we set &lt;code class=&quot;highlighter-rouge&quot;&gt;ErrorDocument 404 http://example.com/#/404&lt;/code&gt; for catching 404 files (the external URL pointed at our own site). This meant that Apache was supposed to respond to requests where a file was not found by returning our site with the “/#/404” appended to the URL. Our SPA used hash routing at the time, so the “/#/404” part of the URL was intended to be picked up by the front-end routing and pull up the correct 404 view.&lt;/p&gt;
+
+&lt;p&gt;The problem with this configuration was that when &lt;a href=&quot;https://httpd.apache.org/docs/2.4/mod/core.html#errordocument&quot;&gt;ErrorDocument&lt;/a&gt; was pointing at an external URL (one starting with HTTP), it would actually return a &lt;em&gt;302&lt;/em&gt; status code, not the original HTTP error status code. As the docs state:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Note that when you specify an ErrorDocument that points to a remote URL (ie. anything with a method such as http in front of it), Apache HTTP Server will send a redirect to the client to tell it where to find the document, even if the document ends up being on the same server. This has several implications, the most important being that the client will not receive the original error status code, but instead will receive a redirect status code. 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here’s an &lt;a href=&quot;/images/screenshots/bugs/missing-file-network.jpg&quot;&gt;example of the network tab when this happens&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Moving one layer higher up our stack, I found that our Akamai configuration was set to cache 302 redirects for quite a while. &lt;a href=&quot;https://learn.akamai.com/en-us/webhelp/ion/oca/GUID-68D6DFBF-3D2A-4B2E-B2D8-C334507D186E.html#GUID-68D6DFBF-3D2A-4B2E-B2D8-C334507D186E__GUID-641CE60B-4CE4-492E-950D-29A18E807F92&quot;&gt;Akamai caches 302s by default if they contain a cache-control header&lt;/a&gt; and we hadn’t modified that setting.&lt;/p&gt;
+
+&lt;p&gt;To summarize, we had the following multi-layer failure:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Failed to read file on disk (permission denied)&lt;/li&gt;
+  &lt;li&gt;Apache treats a permission denied failure as a 404&lt;/li&gt;
+  &lt;li&gt;ErrorDocument with an external URL masks the 404 with a 302&lt;/li&gt;
+  &lt;li&gt;Akamai caches a 302 by default&lt;/li&gt;
+  &lt;li&gt;Users kept getting a 302 redirect for a JS file that really returned an HTML file that wouldn’t parse, breaking the entire single page app&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Crazy! I’ve recreated the majority of this scenario &lt;a href=&quot;https://github.com/headquarters/bugs/tree/master/missing-file-caching&quot;&gt;in this repo&lt;/a&gt;. I couldn’t emulate a CDN in the repo, but the file that fails to load does have a month-long cache on it which illustrates the issue with a cached 302.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
         <link>https://www.michaelehead.com/2020/01/08/bug-case-studies.html</link>
