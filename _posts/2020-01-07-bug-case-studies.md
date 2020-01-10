@@ -48,3 +48,54 @@ To summarize, we had the following multi-layer failure:
 - Users kept getting a 302 redirect for a JS file that really returned an HTML file that wouldn't parse, breaking the entire single page app
 
 Crazy! I've recreated the majority of this scenario [in this repo](https://github.com/headquarters/bugs/tree/master/missing-file-caching). I couldn't emulate a CDN in the repo, but the file that fails to load does have a month-long cache on it which illustrates the issue with a cached 302. 
+
+## CNAME failing to resolve inside AWS VPC
+
+My team had inherited a project that was setup inside of AWS with most of the infrastructure already in place. When a pull request was created in GitHub, it would automatically stand up a new version of the environment with URL in the form of 
+`http://<branch name>.pr.domain.io` that could be used to test a feature before merging the code into master. The stack for an environment consisted of the following:
+- an S3 bucket that would hold the front-end static assets for an Angular single page application, named the same as the URL: `<branch name>.pr.domain.io`
+- a set of Lambda functions that served as the API
+- API Gateway resources for the dynamically created URL
+
+After a pull request was merged into master, the master branch would build and deploy to `https://dev.domain.io`. When we completed a sprint, we'd manually deploy to "higher" level environments such as UAT or Production. The UAT environment had a URL of `https://uat.domain.io` and production's URL was `https://domain.io` without a prefix.
+
+One of the project's features involved taking screenshots of the site itself to use as images in a PowerPoint presentation. You might be asking, "Why??", to which I'd be happy to respond outside of this blog post... This process involved a Lambda function
+using headless Chrome to visit the front-end of the site to take screenshots. For example, in the dev environment a Lambda function would attempt to hit the front-end of `https://dev.domain.io/some-page`, take a screenshot, and then use that image in a process that created a PowerPoint presentation file and emailed it to the user that had kicked off the process. 
+
+This whole process of standing up a stack and creating a PowerPoint presentation worked well in all environments, _except_ the pull request (PR) environment. For some reason, PowerPoint slides came back with missing screenshots in that environment. After enabling a ton of logging in the headless Chrome process we found that requests to our dynamically-created URLs returned an error of `net::ERR_NAME_NOT_RESOLVED`. This seemed to be related to DNS name resolution. 
+
+I found one solution that involved changing the endpoint our application code used for PR branches to `http://<branch name>.pr.domain.io.s3-website-us-east-1.amazonaws.com/`. This seemed to circumvent the DNS resolution issue and worked, but wasn't a satifsying solution. 
+
+Looking into Route53 settings, I found that our "stable" environment names were all Type A records with an ALIAS to Cloudfront. These S3 buckets never changed names, just contents of them changed, so a stable Cloudfront name could be used to reference them. 
+The PR Route53 record, though, was a Type NS with individual entries for each PR environment that had a CNAME referencing the S3 bucket. As a shot in the dark, I modified our Cloudformation template to generate an A record instead of a CNAME for our PR environments and...
+it worked! To this day, I'm still not clear why this made a difference (if you happen to know, please reach out!), but it fixed the issue. I was then able to revert the application code back to using the "normal" PR environment URL: `http://<branch name>.pr.domain.io`. 
+
+Below is the Cloudformation template snippet before making the change:
+```
+  resourceRoute53RecordSetNoCloudFront:
+    Condition: conditionIsBranchBuild
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      ResourceRecords:
+        - !GetAtt [resourceS3WebsiteBucket, WebsiteURL]
+      Type: CNAME
+      TTL: 300
+      HostedZoneName: !Sub "${paramEnvironment}.domain.io."
+      Name: !Sub "${paramBranch}.pr.domain.io"
+```
+
+Replacing the `ResourceRecords` property with `AliasTarget` and `Type: A` below changed the record type:
+```
+  resourceRoute53RecordSetNoCloudFront:
+    Condition: conditionIsBranchBuild
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      AliasTarget:
+        DNSName: s3-website-us-east-1.amazonaws.com
+        HostedZoneId: Z3AQBSTGFYJSTF
+      Type: A
+      HostedZoneName: !Sub "${paramEnvironment}.domain.io."
+      Name: !Sub "${paramBranch}.pr.domain.io"
+```
+
+I don't have a repo for recreating this issue because it involves a ton of infrastructure to recreate, but the template snippet above is all that had to be changed to switch a Route53 record from a CNAME to an A with an Alias in our stack. 

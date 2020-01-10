@@ -6,8 +6,8 @@
 </description>
     <link>https://www.michaelehead.com/</link>
     <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 09 Jan 2020 22:28:14 +0000</pubDate>
-    <lastBuildDate>Thu, 09 Jan 2020 22:28:14 +0000</lastBuildDate>
+    <pubDate>Fri, 10 Jan 2020 15:44:34 +0000</pubDate>
+    <lastBuildDate>Fri, 10 Jan 2020 15:44:34 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -55,6 +55,57 @@
 &lt;/ul&gt;
 
 &lt;p&gt;Crazy! I’ve recreated the majority of this scenario &lt;a href=&quot;https://github.com/headquarters/bugs/tree/master/missing-file-caching&quot;&gt;in this repo&lt;/a&gt;. I couldn’t emulate a CDN in the repo, but the file that fails to load does have a month-long cache on it which illustrates the issue with a cached 302.&lt;/p&gt;
+
+&lt;h2 id=&quot;cname-failing-to-resolve-inside-aws-vpc&quot;&gt;CNAME failing to resolve inside AWS VPC&lt;/h2&gt;
+
+&lt;p&gt;My team had inherited a project that was setup inside of AWS with most of the infrastructure already in place. When a pull request was created in GitHub, it would automatically stand up a new version of the environment with URL in the form of 
+&lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt; that could be used to test a feature before merging the code into master. The stack for an environment consisted of the following:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;an S3 bucket that would hold the front-end static assets for an Angular single page application, named the same as the URL: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;a set of Lambda functions that served as the API&lt;/li&gt;
+  &lt;li&gt;API Gateway resources for the dynamically created URL&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After a pull request was merged into master, the master branch would build and deploy to &lt;code class=&quot;highlighter-rouge&quot;&gt;https://dev.domain.io&lt;/code&gt;. When we completed a sprint, we’d manually deploy to “higher” level environments such as UAT or Production. The UAT environment had a URL of &lt;code class=&quot;highlighter-rouge&quot;&gt;https://uat.domain.io&lt;/code&gt; and production’s URL was &lt;code class=&quot;highlighter-rouge&quot;&gt;https://domain.io&lt;/code&gt; without a prefix.&lt;/p&gt;
+
+&lt;p&gt;One of the project’s features involved taking screenshots of the site itself to use as images in a PowerPoint presentation. You might be asking, “Why??”, to which I’d be happy to respond outside of this blog post… This process involved a Lambda function
+using headless Chrome to visit the front-end of the site to take screenshots. For example, in the dev environment a Lambda function would attempt to hit the front-end of &lt;code class=&quot;highlighter-rouge&quot;&gt;https://dev.domain.io/some-page&lt;/code&gt;, take a screenshot, and then use that image in a process that created a PowerPoint presentation file and emailed it to the user that had kicked off the process.&lt;/p&gt;
+
+&lt;p&gt;This whole process of standing up a stack and creating a PowerPoint presentation worked well in all environments, &lt;em&gt;except&lt;/em&gt; the pull request (PR) environment. For some reason, PowerPoint slides came back with missing screenshots in that environment. After enabling a ton of logging in the headless Chrome process we found that requests to our dynamically-created URLs returned an error of &lt;code class=&quot;highlighter-rouge&quot;&gt;net::ERR_NAME_NOT_RESOLVED&lt;/code&gt;. This seemed to be related to DNS name resolution.&lt;/p&gt;
+
+&lt;p&gt;I found one solution that involved changing the endpoint our application code used for PR branches to &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io.s3-website-us-east-1.amazonaws.com/&lt;/code&gt;. This seemed to circumvent the DNS resolution issue and worked, but wasn’t a satifsying solution.&lt;/p&gt;
+
+&lt;p&gt;Looking into Route53 settings, I found that our “stable” environment names were all Type A records with an ALIAS to Cloudfront. These S3 buckets never changed names, just contents of them changed, so a stable Cloudfront name could be used to reference them. 
+The PR Route53 record, though, was a Type NS with individual entries for each PR environment that had a CNAME referencing the S3 bucket. As a shot in the dark, I modified our Cloudformation template to generate an A record instead of a CNAME for our PR environments and…
+it worked! To this day, I’m still not clear why this made a difference (if you happen to know, please reach out!), but it fixed the issue. I was then able to revert the application code back to using the “normal” PR environment URL: &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Below is the Cloudformation template snippet before making the change:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  resourceRoute53RecordSetNoCloudFront:
+    Condition: conditionIsBranchBuild
+    Type: &quot;AWS::Route53::RecordSet&quot;
+    Properties:
+      ResourceRecords:
+        - !GetAtt [resourceS3WebsiteBucket, WebsiteURL]
+      Type: CNAME
+      TTL: 300
+      HostedZoneName: !Sub &quot;${paramEnvironment}.domain.io.&quot;
+      Name: !Sub &quot;${paramBranch}.pr.domain.io&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Replacing the &lt;code class=&quot;highlighter-rouge&quot;&gt;ResourceRecords&lt;/code&gt; property with &lt;code class=&quot;highlighter-rouge&quot;&gt;AliasTarget&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Type: A&lt;/code&gt; below changed the record type:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  resourceRoute53RecordSetNoCloudFront:
+    Condition: conditionIsBranchBuild
+    Type: &quot;AWS::Route53::RecordSet&quot;
+    Properties:
+      AliasTarget:
+        DNSName: s3-website-us-east-1.amazonaws.com
+        HostedZoneId: Z3AQBSTGFYJSTF
+      Type: A
+      HostedZoneName: !Sub &quot;${paramEnvironment}.domain.io.&quot;
+      Name: !Sub &quot;${paramBranch}.pr.domain.io&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I don’t have a repo for recreating this issue because it involves a ton of infrastructure to recreate, but the template snippet above is all that had to be changed to switch a Route53 record from a CNAME to an A with an Alias in our stack.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
         <link>https://www.michaelehead.com/2020/01/08/bug-case-studies.html</link>
