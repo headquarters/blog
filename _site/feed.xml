@@ -4,10 +4,10 @@
     <title>Michael's Headquarters</title>
     <description>Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
 </description>
-    <link>https://www.michaelehead.com/</link>
-    <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 10 Jan 2020 15:44:34 +0000</pubDate>
-    <lastBuildDate>Fri, 10 Jan 2020 15:44:34 +0000</lastBuildDate>
+    <link>http://0.0.0.0:4000/</link>
+    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 22 May 2020 13:35:22 +0000</pubDate>
+    <lastBuildDate>Fri, 22 May 2020 13:35:22 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -108,8 +108,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;I don’t have a repo for recreating this issue because it involves a ton of infrastructure to recreate, but the template snippet above is all that had to be changed to switch a Route53 record from a CNAME to an A with an Alias in our stack.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2020/01/08/bug-case-studies.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2020/01/08/bug-case-studies.html</guid>
+        <link>http://0.0.0.0:4000/2020/01/08/bug-case-studies.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2020/01/08/bug-case-studies.html</guid>
         
         <category>development</category>
         
@@ -140,8 +140,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 </description>
         <pubDate>Sat, 28 Dec 2019 03:11:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2019/12/28/python-streaming-unzip.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2019/12/28/python-streaming-unzip.html</guid>
+        <link>http://0.0.0.0:4000/2019/12/28/python-streaming-unzip.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2019/12/28/python-streaming-unzip.html</guid>
         
         <category>javascript</category>
         
@@ -206,8 +206,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;There is a ton of overlap between these 3 topics. In my mind, The Founder’s Mentality is DevOps/Agile explained in a way that non-technology-centric business executives can relate to. It reinforces to me that, at the end of the day, product, design, development, operations, and every other unit of business are all trying to achieve the same thing, but we have various ways to execute on that vision and occasionally our terminology doesn’t line up. Hopefully a comparison like this will help bridge the gap for some folks out there.&lt;/p&gt;
 </description>
         <pubDate>Mon, 10 Dec 2018 08:30:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</guid>
+        <link>http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</guid>
         
         <category>javascript</category>
         
@@ -244,8 +244,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 </description>
         <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</guid>
+        <link>http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</guid>
         
         <category>javascript</category>
         
@@ -335,8 +335,8 @@ version. The example we created here is available as a
 &lt;a href=&quot;https://github.com/headquarters/show-title-bookmarklet&quot;&gt;GitHub repo&lt;/a&gt;, too.&lt;/p&gt;
 </description>
         <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</guid>
+        <link>http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</guid>
         
         <category>javascript</category>
         
@@ -454,8 +454,8 @@ ease the frustration of dealing with their service.&lt;/p&gt;
 &lt;p&gt;Update: they’ve undergone a redesign so some screenshots are out of date and they now use babiesrus.com, so they’re improving!&lt;/p&gt;
 </description>
         <pubDate>Sat, 05 Aug 2017 09:48:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</guid>
+        <link>http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</guid>
         
         <category>ux</category>
         
@@ -556,8 +556,8 @@ git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt
 &lt;span class=&quot;nb&quot;&gt;du&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Sh&lt;/span&gt; /path | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rh&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Wed, 19 Jul 2017 08:15:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2017/07/19/personal-notes-on-development.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2017/07/19/personal-notes-on-development.html</guid>
+        <link>http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</guid>
         
         <category>ux</category>
         
@@ -598,8 +598,8 @@ user interfaces. (also Tenets+Traps)&lt;/p&gt;
 &lt;p&gt;Design is biased towards action. If you can’t take action on a problem, it’s not a problem, it’s a circumstance. A lot of people have a problem that isn’t a problem, it’s a circumstance. (adapted from http://www.npr.org/templates/transcript/transcript.php?storyId=507901716)&lt;/p&gt;
 </description>
         <pubDate>Sun, 16 Jul 2017 15:07:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</guid>
+        <link>http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</guid>
         
         <category>ux</category>
         
@@ -645,8 +645,8 @@ using React for the JS behavior. Nonetheless, it gets you pretty far toward usin
 and avoiding the extra overhead of jQuery being included in your web application just for use with Bootstrap.&lt;/p&gt;
 </description>
         <pubDate>Fri, 09 Jun 2017 15:50:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2017/06/09/using-bootstrap-components-in-react.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2017/06/09/using-bootstrap-components-in-react.html</guid>
+        <link>http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</guid>
         
         
       </item>
@@ -695,8 +695,8 @@ I have a &lt;a href=&quot;https://github.com/headquarters/react-es6-template/blo
 &lt;p&gt;So, be mindful of the sort-of-pass-by-reference treatment of objects in JavaScript to avoid object mutation gotchas.&lt;/p&gt;
 </description>
         <pubDate>Thu, 05 Jan 2017 11:40:00 +0000</pubDate>
-        <link>https://www.michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</link>
-        <guid isPermaLink="true">https://www.michaelehead.com/2017/01/05/javascript-object-mutation-gotchas.html</guid>
+        <link>http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</guid>
         
         
       </item>
