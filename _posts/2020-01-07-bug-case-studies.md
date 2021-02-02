@@ -6,8 +6,6 @@ tags: [development]
 cssClass: bug-case-studies
 ---
 
-# Bug Case Studies
-
 Occasionally bugs come across that are so insidious and hard to find that you spend hours or days trying to replicate them or fix them. This is a collection of case studies around bugs I've fixed in my career that were so hard to figure out to either replicate or fix at the time that they've stuck with me since. 
 
 ## Session leaking in Node.js processes
