@@ -6,9 +6,49 @@
 </description>
     <link>http://0.0.0.0:4000/</link>
     <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 02 Feb 2021 13:48:36 +0000</pubDate>
-    <lastBuildDate>Tue, 02 Feb 2021 13:48:36 +0000</lastBuildDate>
+    <pubDate>Mon, 21 Nov 2022 20:21:59 +0000</pubDate>
+    <lastBuildDate>Mon, 21 Nov 2022 20:21:59 +0000</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Artificial delays in Mock Service Worker</title>
+        <description>&lt;p&gt;&lt;a href=&quot;http://mswjs.io&quot;&gt;Mock Service Worker&lt;/a&gt; (MSW) is a great library for mocking API calls in your front-end application. This works well both in the browser and in a test environment, such as Jest.&lt;/p&gt;
+
+&lt;p&gt;MSW runs a Service Worker to intercept requests and provide responses immediately back to your API calls with &lt;code class=&quot;highlighter-rouge&quot;&gt;fetch&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;XHR&lt;/code&gt;, and the like. This means your UI gets nearly-instant responses from your mock API in the browser. However, this can also lead a UI developer to forget that real network calls come with real latency. To ensure your UI works well with various loading states, waiting for network responses, avoids time outs, and so on, you can add a delay to each MSW response as the first parameter in the &lt;code class=&quot;highlighter-rouge&quot;&gt;res&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rest.get('/api/:id', (req, res, ctx) =&amp;gt; {
+  const { id } = req.params;
+  const post = data.find(post =&amp;gt; post.id.toString() === id);
+  return res(ctx.delay(500), ctx.json(post));
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This means each time that API should respond, it waits 500ms before “sending” back the response. With a lot of MSW handlers, this can become slow in your unit tests so it’s a good idea to only add this delay in non-test environments.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import { rest } from 'msw';
+import data from './data.json';
+
+const delay = process.env.NODE_ENV === &quot;test&quot; ? 0 : 500;
+
+export const handlers = [
+  rest.get('/api/:id', (req, res, ctx) =&amp;gt; {
+    const { id } = req.params;
+    const post = data.find(post =&amp;gt; post.id.toString() === id);
+    return res(ctx.delay(delay), ctx.json(post));
+  }),
+];
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With this approach, we can develop our UI in the browser and see our loading states while our automated unit tests can still run fast without pausing for MSW responses.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 21 Nov 2022 08:02:00 +0000</pubDate>
+        <link>http://0.0.0.0:4000/2022/11/21/artificial-delays-in-msw.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2022/11/21/artificial-delays-in-msw.html</guid>
+        
+        <category>development</category>
+        
+        
+      </item>
     
       <item>
         <title>Bug case studies</title>
@@ -106,8 +146,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;I don’t have a repo for recreating this issue because it involves a ton of infrastructure to recreate, but the template snippet above is all that had to be changed to switch a Route53 record from a CNAME to an A with an Alias in our stack.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2020/01/08/bug-case-studies.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2020/01/08/bug-case-studies.html</guid>
+        <link>http://0.0.0.0:4000/2020/01/08/bug-case-studies-copy.html</link>
+        <guid isPermaLink="true">http://0.0.0.0:4000/2020/01/08/bug-case-studies-copy.html</guid>
         
         <category>development</category>
         
@@ -645,56 +685,6 @@ and avoiding the extra overhead of jQuery being included in your web application
         <pubDate>Fri, 09 Jun 2017 15:50:00 +0000</pubDate>
         <link>http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</link>
         <guid isPermaLink="true">http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>JavaScript Object Mutation Gotchas</title>
-        <description>&lt;p&gt;In entry level computer science courses, one of the topics you discuss in learning a new programming language is “pass by value” and “pass by reference”. 
-I’m going to discuss these concepts in relation to some JavaScript object mutation “gotchas” that can creep up.&lt;/p&gt;
-
-&lt;p&gt;If you open up the console tab of your browser’s dev tools you can paste in the following example. 
-You’ll see that primitive types in JavaScript are “passed” by value in assignments.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// value of 3 is &quot;copied&quot; to secondNumber&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;secondNumber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// overriding the value of secondNumber has no effect on firstNumber&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 3&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;secondNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;However, this is not what happens with objects and their properties. Here’s another example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The green book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// this still references firstBook&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The blue book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 'The blue book'&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/a/3638034/360509&quot;&gt;This StackOverflow answer&lt;/a&gt; calls this “call-by-sharing”. 
-Changing the internals of an object mutates the original object.&lt;/p&gt;
-
-&lt;p&gt;Now, where in modern JavaScript usage might this bite a developer? 
-For me, it’s often been in mocha tests when I mutate an object’s properties between tests. 
-I have a &lt;a href=&quot;https://github.com/headquarters/react-es6-template/blob/object-mutation-example/test/components/Panel.js&quot;&gt;sample test displaying this problem on GitHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Two of my preferred solutions for this, depending on your development environment (browser or server), are to use Object.assign or the ES6 spread operator:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The green book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;assign&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The blue book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 'The green book' is unchanged&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// ES6 spread operator doesn't work in most browsers yet as of 2017-01-05,&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// have to test this in the Node REPL&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The green book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;secondBook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;The blue book&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// The title property will overwrite the property brought in from via the spread operator&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;firstBook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 'The green book' is unchanged&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;So, be mindful of the sort-of-pass-by-reference treatment of objects in JavaScript to avoid object mutation gotchas.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 05 Jan 2017 11:40:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html</guid>
         
         
       </item>
