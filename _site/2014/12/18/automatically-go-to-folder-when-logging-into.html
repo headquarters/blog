@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2014/12/18/automatically-go-to-folder-when-logging-into.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2014/12/18/automatically-go-to-folder-when-logging-into.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -52,11 +52,11 @@
 	<article class="post-content">
 	<p>Instead of going to the home directory, you may prefer to go to another directory when you SSH into a Vagrant VM. If so, here’s how to accomplish that.</p>
 
-<p>SSH into the Vagrant box you want to modify. Once logged in, open <code class="highlighter-rouge">~/.bashrc</code> in your editor of choice. Add </p>
+<p>SSH into the Vagrant box you want to modify. Once logged in, open <code class="language-plaintext highlighter-rouge">~/.bashrc</code> in your editor of choice. Add </p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text">cd /path/to/your/preferred/location</code></pre></figure>
 
-<p>to the bottom the <code class="highlighter-rouge">.bashrc</code> file. Next time you SSH into your Vagrant VM, you’ll be where you want to be without having to change directories manually every time. Verified on Ubuntu 14.04. Tip inspired by <a href="http://unix.stackexchange.com/a/32471">http://unix.stackexchange.com/a/32471</a>. </p>
+<p>to the bottom the <code class="language-plaintext highlighter-rouge">.bashrc</code> file. Next time you SSH into your Vagrant VM, you’ll be where you want to be without having to change directories manually every time. Verified on Ubuntu 14.04. Tip inspired by <a href="http://unix.stackexchange.com/a/32471">http://unix.stackexchange.com/a/32471</a>. </p>
 
 	</article>
 </div>

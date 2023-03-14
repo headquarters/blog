@@ -1,22 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Michael's Headquarters</title>
+    <title>Michael&apos;s Headquarters</title>
     <description>Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
 </description>
-    <link>http://0.0.0.0:4000/</link>
-    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 21 Nov 2022 20:21:59 +0000</pubDate>
-    <lastBuildDate>Mon, 21 Nov 2022 20:21:59 +0000</lastBuildDate>
-    <generator>Jekyll v3.8.5</generator>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 13 Mar 2023 20:54:11 -0400</pubDate>
+    <lastBuildDate>Mon, 13 Mar 2023 20:54:11 -0400</lastBuildDate>
+    <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>Configuring Docker for serving a SvelteKit app</title>
+        <description>&lt;p&gt;&lt;a href=&quot;https://kit.svelte.dev&quot;&gt;SvelteKit&lt;/a&gt; is a great web framework for building full stack apps using the underlying component model from Svelte. Recently, I had to debug an issue with a form action not working when submitting to the same page the form was served from. As an example:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;form action=&quot;/go/here&quot; method=&quot;POST&quot;&amp;gt;
+...
+&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On submit, both with a normal form POST or using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;enhance&lt;/code&gt; action for the form, would lead to the error “Cross-site POST form submissions are forbidden”. This was only in our deployed environment and not locally.&lt;/p&gt;
+
+&lt;p&gt;After some trial and error, searching online, and re-reading the docs on &lt;a href=&quot;https://kit.svelte.dev/docs/adapter-node#environment-variables&quot;&gt;environment variables for the Node.js adapter&lt;/a&gt; I realized I needed to set the ORIGIN when the node server is starting. Note: this is &lt;em&gt;not&lt;/em&gt; set when doing the build itself. The “build” below refers to the “build” folder, not the “build” command in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run build&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dockerfile snippet:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# build the app 
+RUN npm run build 
+
+# assumes the default SvelteKit host and port
+ENV ORIGIN=http://localhost:3000 
+
+# start the node.js app in build folder
+CMD [&quot;node&quot;, &quot;build&quot;] 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now a form action will POST properly when deployed.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 13 Mar 2023 20:03:00 -0400</pubDate>
+        <link>http://localhost:4000/2023/03/13/svelte-cross-site-post.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2023/03/13/svelte-cross-site-post.html</guid>
+        
+        <category>development</category>
+        
+        
+      </item>
     
       <item>
         <title>Artificial delays in Mock Service Worker</title>
         <description>&lt;p&gt;&lt;a href=&quot;http://mswjs.io&quot;&gt;Mock Service Worker&lt;/a&gt; (MSW) is a great library for mocking API calls in your front-end application. This works well both in the browser and in a test environment, such as Jest.&lt;/p&gt;
 
-&lt;p&gt;MSW runs a Service Worker to intercept requests and provide responses immediately back to your API calls with &lt;code class=&quot;highlighter-rouge&quot;&gt;fetch&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;XHR&lt;/code&gt;, and the like. This means your UI gets nearly-instant responses from your mock API in the browser. However, this can also lead a UI developer to forget that real network calls come with real latency. To ensure your UI works well with various loading states, waiting for network responses, avoids time outs, and so on, you can add a delay to each MSW response as the first parameter in the &lt;code class=&quot;highlighter-rouge&quot;&gt;res&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;MSW runs a Service Worker to intercept requests and provide responses immediately back to your API calls with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fetch&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XHR&lt;/code&gt;, and the like. This means your UI gets nearly-instant responses from your mock API in the browser. However, this can also lead a UI developer to forget that real network calls come with real latency. To ensure your UI works well with various loading states, waiting for network responses, avoids time outs, and so on, you can add a delay to each MSW response as the first parameter in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;res&lt;/code&gt; function.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rest.get('/api/:id', (req, res, ctx) =&amp;gt; {
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rest.get(&apos;/api/:id&apos;, (req, res, ctx) =&amp;gt; {
   const { id } = req.params;
   const post = data.find(post =&amp;gt; post.id.toString() === id);
   return res(ctx.delay(500), ctx.json(post));
@@ -25,13 +61,13 @@
 
 &lt;p&gt;This means each time that API should respond, it waits 500ms before “sending” back the response. With a lot of MSW handlers, this can become slow in your unit tests so it’s a good idea to only add this delay in non-test environments.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import { rest } from 'msw';
-import data from './data.json';
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import { rest } from &apos;msw&apos;;
+import data from &apos;./data.json&apos;;
 
 const delay = process.env.NODE_ENV === &quot;test&quot; ? 0 : 500;
 
 export const handlers = [
-  rest.get('/api/:id', (req, res, ctx) =&amp;gt; {
+  rest.get(&apos;/api/:id&apos;, (req, res, ctx) =&amp;gt; {
     const { id } = req.params;
     const post = data.find(post =&amp;gt; post.id.toString() === id);
     return res(ctx.delay(delay), ctx.json(post));
@@ -41,9 +77,9 @@ export const handlers = [
 
 &lt;p&gt;With this approach, we can develop our UI in the browser and see our loading states while our automated unit tests can still run fast without pausing for MSW responses.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 21 Nov 2022 08:02:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2022/11/21/artificial-delays-in-msw.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2022/11/21/artificial-delays-in-msw.html</guid>
+        <pubDate>Mon, 21 Nov 2022 03:02:00 -0500</pubDate>
+        <link>http://localhost:4000/2022/11/21/artificial-delays-in-msw.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/11/21/artificial-delays-in-msw.html</guid>
         
         <category>development</category>
         
@@ -72,11 +108,11 @@ export const handlers = [
 
 &lt;p&gt;Across several teams, folks were checking server logs and all kinds of metrics to try to determine the cause. We flushed Akamai’s (our CDN) cache at least once, if not more times. Finally, we had an inkling there was some sort of caching problem going on beyond the CDN so we deployed a new version of the application. Our Ember application used fingerprinting for individual files so that a hash was created when the file changed. We introduced some meaningless change in order to force the hash to change for each file and thus force new files to be pulled down from the origin server and the CDN to the browser.&lt;/p&gt;
 
-&lt;p&gt;This fixed it, but we weren’t quite sure why. I dug into some Splunk logs and finally found a smoking gun: a permission denied error on a JavaScript file that our app needed to run. That explained why the app would fail, but not why the caching seemed to be stuck pulling the wrong thing. Checking the next layer up, I found in our Apache configuration that we set &lt;code class=&quot;highlighter-rouge&quot;&gt;ErrorDocument 404 http://example.com/#/404&lt;/code&gt; for catching 404 files (the external URL pointed at our own site). This meant that Apache was supposed to respond to requests where a file was not found by returning our site with the “/#/404” appended to the URL. Our SPA used hash routing at the time, so the “/#/404” part of the URL was intended to be picked up by the front-end routing and pull up the correct 404 view.&lt;/p&gt;
+&lt;p&gt;This fixed it, but we weren’t quite sure why. I dug into some Splunk logs and finally found a smoking gun: a permission denied error on a JavaScript file that our app needed to run. That explained why the app would fail, but not why the caching seemed to be stuck pulling the wrong thing. Checking the next layer up, I found in our Apache configuration that we set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ErrorDocument 404 http://example.com/#/404&lt;/code&gt; for catching 404 files (the external URL pointed at our own site). This meant that Apache was supposed to respond to requests where a file was not found by returning our site with the “/#/404” appended to the URL. Our SPA used hash routing at the time, so the “/#/404” part of the URL was intended to be picked up by the front-end routing and pull up the correct 404 view.&lt;/p&gt;
 
 &lt;p&gt;The problem with this configuration was that when &lt;a href=&quot;https://httpd.apache.org/docs/2.4/mod/core.html#errordocument&quot;&gt;ErrorDocument&lt;/a&gt; was pointing at an external URL (one starting with HTTP), it would actually return a &lt;em&gt;302&lt;/em&gt; status code, not the original HTTP error status code. As the docs state:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Note that when you specify an ErrorDocument that points to a remote URL (ie. anything with a method such as http in front of it), Apache HTTP Server will send a redirect to the client to tell it where to find the document, even if the document ends up being on the same server. This has several implications, the most important being that the client will not receive the original error status code, but instead will receive a redirect status code. 
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Note that when you specify an ErrorDocument that points to a remote URL (ie. anything with a method such as http in front of it), Apache HTTP Server will send a redirect to the client to tell it where to find the document, even if the document ends up being on the same server. This has several implications, the most important being that the client will not receive the original error status code, but instead will receive a redirect status code. 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Here’s an &lt;a href=&quot;/images/screenshots/bugs/missing-file-network.jpg&quot;&gt;example of the network tab when this happens&lt;/a&gt;.&lt;/p&gt;
@@ -97,28 +133,28 @@ export const handlers = [
 &lt;h2 id=&quot;cname-failing-to-resolve-inside-aws-vpc&quot;&gt;CNAME failing to resolve inside AWS VPC&lt;/h2&gt;
 
 &lt;p&gt;My team had inherited a project that was setup inside of AWS with most of the infrastructure already in place. When a pull request was created in GitHub, it would automatically stand up a new version of the environment with URL in the form of 
-&lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt; that could be used to test a feature before merging the code into master. The stack for an environment consisted of the following:&lt;/p&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt; that could be used to test a feature before merging the code into master. The stack for an environment consisted of the following:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;an S3 bucket that would hold the front-end static assets for an Angular single page application, named the same as the URL: &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;an S3 bucket that would hold the front-end static assets for an Angular single page application, named the same as the URL: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;a set of Lambda functions that served as the API&lt;/li&gt;
   &lt;li&gt;API Gateway resources for the dynamically created URL&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;After a pull request was merged into master, the master branch would build and deploy to &lt;code class=&quot;highlighter-rouge&quot;&gt;https://dev.domain.io&lt;/code&gt;. When we completed a sprint, we’d manually deploy to “higher” level environments such as UAT or Production. The UAT environment had a URL of &lt;code class=&quot;highlighter-rouge&quot;&gt;https://uat.domain.io&lt;/code&gt; and production’s URL was &lt;code class=&quot;highlighter-rouge&quot;&gt;https://domain.io&lt;/code&gt; without a prefix.&lt;/p&gt;
+&lt;p&gt;After a pull request was merged into master, the master branch would build and deploy to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://dev.domain.io&lt;/code&gt;. When we completed a sprint, we’d manually deploy to “higher” level environments such as UAT or Production. The UAT environment had a URL of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://uat.domain.io&lt;/code&gt; and production’s URL was &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://domain.io&lt;/code&gt; without a prefix.&lt;/p&gt;
 
 &lt;p&gt;One of the project’s features involved taking screenshots of the site itself to use as images in a PowerPoint presentation. You might be asking, “Why??”, to which I’d be happy to respond outside of this blog post… This process involved a Lambda function
-using headless Chrome to visit the front-end of the site to take screenshots. For example, in the dev environment a Lambda function would attempt to hit the front-end of &lt;code class=&quot;highlighter-rouge&quot;&gt;https://dev.domain.io/some-page&lt;/code&gt;, take a screenshot, and then use that image in a process that created a PowerPoint presentation file and emailed it to the user that had kicked off the process.&lt;/p&gt;
+using headless Chrome to visit the front-end of the site to take screenshots. For example, in the dev environment a Lambda function would attempt to hit the front-end of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://dev.domain.io/some-page&lt;/code&gt;, take a screenshot, and then use that image in a process that created a PowerPoint presentation file and emailed it to the user that had kicked off the process.&lt;/p&gt;
 
-&lt;p&gt;This whole process of standing up a stack and creating a PowerPoint presentation worked well in all environments, &lt;em&gt;except&lt;/em&gt; the pull request (PR) environment. For some reason, PowerPoint slides came back with missing screenshots in that environment. After enabling a ton of logging in the headless Chrome process we found that requests to our dynamically-created URLs returned an error of &lt;code class=&quot;highlighter-rouge&quot;&gt;net::ERR_NAME_NOT_RESOLVED&lt;/code&gt;. This seemed to be related to DNS name resolution.&lt;/p&gt;
+&lt;p&gt;This whole process of standing up a stack and creating a PowerPoint presentation worked well in all environments, &lt;em&gt;except&lt;/em&gt; the pull request (PR) environment. For some reason, PowerPoint slides came back with missing screenshots in that environment. After enabling a ton of logging in the headless Chrome process we found that requests to our dynamically-created URLs returned an error of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;net::ERR_NAME_NOT_RESOLVED&lt;/code&gt;. This seemed to be related to DNS name resolution.&lt;/p&gt;
 
-&lt;p&gt;I found one solution that involved changing the endpoint our application code used for PR branches to &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io.s3-website-us-east-1.amazonaws.com/&lt;/code&gt;. This seemed to circumvent the DNS resolution issue and worked, but wasn’t a satifsying solution.&lt;/p&gt;
+&lt;p&gt;I found one solution that involved changing the endpoint our application code used for PR branches to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io.s3-website-us-east-1.amazonaws.com/&lt;/code&gt;. This seemed to circumvent the DNS resolution issue and worked, but wasn’t a satifsying solution.&lt;/p&gt;
 
 &lt;p&gt;Looking into Route53 settings, I found that our “stable” environment names were all Type A records with an ALIAS to Cloudfront. These S3 buckets never changed names, just contents of them changed, so a stable Cloudfront name could be used to reference them. 
 The PR Route53 record, though, was a Type NS with individual entries for each PR environment that had a CNAME referencing the S3 bucket. As a shot in the dark, I modified our Cloudformation template to generate an A record instead of a CNAME for our PR environments and…
-it worked! To this day, I’m still not clear why this made a difference (if you happen to know, please reach out!), but it fixed the issue. I was then able to revert the application code back to using the “normal” PR environment URL: &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt;.&lt;/p&gt;
+it worked! To this day, I’m still not clear why this made a difference (if you happen to know, please reach out!), but it fixed the issue. I was then able to revert the application code back to using the “normal” PR environment URL: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;branch name&amp;gt;.pr.domain.io&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Below is the Cloudformation template snippet before making the change:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  resourceRoute53RecordSetNoCloudFront:
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  resourceRoute53RecordSetNoCloudFront:
     Condition: conditionIsBranchBuild
     Type: &quot;AWS::Route53::RecordSet&quot;
     Properties:
@@ -130,8 +166,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
       Name: !Sub &quot;${paramBranch}.pr.domain.io&quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Replacing the &lt;code class=&quot;highlighter-rouge&quot;&gt;ResourceRecords&lt;/code&gt; property with &lt;code class=&quot;highlighter-rouge&quot;&gt;AliasTarget&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Type: A&lt;/code&gt; below changed the record type:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  resourceRoute53RecordSetNoCloudFront:
+&lt;p&gt;Replacing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ResourceRecords&lt;/code&gt; property with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AliasTarget&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Type: A&lt;/code&gt; below changed the record type:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  resourceRoute53RecordSetNoCloudFront:
     Condition: conditionIsBranchBuild
     Type: &quot;AWS::Route53::RecordSet&quot;
     Properties:
@@ -145,9 +181,9 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 &lt;p&gt;I don’t have a repo for recreating this issue because it involves a ton of infrastructure to recreate, but the template snippet above is all that had to be changed to switch a Route53 record from a CNAME to an A with an Alias in our stack.&lt;/p&gt;
 </description>
-        <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2020/01/08/bug-case-studies-copy.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2020/01/08/bug-case-studies-copy.html</guid>
+        <pubDate>Wed, 08 Jan 2020 10:55:00 -0500</pubDate>
+        <link>http://localhost:4000/2020/01/08/bug-case-studies-copy.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2020/01/08/bug-case-studies-copy.html</guid>
         
         <category>development</category>
         
@@ -165,21 +201,21 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;The gzipped file sat in an S3 bucket that a Python script would read from. The Python script ran in an AWS Step Function that spun up a container via Fargate. The container was maxed out in its resources in ECS with a soft limit of RAM around 30GB and a max disk space of 14GB. So, unzipping this file into memory or onto disk was not an option and the Pandas process worked really well to avoid exhausting memory or disk space.&lt;/p&gt;
 
 &lt;h1 id=&quot;performance&quot;&gt;Performance&lt;/h1&gt;
-&lt;p&gt;After doing some performance analysis I found that using the native MySQL &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA LOCAL INFILE&lt;/code&gt;, and more specifically its AWS-specific cousin &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt;, would be a lot faster than the Pandas process. In fact, it shaved off around 2.5 hours. However, MySQL only supports loading uncompressed files via the &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;After doing some performance analysis I found that using the native MySQL &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LOAD DATA LOCAL INFILE&lt;/code&gt;, and more specifically its AWS-specific cousin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt;, would be a lot faster than the Pandas process. In fact, it shaved off around 2.5 hours. However, MySQL only supports loading uncompressed files via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LOAD&lt;/code&gt; command.&lt;/p&gt;
 
-&lt;p&gt;We updated the ingest process to use &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt; and saw a performance uptick, but we then had to manually uncompress the file before uploading it to its original S3 bucket. This took a long time—uploading a 55GB file via &lt;code class=&quot;highlighter-rouge&quot;&gt;aws s3 cp&lt;/code&gt; would take about an hour from our local machines on our office network. This wasn’t a great compromise because we introduced a manual step that was time consuming and prone to failing (if a computer went to sleep while uploading, for example).&lt;/p&gt;
+&lt;p&gt;We updated the ingest process to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt; and saw a performance uptick, but we then had to manually uncompress the file before uploading it to its original S3 bucket. This took a long time—uploading a 55GB file via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aws s3 cp&lt;/code&gt; would take about an hour from our local machines on our office network. This wasn’t a great compromise because we introduced a manual step that was time consuming and prone to failing (if a computer went to sleep while uploading, for example).&lt;/p&gt;
 
 &lt;p&gt;I started testing out whether we could download the gzipped file to our Fargate container and unzip it there before loading to MySQL. Unfortunately, I ran into memory constraints and disk space constraints in Fargate. At that point we could have scrapped that infrastructure and gone with something else like EC2, but the existing infrastructure was very appealing and it seemed possible to do this without exhausting the container’s memory or disk space. Pandas got away with it, right?&lt;/p&gt;
 
 &lt;h1 id=&quot;the-solution&quot;&gt;The Solution&lt;/h1&gt;
-&lt;p&gt;After several rounds of searching online, reading through various StackOverflow answers, and lots of trial and error I finally found a solution. Python could open the gzipped file without reading its entire contents to memory or saving it to disk and boto3 could &lt;a href=&quot;https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.upload_fileobj&quot;&gt;upload it back to S3 as a file object&lt;/a&gt;. Then, since the file is back in S3 as a decompressed file as if we’d uploaded it ourselves, we can continue to use &lt;code class=&quot;highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt; as normal. Voila! Problem solved with &lt;a href=&quot;https://github.com/headquarters/python-streaming-unzip/blob/master/src/main.py#L22-L23&quot;&gt;two lines of Python code&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;After several rounds of searching online, reading through various StackOverflow answers, and lots of trial and error I finally found a solution. Python could open the gzipped file without reading its entire contents to memory or saving it to disk and boto3 could &lt;a href=&quot;https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.upload_fileobj&quot;&gt;upload it back to S3 as a file object&lt;/a&gt;. Then, since the file is back in S3 as a decompressed file as if we’d uploaded it ourselves, we can continue to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LOAD DATA FROM S3&lt;/code&gt; as normal. Voila! Problem solved with &lt;a href=&quot;https://github.com/headquarters/python-streaming-unzip/blob/master/src/main.py#L22-L23&quot;&gt;two lines of Python code&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;To showcase the power of this method for decompressing a large file without exhausting memory or disk space, I put together a repository that demonstrates the various scenarios I tried: &lt;a href=&quot;https://github.com/headquarters/python-streaming-unzip&quot;&gt;https://github.com/headquarters/python-streaming-unzip&lt;/a&gt;. Here you can play around with a Docker container that can execute a Python script that attempts to decompress a gzipped file into memory, onto disk, or via the streaming method. You’ll have to provide your own large compressed file in S3, though.&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 28 Dec 2019 03:11:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2019/12/28/python-streaming-unzip.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2019/12/28/python-streaming-unzip.html</guid>
+        <pubDate>Fri, 27 Dec 2019 22:11:00 -0500</pubDate>
+        <link>http://localhost:4000/2019/12/27/python-streaming-unzip.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/12/27/python-streaming-unzip.html</guid>
         
         <category>javascript</category>
         
@@ -189,7 +225,7 @@ it worked! To this day, I’m still not clear why this made a difference (if you
       </item>
     
       <item>
-        <title>The Founder's Mentality, DevOps, and Agile</title>
+        <title>The Founder&apos;s Mentality, DevOps, and Agile</title>
         <description>&lt;p&gt;I recently listened to the audiobook &lt;a href=&quot;https://www.foundersmentality.com/&quot;&gt;The Founder’s Mentality&lt;/a&gt;. This book posits that many companies experience 3 problems during their growth phase: overload, stallout, and freefall. As companies get larger, complexity and bureauracy increase, so “overload” starts to kick in. Left unchecked, this overload eventually leads to stallout—the company is stifled in terms of innovation and growth is difficult. Finally, when things start to look really bleak, the company goes into freefall where the stock starts to decline, people leave, and eventually the company folds.&lt;/p&gt;
 
 &lt;p&gt;The book recommends 9 things to turn the ship around for a growing company: a bold mission, “spikiness”, a limitless horizon, customer advocacy, frontline empowerment, relentless experimentation, strong cash focus, a bias to action, and an aversion to bureaucracy. I felt there was a lot of overlap between what these recommendations and two other popular movements today, namely DevOps and Agile. I put together the following table to explain this overlap as I see it.&lt;/p&gt;
@@ -243,9 +279,9 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 &lt;p&gt;There is a ton of overlap between these 3 topics. In my mind, The Founder’s Mentality is DevOps/Agile explained in a way that non-technology-centric business executives can relate to. It reinforces to me that, at the end of the day, product, design, development, operations, and every other unit of business are all trying to achieve the same thing, but we have various ways to execute on that vision and occasionally our terminology doesn’t line up. Hopefully a comparison like this will help bridge the gap for some folks out there.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 10 Dec 2018 08:30:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</guid>
+        <pubDate>Mon, 10 Dec 2018 03:30:00 -0500</pubDate>
+        <link>http://localhost:4000/2018/12/10/founders-mentality-devops-and-agile.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/10/founders-mentality-devops-and-agile.html</guid>
         
         <category>javascript</category>
         
@@ -281,9 +317,9 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;There are always pros and cons to every piece of technology and you ultimately have to pick the right tool for the job without being overly dogmatic about your decision. I think Ember is a great addition to the tools available to web developers these days. It’s worth knowing about these pros and cons before diving into a new framework, so hopefully this helped give some insight into what a newbie Ember developer coming from a React world might expect.&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</guid>
+        <pubDate>Sat, 10 Mar 2018 04:48:00 -0500</pubDate>
+        <link>http://localhost:4000/2018/03/10/ember-js-6-months-in.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/03/10/ember-js-6-months-in.html</guid>
         
         <category>javascript</category>
         
@@ -315,13 +351,13 @@ it at the top of the page.&lt;/p&gt;
 &lt;p&gt;When prompted for all the NPM init steps, just keep hitting enter (for the sake of the example).&lt;/p&gt;
 
 &lt;p&gt;Next, we’ll install the &lt;a href=&quot;https://www.npmjs.com/package/bookmarklet&quot;&gt;bookmarklet&lt;/a&gt; NPM 
-package that can create our bookmarklet. Then, create a &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; directory to contain our source
+package that can create our bookmarklet. Then, create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src&lt;/code&gt; directory to contain our source
 file:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;bookmarklet &lt;span class=&quot;nt&quot;&gt;--save-dev&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;src&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Now, edit the &lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file at the root of your project and add a “build” script
+&lt;p&gt;Now, edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt; file at the root of your project and add a “build” script
 that invokes the bookmarklet on the file in “src/index.js” and outputs it to 
 “dist/bookmarklet.js”, like so:&lt;/p&gt;
 
@@ -332,31 +368,31 @@ that invokes the bookmarklet on the file in “src/index.js” and outputs it to
 
 &lt;p&gt;Let’s create the file at src/index.js that will be our bookmarklet source:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.title__bookmarklet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;.title__bookmarklet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
-  &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+  &lt;span class=&quot;nx&quot;&gt;existingContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;title__bookmarklet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textAlign&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;16px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontFamily&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Arial&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;lightyellow&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;className&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;title__bookmarklet&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textAlign&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;16px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fontFamily&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Arial&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;lightyellow&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;position&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;100vw&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;zIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;99999&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;100vw&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;zIndex&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;99999&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;textContent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
-&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;titleContainer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Back at the command line, run &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; in order to create your bookmarklet.js
+&lt;p&gt;Back at the command line, run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; in order to create your bookmarklet.js
 in the “dist” folder. The file will contain code in the following format:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;javascript:&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; your code here &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;o&quot;&gt;})()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -368,13 +404,13 @@ the page title to whatever you want. These steps are highlighted in the GIF belo
 &lt;p&gt;&lt;img src=&quot;/images/gifs/bookmarklet.gif&quot; alt=&quot;Animation showing the steps in the preceding paragraph&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And done! Congratulations, you made a bookmarklet with a build step. Now, if you want to edit
-the source file you can run &lt;code class=&quot;highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; and regenerate it to have a completely new
+the source file you can run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run build&lt;/code&gt; and regenerate it to have a completely new
 version. The example we created here is available as a 
 &lt;a href=&quot;https://github.com/headquarters/show-title-bookmarklet&quot;&gt;GitHub repo&lt;/a&gt;, too.&lt;/p&gt;
 </description>
-        <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</guid>
+        <pubDate>Sat, 10 Mar 2018 04:48:00 -0500</pubDate>
+        <link>http://localhost:4000/2018/03/10/how-to-create-a-bookmarklet.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/03/10/how-to-create-a-bookmarklet.html</guid>
         
         <category>javascript</category>
         
@@ -431,7 +467,7 @@ with the associates there. They gave us a &lt;a href=&quot;/images/posts/babiesr
 
 &lt;figure&gt;
     &lt;img src=&quot;/images/posts/babiesrus/registry-password.png&quot; alt=&quot;Scanned copy of registry paper form password section&quot; /&gt;
-    &lt;figcaption&gt;The Babies R' Us registry creation form had this section for writing your password.&lt;/figcaption&gt;
+    &lt;figcaption&gt;The Babies R&apos; Us registry creation form had this section for writing your password.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
 &lt;p&gt;A few concerns here: it’s a paper form and the associates did not offer to allow us to fill
@@ -491,9 +527,9 @@ ease the frustration of dealing with their service.&lt;/p&gt;
 
 &lt;p&gt;Update: they’ve undergone a redesign so some screenshots are out of date and they now use babiesrus.com, so they’re improving!&lt;/p&gt;
 </description>
-        <pubDate>Sat, 05 Aug 2017 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</guid>
+        <pubDate>Sat, 05 Aug 2017 05:48:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/08/05/baby-registries-and-service-design.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/08/05/baby-registries-and-service-design.html</guid>
         
         <category>ux</category>
         
@@ -516,7 +552,7 @@ always find myself coming back to for reference.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# SSH config with multiple hostnames and a domain controller prefix for username, ~/.ssh/config&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;# This allows you to do something like `ssh name1` and it will expand to include the username and proper key &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# It's counterintuitive, but the generic settings (Host *) go at the bottom of the file&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# It&apos;s counterintuitive, but the generic settings (Host *) go at the bottom of the file&lt;/span&gt;
 Host name1 name2 name3 
   HostName %h.domain.tld
   &lt;span class=&quot;c&quot;&gt;# Rarely needed, more likely your username does not have a prefix&lt;/span&gt;
@@ -561,7 +597,7 @@ Host &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Configure git CLI (requires .git-prompt shell file)&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.git-prompt.sh
-&lt;span class=&quot;nv&quot;&gt;PS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'[\u@\h \W$(__git_ps1 &quot; (%s)&quot;)]\$ '&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;PS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;[\u@\h \W$(__git_ps1 &quot; (%s)&quot;)]\$ &apos;&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Make nano the default editor because who wants to deal with vi when doing git commit? ;)&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EDITOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;nano
@@ -593,9 +629,9 @@ git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt
 &lt;span class=&quot;c&quot;&gt;# Find the top 10 largest directories in /path&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;du&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Sh&lt;/span&gt; /path | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rh&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
-        <pubDate>Wed, 19 Jul 2017 08:15:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</guid>
+        <pubDate>Wed, 19 Jul 2017 04:15:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/07/19/personal-notes-on-development.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/07/19/personal-notes-on-development.html</guid>
         
         <category>ux</category>
         
@@ -635,56 +671,13 @@ user interfaces. (also Tenets+Traps)&lt;/p&gt;
 
 &lt;p&gt;Design is biased towards action. If you can’t take action on a problem, it’s not a problem, it’s a circumstance. A lot of people have a problem that isn’t a problem, it’s a circumstance. (adapted from http://www.npr.org/templates/transcript/transcript.php?storyId=507901716)&lt;/p&gt;
 </description>
-        <pubDate>Sun, 16 Jul 2017 15:07:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/16/personal-notes-on-ux-design.html</guid>
+        <pubDate>Sun, 16 Jul 2017 11:07:00 -0400</pubDate>
+        <link>http://localhost:4000/2017/07/16/personal-notes-on-ux-design.html</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/07/16/personal-notes-on-ux-design.html</guid>
         
         <category>ux</category>
         
         <category>design</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Using Twitter Bootstrap Components with React</title>
-        <description>&lt;p&gt;Updated July 2017: The CodePen now handles focus and blur events in a self-contained manner (no need
-for a parent or app-level component to track the state) so that keyboard events work better than they did
-in the original version.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;facebook.github.io/react/&quot;&gt;React&lt;/a&gt; continues to gain traction as a library for creating 
-user interfaces for the web (and for other &lt;a href=&quot;https://facebook.github.io/react-native/&quot;&gt;platforms&lt;/a&gt;). 
-React is great for building UI components at a lower level than what you might get from a framework. 
-Nonetheless, many frameworks remain popular such as Twitter &lt;a href=&quot;getbootstrap.com&quot;&gt;Bootstrap&lt;/a&gt;, which provides a lot more
-ready-made components out of the box.&lt;/p&gt;
-
-&lt;p&gt;Twitter Bootstrap’s components that have interactivity (e.g. Dropdown, Modal, etc), utilize jQuery as the
-JavaScript library for handling the state of these components and the event binding. What if you find
-yourself wanting to mix Bootstrap and React? If you utilize React elsewhere but want to use a single Bootstrap 
-component, it’s not a great idea to include jQuery to make the Bootstrap component “functional”.&lt;/p&gt;
-
-&lt;p&gt;Some options exist, such as &lt;a href=&quot;https://react-bootstrap.github.io/&quot;&gt;React Bootstrap&lt;/a&gt; and &lt;a href=&quot;https://reactstrap.github.io/&quot;&gt;Reactstrap&lt;/a&gt;. Unfortunately for React Bootstrap, it appears to still be using Bootstrap version 3, so if you want to use version 4 (even though it &lt;em&gt;is&lt;/em&gt; alpha) you’re out of luck. Reactstrap is built with version 4 support, but still might be overkill for some particular cases.&lt;/p&gt;
-
-&lt;p&gt;It’s not too difficult to take a Bootstrap component and create a React-ready component from it. Here is an example
-of the &lt;a href=&quot;https://codepen.io/michaelehead/pen/gRPqYQ&quot;&gt;dropdown component on CodePen&lt;/a&gt;:&lt;/p&gt;
-
-&lt;p data-height=&quot;265&quot; data-theme-id=&quot;0&quot; data-slug-hash=&quot;gRPqYQ&quot; data-default-tab=&quot;js,result&quot; data-user=&quot;michaelehead&quot; data-embed-version=&quot;2&quot; data-pen-title=&quot;React Bootstrap Dropdown&quot; class=&quot;codepen&quot;&gt;See the Pen &lt;a href=&quot;https://codepen.io/michaelehead/pen/gRPqYQ/&quot;&gt;React Bootstrap Dropdown&lt;/a&gt; by Michael Head (&lt;a href=&quot;https://codepen.io/michaelehead&quot;&gt;@michaelehead&lt;/a&gt;) on &lt;a href=&quot;https://codepen.io&quot;&gt;CodePen&lt;/a&gt;.&lt;/p&gt;
-&lt;script async=&quot;&quot; src=&quot;https://production-assets.codepen.io/assets/embed/ei.js&quot;&gt;&lt;/script&gt;
-
-&lt;p&gt;The process was to copy the markup from the &lt;a href=&quot;https://v4-alpha.getbootstrap.com/components/dropdowns/&quot;&gt;documentation&lt;/a&gt;, 
-use that as the JSX for the React component to render (which will require all the Bootstrap CSS to render properly),
-then adding an event handler for the button to toggle the dropdown state. I watched the DOM for changes
-in Chrome DevTools in order to see that the outermost DOM element receives the class “show” when toggled open and
-the ARIA attributes update to reflect the open state.&lt;/p&gt;
-
-&lt;p&gt;Word of caution: this method will only get you so far; the &lt;a href=&quot;https://github.com/twbs/bootstrap/blob/v4-dev/js/src/dropdown.js&quot;&gt;JavaScript for the Bootstrap dropdown&lt;/a&gt; component manages a lot more state 
-and binds to more events so this may not be the best approach if you want a 100% compliant Bootstrap dropdown
-using React for the JS behavior. Nonetheless, it gets you pretty far toward using React with Bootstrap
-and avoiding the extra overhead of jQuery being included in your web application just for use with Bootstrap.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 09 Jun 2017 15:50:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/06/09/using-bootstrap-components-in-react.html</guid>
         
         
       </item>

@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2022/11/21/artificial-delays-in-msw.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2022/11/21/artificial-delays-in-msw.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -52,9 +52,9 @@
 	<article class="post-content">
 	<p><a href="http://mswjs.io">Mock Service Worker</a> (MSW) is a great library for mocking API calls in your front-end application. This works well both in the browser and in a test environment, such as Jest.</p>
 
-<p>MSW runs a Service Worker to intercept requests and provide responses immediately back to your API calls with <code class="highlighter-rouge">fetch</code>, <code class="highlighter-rouge">XHR</code>, and the like. This means your UI gets nearly-instant responses from your mock API in the browser. However, this can also lead a UI developer to forget that real network calls come with real latency. To ensure your UI works well with various loading states, waiting for network responses, avoids time outs, and so on, you can add a delay to each MSW response as the first parameter in the <code class="highlighter-rouge">res</code> function.</p>
+<p>MSW runs a Service Worker to intercept requests and provide responses immediately back to your API calls with <code class="language-plaintext highlighter-rouge">fetch</code>, <code class="language-plaintext highlighter-rouge">XHR</code>, and the like. This means your UI gets nearly-instant responses from your mock API in the browser. However, this can also lead a UI developer to forget that real network calls come with real latency. To ensure your UI works well with various loading states, waiting for network responses, avoids time outs, and so on, you can add a delay to each MSW response as the first parameter in the <code class="language-plaintext highlighter-rouge">res</code> function.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rest.get('/api/:id', (req, res, ctx) =&gt; {
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rest.get('/api/:id', (req, res, ctx) =&gt; {
   const { id } = req.params;
   const post = data.find(post =&gt; post.id.toString() === id);
   return res(ctx.delay(500), ctx.json(post));
@@ -63,7 +63,7 @@
 
 <p>This means each time that API should respond, it waits 500ms before “sending” back the response. With a lot of MSW handlers, this can become slow in your unit tests so it’s a good idea to only add this delay in non-test environments.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import { rest } from 'msw';
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import { rest } from 'msw';
 import data from './data.json';
 
 const delay = process.env.NODE_ENV === "test" ? 0 : 500;

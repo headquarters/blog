@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2017/01/05/javascript-object-mutation-gotchas.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2017/01/05/javascript-object-mutation-gotchas.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -59,15 +59,15 @@ You’ll see that primitive types in JavaScript are “passed” by value in ass
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">firstNumber</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">secondNumber</span> <span class="o">=</span> <span class="nx">firstNumber</span><span class="p">;</span> <span class="c1">// value of 3 is "copied" to secondNumber</span>
 <span class="nx">secondNumber</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// overriding the value of secondNumber has no effect on firstNumber</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstNumber</span><span class="p">);</span> <span class="c1">// 3</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">secondNumber</span><span class="p">);</span> <span class="c1">// 10</span></code></pre></figure>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">firstNumber</span><span class="p">);</span> <span class="c1">// 3</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">secondNumber</span><span class="p">);</span> <span class="c1">// 10</span></code></pre></figure>
 
 <p>However, this is not what happens with objects and their properties. Here’s another example:</p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">firstBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">The green book</span><span class="dl">'</span> <span class="p">};</span>
 <span class="kd">var</span> <span class="nx">secondBook</span> <span class="o">=</span> <span class="nx">firstBook</span><span class="p">;</span> <span class="c1">// this still references firstBook</span>
 <span class="nx">secondBook</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">The blue book</span><span class="dl">'</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The blue book'</span></code></pre></figure>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The blue book'</span></code></pre></figure>
 
 <p><a href="http://stackoverflow.com/a/3638034/360509">This StackOverflow answer</a> calls this “call-by-sharing”. 
 Changing the internals of an object mutates the original object.</p>
@@ -79,15 +79,15 @@ I have a <a href="https://github.com/headquarters/react-es6-template/blob/object
 <p>Two of my preferred solutions for this, depending on your development environment (browser or server), are to use Object.assign or the ES6 spread operator:</p>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">firstBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">The green book</span><span class="dl">'</span> <span class="p">};</span>
-<span class="kd">var</span> <span class="nx">secondBook</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">firstBook</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">secondBook</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nf">assign</span><span class="p">({},</span> <span class="nx">firstBook</span><span class="p">);</span>
 <span class="nx">secondBook</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">The blue book</span><span class="dl">'</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The green book' is unchanged</span></code></pre></figure>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The green book' is unchanged</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// ES6 spread operator doesn't work in most browsers yet as of 2017-01-05,</span>
 <span class="c1">// have to test this in the Node REPL</span>
 <span class="kd">var</span> <span class="nx">firstBook</span> <span class="o">=</span> <span class="p">{</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">The green book</span><span class="dl">'</span> <span class="p">};</span>
 <span class="kd">var</span> <span class="nx">secondBook</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span><span class="nx">firstBook</span><span class="p">,</span> <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">The blue book</span><span class="dl">'</span> <span class="p">};</span> <span class="c1">// The title property will overwrite the property brought in from via the spread operator</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The green book' is unchanged</span></code></pre></figure>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">firstBook</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span> <span class="c1">// 'The green book' is unchanged</span></code></pre></figure>
 
 <p>So, be mindful of the sort-of-pass-by-reference treatment of objects in JavaScript to avoid object mutation gotchas.</p>
 

@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2018/03/10/how-to-create-a-bookmarklet.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -71,13 +71,13 @@ it at the top of the page.</p>
 <p>When prompted for all the NPM init steps, just keep hitting enter (for the sake of the example).</p>
 
 <p>Next, we’ll install the <a href="https://www.npmjs.com/package/bookmarklet">bookmarklet</a> NPM 
-package that can create our bookmarklet. Then, create a <code class="highlighter-rouge">src</code> directory to contain our source
+package that can create our bookmarklet. Then, create a <code class="language-plaintext highlighter-rouge">src</code> directory to contain our source
 file:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>npm <span class="nb">install </span>bookmarklet <span class="nt">--save-dev</span>
 <span class="nv">$ </span><span class="nb">mkdir </span>src</code></pre></figure>
 
-<p>Now, edit the <code class="highlighter-rouge">package.json</code> file at the root of your project and add a “build” script
+<p>Now, edit the <code class="language-plaintext highlighter-rouge">package.json</code> file at the root of your project and add a “build” script
 that invokes the bookmarklet on the file in “src/index.js” and outputs it to 
 “dist/bookmarklet.js”, like so:</p>
 
@@ -88,13 +88,13 @@ that invokes the bookmarklet on the file in “src/index.js” and outputs it to
 
 <p>Let’s create the file at src/index.js that will be our bookmarklet source:</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">existingContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">.title__bookmarklet</span><span class="dl">'</span><span class="p">);</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">existingContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">.title__bookmarklet</span><span class="dl">'</span><span class="p">);</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="nx">existingContainer</span><span class="p">)</span> <span class="p">{</span> 
-  <span class="nx">existingContainer</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+<span class="nf">if </span><span class="p">(</span><span class="nx">existingContainer</span><span class="p">)</span> <span class="p">{</span> 
+  <span class="nx">existingContainer</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
 <span class="p">}</span>
 
-<span class="kd">var</span> <span class="nx">titleContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">titleContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">div</span><span class="dl">'</span><span class="p">);</span>
 
 <span class="nx">titleContainer</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">title__bookmarklet</span><span class="dl">'</span><span class="p">;</span>
 <span class="nx">titleContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">textAlign</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">center</span><span class="dl">'</span><span class="p">;</span>
@@ -110,9 +110,9 @@ that invokes the bookmarklet on the file in “src/index.js” and outputs it to
 
 <span class="nx">titleContainer</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
 
-<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">titleContainer</span><span class="p">);</span></code></pre></figure>
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">titleContainer</span><span class="p">);</span></code></pre></figure>
 
-<p>Back at the command line, run <code class="highlighter-rouge">npm run build</code> in order to create your bookmarklet.js
+<p>Back at the command line, run <code class="language-plaintext highlighter-rouge">npm run build</code> in order to create your bookmarklet.js
 in the “dist” folder. The file will contain code in the following format:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">javascript:<span class="o">(</span><span class="k">function</span><span class="o">(){</span>/<span class="k">*</span> your code here <span class="k">*</span>/<span class="o">})()</span></code></pre></figure>
@@ -124,7 +124,7 @@ the page title to whatever you want. These steps are highlighted in the GIF belo
 <p><img src="/images/gifs/bookmarklet.gif" alt="Animation showing the steps in the preceding paragraph" /></p>
 
 <p>And done! Congratulations, you made a bookmarklet with a build step. Now, if you want to edit
-the source file you can run <code class="highlighter-rouge">npm run build</code> and regenerate it to have a completely new
+the source file you can run <code class="language-plaintext highlighter-rouge">npm run build</code> and regenerate it to have a completely new
 version. The example we created here is available as a 
 <a href="https://github.com/headquarters/show-title-bookmarklet">GitHub repo</a>, too.</p>
 

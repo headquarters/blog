@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2020/01/08/bug-case-studies-copy.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2020/01/08/bug-case-studies-copy.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -70,11 +70,11 @@
 
 <p>Across several teams, folks were checking server logs and all kinds of metrics to try to determine the cause. We flushed Akamai’s (our CDN) cache at least once, if not more times. Finally, we had an inkling there was some sort of caching problem going on beyond the CDN so we deployed a new version of the application. Our Ember application used fingerprinting for individual files so that a hash was created when the file changed. We introduced some meaningless change in order to force the hash to change for each file and thus force new files to be pulled down from the origin server and the CDN to the browser.</p>
 
-<p>This fixed it, but we weren’t quite sure why. I dug into some Splunk logs and finally found a smoking gun: a permission denied error on a JavaScript file that our app needed to run. That explained why the app would fail, but not why the caching seemed to be stuck pulling the wrong thing. Checking the next layer up, I found in our Apache configuration that we set <code class="highlighter-rouge">ErrorDocument 404 http://example.com/#/404</code> for catching 404 files (the external URL pointed at our own site). This meant that Apache was supposed to respond to requests where a file was not found by returning our site with the “/#/404” appended to the URL. Our SPA used hash routing at the time, so the “/#/404” part of the URL was intended to be picked up by the front-end routing and pull up the correct 404 view.</p>
+<p>This fixed it, but we weren’t quite sure why. I dug into some Splunk logs and finally found a smoking gun: a permission denied error on a JavaScript file that our app needed to run. That explained why the app would fail, but not why the caching seemed to be stuck pulling the wrong thing. Checking the next layer up, I found in our Apache configuration that we set <code class="language-plaintext highlighter-rouge">ErrorDocument 404 http://example.com/#/404</code> for catching 404 files (the external URL pointed at our own site). This meant that Apache was supposed to respond to requests where a file was not found by returning our site with the “/#/404” appended to the URL. Our SPA used hash routing at the time, so the “/#/404” part of the URL was intended to be picked up by the front-end routing and pull up the correct 404 view.</p>
 
 <p>The problem with this configuration was that when <a href="https://httpd.apache.org/docs/2.4/mod/core.html#errordocument">ErrorDocument</a> was pointing at an external URL (one starting with HTTP), it would actually return a <em>302</em> status code, not the original HTTP error status code. As the docs state:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Note that when you specify an ErrorDocument that points to a remote URL (ie. anything with a method such as http in front of it), Apache HTTP Server will send a redirect to the client to tell it where to find the document, even if the document ends up being on the same server. This has several implications, the most important being that the client will not receive the original error status code, but instead will receive a redirect status code. 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Note that when you specify an ErrorDocument that points to a remote URL (ie. anything with a method such as http in front of it), Apache HTTP Server will send a redirect to the client to tell it where to find the document, even if the document ends up being on the same server. This has several implications, the most important being that the client will not receive the original error status code, but instead will receive a redirect status code. 
 </code></pre></div></div>
 
 <p>Here’s an <a href="/images/screenshots/bugs/missing-file-network.jpg">example of the network tab when this happens</a>.</p>
@@ -95,28 +95,28 @@
 <h2 id="cname-failing-to-resolve-inside-aws-vpc">CNAME failing to resolve inside AWS VPC</h2>
 
 <p>My team had inherited a project that was setup inside of AWS with most of the infrastructure already in place. When a pull request was created in GitHub, it would automatically stand up a new version of the environment with URL in the form of 
-<code class="highlighter-rouge">http://&lt;branch name&gt;.pr.domain.io</code> that could be used to test a feature before merging the code into master. The stack for an environment consisted of the following:</p>
+<code class="language-plaintext highlighter-rouge">http://&lt;branch name&gt;.pr.domain.io</code> that could be used to test a feature before merging the code into master. The stack for an environment consisted of the following:</p>
 <ul>
-  <li>an S3 bucket that would hold the front-end static assets for an Angular single page application, named the same as the URL: <code class="highlighter-rouge">&lt;branch name&gt;.pr.domain.io</code></li>
+  <li>an S3 bucket that would hold the front-end static assets for an Angular single page application, named the same as the URL: <code class="language-plaintext highlighter-rouge">&lt;branch name&gt;.pr.domain.io</code></li>
   <li>a set of Lambda functions that served as the API</li>
   <li>API Gateway resources for the dynamically created URL</li>
 </ul>
 
-<p>After a pull request was merged into master, the master branch would build and deploy to <code class="highlighter-rouge">https://dev.domain.io</code>. When we completed a sprint, we’d manually deploy to “higher” level environments such as UAT or Production. The UAT environment had a URL of <code class="highlighter-rouge">https://uat.domain.io</code> and production’s URL was <code class="highlighter-rouge">https://domain.io</code> without a prefix.</p>
+<p>After a pull request was merged into master, the master branch would build and deploy to <code class="language-plaintext highlighter-rouge">https://dev.domain.io</code>. When we completed a sprint, we’d manually deploy to “higher” level environments such as UAT or Production. The UAT environment had a URL of <code class="language-plaintext highlighter-rouge">https://uat.domain.io</code> and production’s URL was <code class="language-plaintext highlighter-rouge">https://domain.io</code> without a prefix.</p>
 
 <p>One of the project’s features involved taking screenshots of the site itself to use as images in a PowerPoint presentation. You might be asking, “Why??”, to which I’d be happy to respond outside of this blog post… This process involved a Lambda function
-using headless Chrome to visit the front-end of the site to take screenshots. For example, in the dev environment a Lambda function would attempt to hit the front-end of <code class="highlighter-rouge">https://dev.domain.io/some-page</code>, take a screenshot, and then use that image in a process that created a PowerPoint presentation file and emailed it to the user that had kicked off the process.</p>
+using headless Chrome to visit the front-end of the site to take screenshots. For example, in the dev environment a Lambda function would attempt to hit the front-end of <code class="language-plaintext highlighter-rouge">https://dev.domain.io/some-page</code>, take a screenshot, and then use that image in a process that created a PowerPoint presentation file and emailed it to the user that had kicked off the process.</p>
 
-<p>This whole process of standing up a stack and creating a PowerPoint presentation worked well in all environments, <em>except</em> the pull request (PR) environment. For some reason, PowerPoint slides came back with missing screenshots in that environment. After enabling a ton of logging in the headless Chrome process we found that requests to our dynamically-created URLs returned an error of <code class="highlighter-rouge">net::ERR_NAME_NOT_RESOLVED</code>. This seemed to be related to DNS name resolution.</p>
+<p>This whole process of standing up a stack and creating a PowerPoint presentation worked well in all environments, <em>except</em> the pull request (PR) environment. For some reason, PowerPoint slides came back with missing screenshots in that environment. After enabling a ton of logging in the headless Chrome process we found that requests to our dynamically-created URLs returned an error of <code class="language-plaintext highlighter-rouge">net::ERR_NAME_NOT_RESOLVED</code>. This seemed to be related to DNS name resolution.</p>
 
-<p>I found one solution that involved changing the endpoint our application code used for PR branches to <code class="highlighter-rouge">http://&lt;branch name&gt;.pr.domain.io.s3-website-us-east-1.amazonaws.com/</code>. This seemed to circumvent the DNS resolution issue and worked, but wasn’t a satifsying solution.</p>
+<p>I found one solution that involved changing the endpoint our application code used for PR branches to <code class="language-plaintext highlighter-rouge">http://&lt;branch name&gt;.pr.domain.io.s3-website-us-east-1.amazonaws.com/</code>. This seemed to circumvent the DNS resolution issue and worked, but wasn’t a satifsying solution.</p>
 
 <p>Looking into Route53 settings, I found that our “stable” environment names were all Type A records with an ALIAS to Cloudfront. These S3 buckets never changed names, just contents of them changed, so a stable Cloudfront name could be used to reference them. 
 The PR Route53 record, though, was a Type NS with individual entries for each PR environment that had a CNAME referencing the S3 bucket. As a shot in the dark, I modified our Cloudformation template to generate an A record instead of a CNAME for our PR environments and…
-it worked! To this day, I’m still not clear why this made a difference (if you happen to know, please reach out!), but it fixed the issue. I was then able to revert the application code back to using the “normal” PR environment URL: <code class="highlighter-rouge">http://&lt;branch name&gt;.pr.domain.io</code>.</p>
+it worked! To this day, I’m still not clear why this made a difference (if you happen to know, please reach out!), but it fixed the issue. I was then able to revert the application code back to using the “normal” PR environment URL: <code class="language-plaintext highlighter-rouge">http://&lt;branch name&gt;.pr.domain.io</code>.</p>
 
 <p>Below is the Cloudformation template snippet before making the change:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  resourceRoute53RecordSetNoCloudFront:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  resourceRoute53RecordSetNoCloudFront:
     Condition: conditionIsBranchBuild
     Type: "AWS::Route53::RecordSet"
     Properties:
@@ -128,8 +128,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
       Name: !Sub "${paramBranch}.pr.domain.io"
 </code></pre></div></div>
 
-<p>Replacing the <code class="highlighter-rouge">ResourceRecords</code> property with <code class="highlighter-rouge">AliasTarget</code> and <code class="highlighter-rouge">Type: A</code> below changed the record type:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  resourceRoute53RecordSetNoCloudFront:
+<p>Replacing the <code class="language-plaintext highlighter-rouge">ResourceRecords</code> property with <code class="language-plaintext highlighter-rouge">AliasTarget</code> and <code class="language-plaintext highlighter-rouge">Type: A</code> below changed the record type:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  resourceRoute53RecordSetNoCloudFront:
     Condition: conditionIsBranchBuild
     Type: "AWS::Route53::RecordSet"
     Properties:

@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2013/01/04/php-windows-and-spaces-in-file-names.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2013/01/04/php-windows-and-spaces-in-file-names.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -55,18 +55,18 @@
 <p>So, </p>
 
 <figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="nv">$output</span> <span class="o">=</span> <span class="s1">''''</span><span class="p">;</span>
-<span class="nb">system</span><span class="p">(</span><span class="s1">''</span><span class="nx">C</span><span class="o">:</span><span class="nx">\Program</span> <span class="nx">Files</span> <span class="p">(</span><span class="nx">x86</span><span class="p">)</span><span class="nx">\Prince\Engine\bin\prince</span><span class="o">.</span><span class="nx">exe</span> <span class="o">--</span><span class="nx">version</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span><span class="s1">''</span><span class="p">,</span> <span class="nv">$output</span><span class="p">);</span>
+<span class="nb">system</span><span class="p">(</span><span class="s1">''</span><span class="nc">C</span><span class="o">:</span><span class="err">\</span><span class="nc">Program</span> <span class="nf">Files</span> <span class="p">(</span><span class="n">x86</span><span class="p">)</span><span class="err">\</span><span class="n">Prince\Engine\bin\prince</span><span class="mf">.</span><span class="n">exe</span> <span class="o">--</span><span class="n">version</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span><span class="s1">''</span><span class="p">,</span> <span class="nv">$output</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$output</span><span class="p">;</span> </code></pre></figure>
 
 <p>is bad, and doesn’t work. You get the error
-<code class="highlighter-rouge">''C:\Program'' is not recognized as an internal or external command, operable program or batch file.</code>
+<code class="language-plaintext highlighter-rouge">''C:\Program'' is not recognized as an internal or external command, operable program or batch file.</code>
 because it stops after the first space. Now, why would I, as a somewhat experienced developer, expect this to work? Because the Windows command line accepts directory names with spaces so long as they are in quotes. Well, the path argument in system() above was in (single) quotes, so I expected PHP to handle all that path just fine. I was wrong. One way to handle this is to write</p>
 
 <figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="nv">$output</span> <span class="o">=</span> <span class="s1">''''</span><span class="p">;</span>
-<span class="nb">system</span><span class="p">(</span><span class="s1">''</span><span class="nx">C</span><span class="o">:</span><span class="nx">\Progra</span><span class="o">~</span><span class="mi">2</span><span class="nx">\Prince\Engine\bin\prince</span><span class="o">.</span><span class="nx">exe</span> <span class="o">--</span><span class="nx">version</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span><span class="s1">''</span><span class="p">,</span> <span class="nv">$output</span><span class="p">);</span>
+<span class="nb">system</span><span class="p">(</span><span class="s1">''</span><span class="nc">C</span><span class="o">:</span><span class="err">\</span><span class="nc">Progra</span><span class="o">~</span><span class="mi">2</span><span class="err">\</span><span class="n">Prince\Engine\bin\prince</span><span class="mf">.</span><span class="n">exe</span> <span class="o">--</span><span class="n">version</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span><span class="s1">''</span><span class="p">,</span> <span class="nv">$output</span><span class="p">);</span>
 <span class="k">echo</span> <span class="nv">$output</span><span class="p">;</span> </code></pre></figure>
 
-<p>which works fine. <code class="highlighter-rouge">Progra~2</code> here refers to the second matching directory name starting with “Progra”. <code class="highlighter-rouge">Progra~1</code> is “Program Files”, but I wanted to target “Program Files (x86)”, thus the “~2” suffix instead of “~1”.</p>
+<p>which works fine. <code class="language-plaintext highlighter-rouge">Progra~2</code> here refers to the second matching directory name starting with “Progra”. <code class="language-plaintext highlighter-rouge">Progra~1</code> is “Program Files”, but I wanted to target “Program Files (x86)”, thus the “~2” suffix instead of “~1”.</p>
 
 	</article>
 </div>

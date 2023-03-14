@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2016/02/06/installing-gems-without-sudo.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2016/02/06/installing-gems-without-sudo.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -51,15 +51,15 @@
     </header>
 	<article class="post-content">
 	<p>I have never had a default installation of Ruby gems on Mac OS X let me simply
-install new gems without requiring <code class="highlighter-rouge">sudo</code>. If you would like to install Ruby gems
-without requiring <code class="highlighter-rouge">sudo</code>, do the following:</p>
+install new gems without requiring <code class="language-plaintext highlighter-rouge">sudo</code>. If you would like to install Ruby gems
+without requiring <code class="language-plaintext highlighter-rouge">sudo</code>, do the following:</p>
 
 <ol>
   <li>
-    <p>Add <code class="highlighter-rouge">GEM_HOME</code> to your .bash_profile</p>
+    <p>Add <code class="language-plaintext highlighter-rouge">GEM_HOME</code> to your .bash_profile</p>
 
     <blockquote>
-      <p>For example, <code class="highlighter-rouge">nano ~/.bash_profile</code> and add <code class="highlighter-rouge">export GEM_HOME=/Users/Michael/.gem</code>
+      <p>For example, <code class="language-plaintext highlighter-rouge">nano ~/.bash_profile</code> and add <code class="language-plaintext highlighter-rouge">export GEM_HOME=/Users/Michael/.gem</code>
 where the path is to your own Home folder</p>
     </blockquote>
   </li>
@@ -67,16 +67,16 @@ where the path is to your own Home folder</p>
     <p>Add the gem executables to your system path</p>
 
     <blockquote>
-      <p>Also in .bash_profile, add <code class="highlighter-rouge">export PATH="$GEM_HOME/bin:$PATH"</code></p>
+      <p>Also in .bash_profile, add <code class="language-plaintext highlighter-rouge">export PATH="$GEM_HOME/bin:$PATH"</code></p>
     </blockquote>
   </li>
 </ol>
 
 <p>For some reason these simple steps don’t show up in the top StackOverflow answers.
 People often suggest using rvm to install a custom Ruby version that won’t require using
-<code class="highlighter-rouge">sudo</code> when installing gems or something like rbenv to create a Ruby environment for the
+<code class="language-plaintext highlighter-rouge">sudo</code> when installing gems or something like rbenv to create a Ruby environment for the
 same benefit. If you simply want to use the default installed Ruby version on Mac OS X
-(this works in El Capitan) without requiring <code class="highlighter-rouge">sudo</code>, this should do it.</p>
+(this works in El Capitan) without requiring <code class="language-plaintext highlighter-rouge">sudo</code>, this should do it.</p>
 
 	</article>
 </div>

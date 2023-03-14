@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2019/12/28/python-streaming-unzip.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2019/12/27/python-streaming-unzip.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -46,7 +46,7 @@
 	<header class="post-header">
         <h1 class="post-title">Unzipping a large gzip file in Python</h1>
         <time class="post-date" datetime="">
-            Dec 28, 2019
+            Dec 27, 2019
         </time>
     </header>
 	<article class="post-content">
@@ -59,14 +59,14 @@
 <p>The gzipped file sat in an S3 bucket that a Python script would read from. The Python script ran in an AWS Step Function that spun up a container via Fargate. The container was maxed out in its resources in ECS with a soft limit of RAM around 30GB and a max disk space of 14GB. So, unzipping this file into memory or onto disk was not an option and the Pandas process worked really well to avoid exhausting memory or disk space.</p>
 
 <h1 id="performance">Performance</h1>
-<p>After doing some performance analysis I found that using the native MySQL <code class="highlighter-rouge">LOAD DATA LOCAL INFILE</code>, and more specifically its AWS-specific cousin <code class="highlighter-rouge">LOAD DATA FROM S3</code>, would be a lot faster than the Pandas process. In fact, it shaved off around 2.5 hours. However, MySQL only supports loading uncompressed files via the <code class="highlighter-rouge">LOAD</code> command.</p>
+<p>After doing some performance analysis I found that using the native MySQL <code class="language-plaintext highlighter-rouge">LOAD DATA LOCAL INFILE</code>, and more specifically its AWS-specific cousin <code class="language-plaintext highlighter-rouge">LOAD DATA FROM S3</code>, would be a lot faster than the Pandas process. In fact, it shaved off around 2.5 hours. However, MySQL only supports loading uncompressed files via the <code class="language-plaintext highlighter-rouge">LOAD</code> command.</p>
 
-<p>We updated the ingest process to use <code class="highlighter-rouge">LOAD DATA FROM S3</code> and saw a performance uptick, but we then had to manually uncompress the file before uploading it to its original S3 bucket. This took a long time—uploading a 55GB file via <code class="highlighter-rouge">aws s3 cp</code> would take about an hour from our local machines on our office network. This wasn’t a great compromise because we introduced a manual step that was time consuming and prone to failing (if a computer went to sleep while uploading, for example).</p>
+<p>We updated the ingest process to use <code class="language-plaintext highlighter-rouge">LOAD DATA FROM S3</code> and saw a performance uptick, but we then had to manually uncompress the file before uploading it to its original S3 bucket. This took a long time—uploading a 55GB file via <code class="language-plaintext highlighter-rouge">aws s3 cp</code> would take about an hour from our local machines on our office network. This wasn’t a great compromise because we introduced a manual step that was time consuming and prone to failing (if a computer went to sleep while uploading, for example).</p>
 
 <p>I started testing out whether we could download the gzipped file to our Fargate container and unzip it there before loading to MySQL. Unfortunately, I ran into memory constraints and disk space constraints in Fargate. At that point we could have scrapped that infrastructure and gone with something else like EC2, but the existing infrastructure was very appealing and it seemed possible to do this without exhausting the container’s memory or disk space. Pandas got away with it, right?</p>
 
 <h1 id="the-solution">The Solution</h1>
-<p>After several rounds of searching online, reading through various StackOverflow answers, and lots of trial and error I finally found a solution. Python could open the gzipped file without reading its entire contents to memory or saving it to disk and boto3 could <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.upload_fileobj">upload it back to S3 as a file object</a>. Then, since the file is back in S3 as a decompressed file as if we’d uploaded it ourselves, we can continue to use <code class="highlighter-rouge">LOAD DATA FROM S3</code> as normal. Voila! Problem solved with <a href="https://github.com/headquarters/python-streaming-unzip/blob/master/src/main.py#L22-L23">two lines of Python code</a></p>
+<p>After several rounds of searching online, reading through various StackOverflow answers, and lots of trial and error I finally found a solution. Python could open the gzipped file without reading its entire contents to memory or saving it to disk and boto3 could <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.upload_fileobj">upload it back to S3 as a file object</a>. Then, since the file is back in S3 as a decompressed file as if we’d uploaded it ourselves, we can continue to use <code class="language-plaintext highlighter-rouge">LOAD DATA FROM S3</code> as normal. Voila! Problem solved with <a href="https://github.com/headquarters/python-streaming-unzip/blob/master/src/main.py#L22-L23">two lines of Python code</a></p>
 
 <p>To showcase the power of this method for decompressing a large file without exhausting memory or disk space, I put together a repository that demonstrates the various scenarios I tried: <a href="https://github.com/headquarters/python-streaming-unzip">https://github.com/headquarters/python-streaming-unzip</a>. Here you can play around with a Docker container that can execute a Python script that attempts to decompress a gzipped file into memory, onto disk, or via the streaming method. You’ll have to provide your own large compressed file in S3, though.</p>
 

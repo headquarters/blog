@@ -21,8 +21,8 @@
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://0.0.0.0:4000/2012/03/28/defaulting-to-front-facing-camera-on-ipad-with.html">
-  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://0.0.0.0:4000/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/2012/03/27/defaulting-to-front-facing-camera-on-ipad-with.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
@@ -46,13 +46,13 @@
 	<header class="post-header">
         <h1 class="post-title">Defaulting to front-facing camera on iPad with PhoneGap</h1>
         <time class="post-date" datetime="">
-            Mar 28, 2012
+            Mar 27, 2012
         </time>
     </header>
 	<article class="post-content">
 	<p>While working on a PhoneGap project for an iPad app that utilizes the PGBarcodeScanner plugin, I was trying to find a solution to using the front-facing camera on an iPad 2 by default–not allowing the user to swap back and forth via the UI. I found a helpful <a href="http://stackoverflow.com/questions/5886719/what-is-the-front-cameras-deviceuniqueid">Stack Overflow post</a> on finding the front-facing camera’s device ID. The code below is from the Stack Overflow answer:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(AVCaptureDevice *)frontFacingCameraIfAvailable
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-(AVCaptureDevice *)frontFacingCameraIfAvailable
 {
 	NSArray *videoDevices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
 	AVCaptureDevice *captureDevice = nil;
@@ -75,9 +75,9 @@
 }
 </code></pre></div></div>
 
-<p>Placing this code in the <code class="highlighter-rouge">PGBarcodeScanner.mm</code> file, above the <code class="highlighter-rouge">setUpCaptureSession</code> function, I was able to call it inside the setUpCaptureSession function:</p>
+<p>Placing this code in the <code class="language-plaintext highlighter-rouge">PGBarcodeScanner.mm</code> file, above the <code class="language-plaintext highlighter-rouge">setUpCaptureSession</code> function, I was able to call it inside the setUpCaptureSession function:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AVCaptureDevice* device = [self frontFacingCameraIfAvailable]; //[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AVCaptureDevice* device = [self frontFacingCameraIfAvailable]; //[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 </code></pre></div></div>
 
 <p>The commented-out line is the original PGBarcodeScanner.mm code, which I’ve left for others to reference.</p>

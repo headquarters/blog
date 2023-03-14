@@ -16,12 +16,12 @@
            
            Cool.
         -->
-  <title>Apple's Gray Plating Problem | Michael Head</title>
-  <meta name="description" content="As defined in my previous post, Gray Plating is the overuse of gray in a user interface when it is detrimental to the user experience. Today, while reading a...">
+  <title>Configuring Docker for serving a SvelteKit app | Michael Head</title>
+  <meta name="description" content="SvelteKit is a great web framework for building full stack apps using the underlying component model from Svelte. Recently, I had to debug an issue with a fo...">
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="http://localhost:4000/2013/12/16/apples-gray-plating-problem.html">
+  <link rel="canonical" href="http://localhost:4000/2023/03/13/svelte-cross-site-post.html">
   <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="http://localhost:4000/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
@@ -42,23 +42,38 @@
 </div>
 
 <main id="main" class="blog">
-  <div class="post content ">
+  <div class="post content sveltekit-docker">
 	<header class="post-header">
-        <h1 class="post-title">Apple's Gray Plating Problem</h1>
+        <h1 class="post-title">Configuring Docker for serving a SvelteKit app</h1>
         <time class="post-date" datetime="">
-            Dec 16, 2013
+            Mar 13, 2023
         </time>
     </header>
 	<article class="post-content">
-	<p>As defined in my previous post, Gray Plating is the overuse of gray in a user interface when it is detrimental to the user experience. Today, while reading about an app on the iTunes store, I found a good example of this problem on apple.com. </p>
+	<p><a href="https://kit.svelte.dev">SvelteKit</a> is a great web framework for building full stack apps using the underlying component model from Svelte. Recently, I had to debug an issue with a form action not working when submitting to the same page the form was served from. As an example:</p>
 
-<p>Reading the body text that describes the app Comic Zeal, I found the text to be a little hard to read in my living room, with natural light in the environment. Here is a screenshot of the body text:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;form action="/go/here" method="POST"&gt;
+...
+&lt;/form&gt;
+</code></pre></div></div>
 
-<p><img src="/images/posts/ipad-app-store.png" alt="Screenshot of an app description on the App Store" /></p>
+<p>On submit, both with a normal form POST or using the <code class="language-plaintext highlighter-rouge">enhance</code> action for the form, would lead to the error “Cross-site POST form submissions are forbidden”. This was only in our deployed environment and not locally.</p>
 
-<p>If we plug the foreground text color (#898989) and background color (#ffffff) into <a href="http://leaverou.github.io/contrast-ratio/#%23898989-on-white">Lea Verou’s awesome WCAG 2.0 Color Contrast calculator</a>, then we get a result of 3.5, which partially explains the problem with the contrast. A 3.5, as the tooltip help text states, means this contrast “passes AA for large text (above 18pt or bold above 14pt)”. The website’s body text is 12px, or roughly 9pt, on my 1680x1050 resolution MacBook Pro screen. </p>
+<p>After some trial and error, searching online, and re-reading the docs on <a href="https://kit.svelte.dev/docs/adapter-node#environment-variables">environment variables for the Node.js adapter</a> I realized I needed to set the ORIGIN when the node server is starting. Note: this is <em>not</em> set when doing the build itself. The “build” below refers to the “build” folder, not the “build” command in <code class="language-plaintext highlighter-rouge">npm run build</code>.</p>
 
-<p>At a font-size equivalent to 9pt, the iTunes app store body content fails to meet the WCAG 2.0 guideline 1.4.3 on minimum contrast, unless users resize the text themselves. It’s a good thing I’m nearsighted at this age, but for 80-year-old me, and for others that currently don’t have as good of vision, this kind of Gray Plating is a real problem. </p>
+<p>Dockerfile snippet:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># build the app 
+RUN npm run build 
+
+# assumes the default SvelteKit host and port
+ENV ORIGIN=http://localhost:3000 
+
+# start the node.js app in build folder
+CMD ["node", "build"] 
+</code></pre></div></div>
+
+<p>Now a form action will POST properly when deployed.</p>
 
 	</article>
 </div>
