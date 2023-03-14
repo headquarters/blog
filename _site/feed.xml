@@ -4,10 +4,10 @@
     <title>Michael&apos;s Headquarters</title>
     <description>Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
 </description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 13 Mar 2023 20:54:11 -0400</pubDate>
-    <lastBuildDate>Mon, 13 Mar 2023 20:54:11 -0400</lastBuildDate>
+    <link>https://www.michaelehead.com/</link>
+    <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 13 Mar 2023 21:38:25 -0400</pubDate>
+    <lastBuildDate>Mon, 13 Mar 2023 21:38:25 -0400</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
@@ -38,8 +38,8 @@ CMD [&quot;node&quot;, &quot;build&quot;]
 &lt;p&gt;Now a form action will POST properly when deployed.&lt;/p&gt;
 </description>
         <pubDate>Mon, 13 Mar 2023 20:03:00 -0400</pubDate>
-        <link>http://localhost:4000/2023/03/13/svelte-cross-site-post.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2023/03/13/svelte-cross-site-post.html</guid>
+        <link>https://www.michaelehead.com/2023/03/13/svelte-cross-site-post.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2023/03/13/svelte-cross-site-post.html</guid>
         
         <category>development</category>
         
@@ -78,8 +78,8 @@ export const handlers = [
 &lt;p&gt;With this approach, we can develop our UI in the browser and see our loading states while our automated unit tests can still run fast without pausing for MSW responses.&lt;/p&gt;
 </description>
         <pubDate>Mon, 21 Nov 2022 03:02:00 -0500</pubDate>
-        <link>http://localhost:4000/2022/11/21/artificial-delays-in-msw.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2022/11/21/artificial-delays-in-msw.html</guid>
+        <link>https://www.michaelehead.com/2022/11/21/artificial-delays-in-msw.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2022/11/21/artificial-delays-in-msw.html</guid>
         
         <category>development</category>
         
@@ -182,8 +182,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;I don’t have a repo for recreating this issue because it involves a ton of infrastructure to recreate, but the template snippet above is all that had to be changed to switch a Route53 record from a CNAME to an A with an Alias in our stack.&lt;/p&gt;
 </description>
         <pubDate>Wed, 08 Jan 2020 10:55:00 -0500</pubDate>
-        <link>http://localhost:4000/2020/01/08/bug-case-studies-copy.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2020/01/08/bug-case-studies-copy.html</guid>
+        <link>https://www.michaelehead.com/2020/01/08/bug-case-studies-copy.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2020/01/08/bug-case-studies-copy.html</guid>
         
         <category>development</category>
         
@@ -214,8 +214,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 </description>
         <pubDate>Fri, 27 Dec 2019 22:11:00 -0500</pubDate>
-        <link>http://localhost:4000/2019/12/27/python-streaming-unzip.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2019/12/27/python-streaming-unzip.html</guid>
+        <link>https://www.michaelehead.com/2019/12/27/python-streaming-unzip.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2019/12/27/python-streaming-unzip.html</guid>
         
         <category>javascript</category>
         
@@ -280,8 +280,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;There is a ton of overlap between these 3 topics. In my mind, The Founder’s Mentality is DevOps/Agile explained in a way that non-technology-centric business executives can relate to. It reinforces to me that, at the end of the day, product, design, development, operations, and every other unit of business are all trying to achieve the same thing, but we have various ways to execute on that vision and occasionally our terminology doesn’t line up. Hopefully a comparison like this will help bridge the gap for some folks out there.&lt;/p&gt;
 </description>
         <pubDate>Mon, 10 Dec 2018 03:30:00 -0500</pubDate>
-        <link>http://localhost:4000/2018/12/10/founders-mentality-devops-and-agile.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/12/10/founders-mentality-devops-and-agile.html</guid>
+        <link>https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</guid>
         
         <category>javascript</category>
         
@@ -318,8 +318,8 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 </description>
         <pubDate>Sat, 10 Mar 2018 04:48:00 -0500</pubDate>
-        <link>http://localhost:4000/2018/03/10/ember-js-6-months-in.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/03/10/ember-js-6-months-in.html</guid>
+        <link>https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</guid>
         
         <category>javascript</category>
         
@@ -409,8 +409,8 @@ version. The example we created here is available as a
 &lt;a href=&quot;https://github.com/headquarters/show-title-bookmarklet&quot;&gt;GitHub repo&lt;/a&gt;, too.&lt;/p&gt;
 </description>
         <pubDate>Sat, 10 Mar 2018 04:48:00 -0500</pubDate>
-        <link>http://localhost:4000/2018/03/10/how-to-create-a-bookmarklet.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/03/10/how-to-create-a-bookmarklet.html</guid>
+        <link>https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</guid>
         
         <category>javascript</category>
         
@@ -528,8 +528,8 @@ ease the frustration of dealing with their service.&lt;/p&gt;
 &lt;p&gt;Update: they’ve undergone a redesign so some screenshots are out of date and they now use babiesrus.com, so they’re improving!&lt;/p&gt;
 </description>
         <pubDate>Sat, 05 Aug 2017 05:48:00 -0400</pubDate>
-        <link>http://localhost:4000/2017/08/05/baby-registries-and-service-design.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/08/05/baby-registries-and-service-design.html</guid>
+        <link>https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</guid>
         
         <category>ux</category>
         
@@ -630,8 +630,8 @@ git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt
 &lt;span class=&quot;nb&quot;&gt;du&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Sh&lt;/span&gt; /path | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rh&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
         <pubDate>Wed, 19 Jul 2017 04:15:00 -0400</pubDate>
-        <link>http://localhost:4000/2017/07/19/personal-notes-on-development.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/07/19/personal-notes-on-development.html</guid>
+        <link>https://www.michaelehead.com/2017/07/19/personal-notes-on-development.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/07/19/personal-notes-on-development.html</guid>
         
         <category>ux</category>
         
@@ -672,8 +672,8 @@ user interfaces. (also Tenets+Traps)&lt;/p&gt;
 &lt;p&gt;Design is biased towards action. If you can’t take action on a problem, it’s not a problem, it’s a circumstance. A lot of people have a problem that isn’t a problem, it’s a circumstance. (adapted from http://www.npr.org/templates/transcript/transcript.php?storyId=507901716)&lt;/p&gt;
 </description>
         <pubDate>Sun, 16 Jul 2017 11:07:00 -0400</pubDate>
-        <link>http://localhost:4000/2017/07/16/personal-notes-on-ux-design.html</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/07/16/personal-notes-on-ux-design.html</guid>
+        <link>https://www.michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/07/16/personal-notes-on-ux-design.html</guid>
         
         <category>ux</category>
         

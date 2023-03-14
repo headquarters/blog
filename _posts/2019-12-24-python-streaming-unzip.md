@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Unzipping a large gzip file in Python
-date: '2019-12-27T22:11:00-05:00'
+date: '2019-12-27 22:11:00 -05:00'
 tags: [javascript, development]
 cssClass: python-streaming-unzip
 ---

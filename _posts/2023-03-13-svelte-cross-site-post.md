@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Configuring Docker for serving a SvelteKit app
-date: '2023-03-13T20:03:00-04:00'
+date: '2023-03-13 20:03:00 -04:00'
 tags: [development]
 cssClass: sveltekit-docker
 ---
