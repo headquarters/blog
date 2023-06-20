@@ -6,8 +6,9 @@ tags: [development]
 cssClass: sveltekit-s3
 ---
 
-Demo of the S3 pagination UI: https://coruscating-manatee-4afd46.netlify.app
-Source code: https://github.com/headquarters/s3-viewer
+TLDR: <br />
+Demo of the S3 pagination UI: [https://coruscating-manatee-4afd46.netlify.app](https://coruscating-manatee-4afd46.netlify.app) <br />
+Source code: [https://github.com/headquarters/s3-viewer](https://github.com/headquarters/s3-viewer)
 
 Traversing S3 buckets to list objects in a bucket can sometimes be confusing because S3 stores objects, not files and folders. It uses prefixes to fake a directory structure. This fake directory structure is what shows up in its own console UI.
 
