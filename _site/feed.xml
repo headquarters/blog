@@ -4,11 +4,41 @@
     <title>Michael&apos;s Headquarters</title>
     <description>Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations.
 </description>
-    <link>http://0.0.0.0:4000/</link>
-    <atom:link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 20 Jun 2023 15:04:32 +0000</pubDate>
-    <lastBuildDate>Tue, 20 Jun 2023 15:04:32 +0000</lastBuildDate>
+    <link>https://www.michaelehead.com/</link>
+    <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 05 Nov 2023 20:16:28 -0500</pubDate>
+    <lastBuildDate>Sun, 05 Nov 2023 20:16:28 -0500</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>Using an IP address locally with Node.js 17+</title>
+        <description>&lt;p&gt;Try this out: you can access your SvelteKit app locally at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://[::1]:5173&lt;/code&gt;…crazy looking address, huh?&lt;/p&gt;
+
+&lt;p&gt;The following is information specific to a SvelteKit app running on macOS but should apply to any app that runs Node.js 17 or up for a server.&lt;/p&gt;
+
+&lt;p&gt;When running a SvelteKit app locally, it gives your app the default address of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;localhost:5173&lt;/code&gt;. Normally, this would mean you could access the site at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;127.0.0.1:5173&lt;/code&gt; as well, given that the loopback IP is normally mapped to localhost. On macOS, if you &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat /etc/hosts&lt;/code&gt;, you’ll see something like:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This shows that 127.0.0.1 is mapped to localhost. So what’s going? In Node.js 17, there was a &lt;a href=&quot;https://nodejs.org/en/blog/release/v17.0.0#other-notable-changes&quot;&gt;change to the order in which DNS lookup results were ordered&lt;/a&gt; so that instead of re-ordering results to put IPv4 first, it now uses the OS’s results as-is. This means a Node.js 17+ server is binding to the IPv6 address instead of the IPv4, so you can access your site at the “weird” looking address of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://[::1]:5173&lt;/code&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 18 Sep 2023 20:53:00 -0400</pubDate>
+        <link>https://www.michaelehead.com/2023/09/18/local-ip-node-17-and-up.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2023/09/18/local-ip-node-17-and-up.html</guid>
+        
+        <category>development</category>
+        
+        
+      </item>
     
       <item>
         <title>Example of UI pagination for viewing S3 objects</title>
@@ -22,9 +52,9 @@ Source code: &lt;a href=&quot;https://github.com/headquarters/s3-viewer&quot;&gt
 
 &lt;p&gt;A better approach is to work with the prefix and a “continuation token” to pick back up your querying where you leave off in between requests. This is the approach I took to build something akin to the console UI for paginating through an S3 bucket. I used SvelteKit to build the UI and a single API endpoint for fetching object lists with the AWS S3 client library. Going “into” a folder alters the prefix that is used, while moving back and forth between a list “inside” a folder utilizes the continuation token to pick up where you leave off in between requests. No “paginator” required or necessary.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 14 Mar 2023 00:03:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2023/03/14/paginating-s3-results-example.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2023/03/14/paginating-s3-results-example.html</guid>
+        <pubDate>Mon, 13 Mar 2023 20:03:00 -0400</pubDate>
+        <link>https://www.michaelehead.com/2023/03/13/paginating-s3-results-example.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2023/03/13/paginating-s3-results-example.html</guid>
         
         <category>development</category>
         
@@ -58,9 +88,9 @@ CMD [&quot;node&quot;, &quot;build&quot;]
 
 &lt;p&gt;Now a form action will POST properly when deployed.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 14 Mar 2023 00:03:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2023/03/14/svelte-cross-site-post.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2023/03/14/svelte-cross-site-post.html</guid>
+        <pubDate>Mon, 13 Mar 2023 20:03:00 -0400</pubDate>
+        <link>https://www.michaelehead.com/2023/03/13/svelte-cross-site-post.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2023/03/13/svelte-cross-site-post.html</guid>
         
         <category>development</category>
         
@@ -98,9 +128,9 @@ export const handlers = [
 
 &lt;p&gt;With this approach, we can develop our UI in the browser and see our loading states while our automated unit tests can still run fast without pausing for MSW responses.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 21 Nov 2022 08:02:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2022/11/21/artificial-delays-in-msw.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2022/11/21/artificial-delays-in-msw.html</guid>
+        <pubDate>Mon, 21 Nov 2022 03:02:00 -0500</pubDate>
+        <link>https://www.michaelehead.com/2022/11/21/artificial-delays-in-msw.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2022/11/21/artificial-delays-in-msw.html</guid>
         
         <category>development</category>
         
@@ -202,9 +232,9 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 &lt;p&gt;I don’t have a repo for recreating this issue because it involves a ton of infrastructure to recreate, but the template snippet above is all that had to be changed to switch a Route53 record from a CNAME to an A with an Alias in our stack.&lt;/p&gt;
 </description>
-        <pubDate>Wed, 08 Jan 2020 15:55:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2020/01/08/bug-case-studies-copy.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2020/01/08/bug-case-studies-copy.html</guid>
+        <pubDate>Wed, 08 Jan 2020 10:55:00 -0500</pubDate>
+        <link>https://www.michaelehead.com/2020/01/08/bug-case-studies-copy.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2020/01/08/bug-case-studies-copy.html</guid>
         
         <category>development</category>
         
@@ -234,9 +264,9 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;To showcase the power of this method for decompressing a large file without exhausting memory or disk space, I put together a repository that demonstrates the various scenarios I tried: &lt;a href=&quot;https://github.com/headquarters/python-streaming-unzip&quot;&gt;https://github.com/headquarters/python-streaming-unzip&lt;/a&gt;. Here you can play around with a Docker container that can execute a Python script that attempts to decompress a gzipped file into memory, onto disk, or via the streaming method. You’ll have to provide your own large compressed file in S3, though.&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 28 Dec 2019 03:11:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2019/12/28/python-streaming-unzip.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2019/12/28/python-streaming-unzip.html</guid>
+        <pubDate>Fri, 27 Dec 2019 22:11:00 -0500</pubDate>
+        <link>https://www.michaelehead.com/2019/12/27/python-streaming-unzip.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2019/12/27/python-streaming-unzip.html</guid>
         
         <category>javascript</category>
         
@@ -300,9 +330,9 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 
 &lt;p&gt;There is a ton of overlap between these 3 topics. In my mind, The Founder’s Mentality is DevOps/Agile explained in a way that non-technology-centric business executives can relate to. It reinforces to me that, at the end of the day, product, design, development, operations, and every other unit of business are all trying to achieve the same thing, but we have various ways to execute on that vision and occasionally our terminology doesn’t line up. Hopefully a comparison like this will help bridge the gap for some folks out there.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 10 Dec 2018 08:30:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/12/10/founders-mentality-devops-and-agile.html</guid>
+        <pubDate>Mon, 10 Dec 2018 03:30:00 -0500</pubDate>
+        <link>https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/12/10/founders-mentality-devops-and-agile.html</guid>
         
         <category>javascript</category>
         
@@ -338,9 +368,9 @@ it worked! To this day, I’m still not clear why this made a difference (if you
 &lt;p&gt;There are always pros and cons to every piece of technology and you ultimately have to pick the right tool for the job without being overly dogmatic about your decision. I think Ember is a great addition to the tools available to web developers these days. It’s worth knowing about these pros and cons before diving into a new framework, so hopefully this helped give some insight into what a newbie Ember developer coming from a React world might expect.&lt;/p&gt;
 
 </description>
-        <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/ember-js-6-months-in.html</guid>
+        <pubDate>Sat, 10 Mar 2018 04:48:00 -0500</pubDate>
+        <link>https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/ember-js-6-months-in.html</guid>
         
         <category>javascript</category>
         
@@ -429,9 +459,9 @@ the source file you can run &lt;code class=&quot;language-plaintext highlighter-
 version. The example we created here is available as a 
 &lt;a href=&quot;https://github.com/headquarters/show-title-bookmarklet&quot;&gt;GitHub repo&lt;/a&gt;, too.&lt;/p&gt;
 </description>
-        <pubDate>Sat, 10 Mar 2018 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2018/03/10/how-to-create-a-bookmarklet.html</guid>
+        <pubDate>Sat, 10 Mar 2018 04:48:00 -0500</pubDate>
+        <link>https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2018/03/10/how-to-create-a-bookmarklet.html</guid>
         
         <category>javascript</category>
         
@@ -548,111 +578,9 @@ ease the frustration of dealing with their service.&lt;/p&gt;
 
 &lt;p&gt;Update: they’ve undergone a redesign so some screenshots are out of date and they now use babiesrus.com, so they’re improving!&lt;/p&gt;
 </description>
-        <pubDate>Sat, 05 Aug 2017 09:48:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/08/05/baby-registries-and-service-design.html</guid>
-        
-        <category>ux</category>
-        
-        <category>design</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Some Personal Notes on Development</title>
-        <description>&lt;p&gt;After posting &lt;a href=&quot;/2017/07/16/personal-notes-on-ux-design.html&quot;&gt;some personal notes on UX design&lt;/a&gt;, I figured why not publish all the notes
-I keep for development, too? Below are random snippets of code I’ve found useful, CLI commands, and other tidbits that I 
-always find myself coming back to for reference.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Kill a process by name (only verified on macOS)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Example: `sudo pkill node`&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pkill &lt;span class=&quot;nv&quot;&gt;$PROCESSNAME&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# SSH config with multiple hostnames and a domain controller prefix for username, ~/.ssh/config&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# This allows you to do something like `ssh name1` and it will expand to include the username and proper key &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# It&apos;s counterintuitive, but the generic settings (Host *) go at the bottom of the file&lt;/span&gt;
-Host name1 name2 name3 
-  HostName %h.domain.tld
-  &lt;span class=&quot;c&quot;&gt;# Rarely needed, more likely your username does not have a prefix&lt;/span&gt;
-  User &lt;span class=&quot;s2&quot;&gt;&quot;controller&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\u&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;sername&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Override specific properties of the &quot;*&quot; Host setting&lt;/span&gt;
-Host name4
-  HostName differentdomain.tld
-  IdentityFile ~/.ssh/private_key2
-
-Host &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-  IdentityFile ~/.ssh/private_key
-  ForwardAgent &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;
-  &lt;span class=&quot;c&quot;&gt;# These two are macOS specific&lt;/span&gt;
-  AddKeysToAgent &lt;span class=&quot;nb&quot;&gt;yes
-  &lt;/span&gt;UseKeychain &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;  &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Snippets from .bash_profile &lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Edit the profile itself&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;showprofile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;cat ~/.bash_profile&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;editprofile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;nano ~/.bash_profile&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;loadprofile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;source ~/.bash_profile&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# macOS flushdns&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;flushdns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sudo killall -HUP mDNSResponder&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Spin up simple Python server in current directory (wherever the command is run)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;pythonserver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;python -m SimpleHTTPServer 8000&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Node.js ENV shortcuts&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setprod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;export NODE_ENV=production&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setdev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;unset NODE_ENV&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;checkenv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;echo &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;NODE_ENV&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# macOS IPv6 toggling&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;disableipv6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;networksetup -setv6off Wi-Fi&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;enableipv6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;networksetup -setv6automatic Wi-Fi&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# macOS copy IP addresses to clipboard&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getethernetip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipconfig getifaddr en0 | pbcopy&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;getwirelessip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipconfig getifaddr en1 | pbcopy&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Configure git CLI (requires .git-prompt shell file)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.git-prompt.sh
-&lt;span class=&quot;nv&quot;&gt;PS1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;[\u@\h \W$(__git_ps1 &quot; (%s)&quot;)]\$ &apos;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Make nano the default editor because who wants to deal with vi when doing git commit? ;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EDITOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;nano
-
-&lt;span class=&quot;c&quot;&gt;# Load SSH identities since macOS forgets on reboot&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;ssh-agent &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
-ssh-add &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Symlink a folder; notice there are no trailing slashes (only verified on macOS)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;ln&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-sFv&lt;/span&gt; /path/to/original-folder /path/to/folder-symlink&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Tail multiple logs at the same time&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; /var/log/name&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.log&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Delete files older than 5 days&lt;/span&gt;
-find ./&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-mtime&lt;/span&gt; +5 &lt;span class=&quot;nt&quot;&gt;-exec&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Find processes listening on $PORT&lt;/span&gt;
-lsof &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;:&lt;span class=&quot;nv&quot;&gt;$PORT&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;LISTEN&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# git commands&lt;/span&gt;
-git diff branch1..branch2 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; filename
-
-git cherry-pick &amp;lt;commit &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# Show disk space used with human readable file format&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Find the top 10 largest directories in /path&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;du&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Sh&lt;/span&gt; /path | &lt;span class=&quot;nb&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rh&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-10&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-</description>
-        <pubDate>Wed, 19 Jul 2017 08:15:00 +0000</pubDate>
-        <link>http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</link>
-        <guid isPermaLink="true">http://0.0.0.0:4000/2017/07/19/personal-notes-on-development.html</guid>
+        <pubDate>Sat, 05 Aug 2017 05:48:00 -0400</pubDate>
+        <link>https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</link>
+        <guid isPermaLink="true">https://www.michaelehead.com/2017/08/05/baby-registries-and-service-design.html</guid>
         
         <category>ux</category>
         

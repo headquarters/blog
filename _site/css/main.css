@@ -711,6 +711,9 @@ article {
 .footer--link {
   margin: 0 1em;
 }
+.footer--link * {
+  vertical-align: middle;
+}
 .footer--blog-info {
   font-size: 0.8em;
   margin-bottom: 1em;

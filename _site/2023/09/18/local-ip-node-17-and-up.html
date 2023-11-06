@@ -16,12 +16,12 @@
            
            Cool.
         -->
-  <title>User-activated image loading | Michael Head</title>
-  <meta name="description" content="After seeing this series of tweets about responsive images and picturefill.js, I started wondering if there was another approach web developers should take f...">
+  <title>Using an IP address locally with Node.js 17+ | Michael Head</title>
+  <meta name="description" content="Try this out: you can access your SvelteKit app locally at http://[::1]:5173…crazy looking address, huh?">
 
   <link rel="stylesheet" href="/css/main.css">
         
-  <link rel="canonical" href="https://www.michaelehead.com/2013/05/02/user-activated-image-loading.html">
+  <link rel="canonical" href="https://www.michaelehead.com/2023/09/18/local-ip-node-17-and-up.html">
   <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="https://www.michaelehead.com/feed.xml" />
   <script src="/js/modernizr-2.6.2.min.js"></script>
 </head>
@@ -42,19 +42,32 @@
 </div>
 
 <main id="main" class="blog">
-  <div class="post content ">
+  <div class="post content nodejs-dns">
 	<header class="post-header">
-        <h1 class="post-title">User-activated image loading</h1>
+        <h1 class="post-title">Using an IP address locally with Node.js 17+</h1>
         <time class="post-date" datetime="">
-            May 2, 2013
+            Sep 18, 2023
         </time>
     </header>
 	<article class="post-content">
-	<p>After seeing this <a href="https://twitter.com/nixonmedia/status/329964035636334593">series of tweets</a> about responsive images and picturefill.js, I started wondering if there was another approach web developers should take for serving up images. The following relates to inline or content images, not background or decorative images. For example, large images in the middle of a long article on a news site. </p>
+	<p>Try this out: you can access your SvelteKit app locally at <code class="language-plaintext highlighter-rouge">http://[::1]:5173</code>…crazy looking address, huh?</p>
 
-<p>Imagine loading pages without inline images even present by default. Pages would load blazingly fast, because there are fewer HTTP requests overall and images aren’t taking up bandwidth on initial page load. The user could tap or click an image placeholder to request the image. </p>
+<p>The following is information specific to a SvelteKit app running on macOS but should apply to any app that runs Node.js 17 or up for a server.</p>
 
-<p>I think it would be great to see this user tested on content-heavy sites, such as blogs or news sites. </p>
+<p>When running a SvelteKit app locally, it gives your app the default address of <code class="language-plaintext highlighter-rouge">localhost:5173</code>. Normally, this would mean you could access the site at <code class="language-plaintext highlighter-rouge">127.0.0.1:5173</code> as well, given that the loopback IP is normally mapped to localhost. On macOS, if you <code class="language-plaintext highlighter-rouge">cat /etc/hosts</code>, you’ll see something like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+</code></pre></div></div>
+
+<p>This shows that 127.0.0.1 is mapped to localhost. So what’s going? In Node.js 17, there was a <a href="https://nodejs.org/en/blog/release/v17.0.0#other-notable-changes">change to the order in which DNS lookup results were ordered</a> so that instead of re-ordering results to put IPv4 first, it now uses the OS’s results as-is. This means a Node.js 17+ server is binding to the IPv6 address instead of the IPv4, so you can access your site at the “weird” looking address of <code class="language-plaintext highlighter-rouge">http://[::1]:5173</code>.</p>
 
 	</article>
 </div>
