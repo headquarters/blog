@@ -1,1 +1,0 @@
-docker run -v $(pwd):/site bretfisher/jekyll build

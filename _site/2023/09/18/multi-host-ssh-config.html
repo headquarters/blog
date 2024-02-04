@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--
+               _
+              | |
+              | |
+           ___|  \____
+          |___]   
+         |____]     
+          |___]    |___
+           |___]__/
+           
+           Cool.
+        -->
+  <title>An example multi-host SSH config | Michael Head</title>
+  <meta name="description" content="Sometimes I need to open one or more SSH tunnels to remote hosts. I used to do this with aliases in my zsh profile, so I could call something like sshhostnam...">
+
+  <link rel="stylesheet" href="/css/main.css">
+        
+  <link rel="canonical" href="https://www.michaelehead.com/2023/09/18/multi-host-ssh-config.html">
+  <link rel="alternate" type="application/rss+xml" title="Michael's Headquarters" href="https://www.michaelehead.com/feed.xml" />
+  <script src="/js/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+
+<div class="site-header">
+    <a href="#main" id="go-to-main" class="site-header--content-link">Go to content &darr;</a>
+    <header class="site-header--titles">
+        <h1 class="site-header--title">Michael's Headquarters</h1>
+        <h2 class="site-header--subtitle">On UX Design and Development</h2>
+    </header>
+    <nav class="main-nav">
+        <ul class="main-nav--list">
+          <li class="main-nav--list-item "><a class="main-nav--link" href="/">About</a></li>
+          <li class="main-nav--list-item active"><a class="main-nav--link" href="/blog/">Blog</a></li>
+        </ul>
+    </nav>        
+</div>
+
+<main id="main" class="blog">
+  <div class="post content nodejs-dns">
+	<header class="post-header">
+        <h1 class="post-title">An example multi-host SSH config</h1>
+        <time class="post-date" datetime="">
+            Sep 18, 2023
+        </time>
+    </header>
+	<article class="post-content">
+	<p>Sometimes I need to open one or more SSH tunnels to remote hosts. I used to do this with aliases in my zsh profile, so I could call something like <code class="language-plaintext highlighter-rouge">sshhostname</code> and it would automatically run the ssh tunneling command. I’ve since adopted an SSH config as it made it a lot easier to maintain and had a nice benefit of making the tunnels easier to find for closing later.</p>
+
+<p>Below is an example multi-host SSH config. It shows how to set up SSH tunneling for two hosts (hostname1 and hostname2). Since hostname3 does not have other directives set for it, it will set up an interactive session.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ~/.ssh/config
+
+Host hostname1 hostname2 hostname3
+  HostName 10.10.10.100
+
+# Create a tunnel (ports below) without opening a session the current shell
+Host hostname1 hostname2
+  ForkAfterAuthentication yes
+  SessionType none
+
+Host hostname1
+  LocalForward 4555 10.10.10.100:4555
+
+Host hostname2
+  LocalForward 5432 10.10.10.100:5432
+
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  ForwardAgent no # do not need to send local keys to remote machine
+  ServerAliveInterval 300
+  TCPKeepAlive no
+  IdentityFtle ~/.ssh/id_ed25519
+</code></pre></div></div>
+
+<p>This config is used by referencing the hostname on the command line, e.g. <code class="language-plaintext highlighter-rouge">ssh hostname1</code></p>
+
+<p>I found that one of my favorite things about using the SSH config with hostnames is that active tunnels show up in the process list with their names such as “ssh hostname1”. This makes it a little easier to kill those sessions on command, such as to re-use a port.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ~/.zshrc
+
+alias killssh="pgrep -f \"ssh [hostname1|hostname2|hostname3]\" | xargs kill"
+</code></pre></div></div>
+
+<p>With this alias, calling <code class="language-plaintext highlighter-rouge">killssh</code> will only the active SSH sessions for your hosts, not all active SSH processes. This is especially useful to prevent accidentally killing the SSH session opened by Rancher Desktop for Docker. If you run <code class="language-plaintext highlighter-rouge">ps aux | grep ssh</code> with Rancher Desktop running, you’ll see it has an active SSH session running to a socket:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps aux | grep ssh
+&lt;username&gt;          21571   0.0  0.0 33896736    828   ??  S     8:42PM   0:00.00 ssh -F /dev/null -o &lt;truncated&gt; 56843 127.0.0.1 -- sshfs ":/Applications/Rancher Desktop.app/Contents/Resources/resources" "/Applications/Rancher Desktop.app/Contents/Resources/resources" -o slave -o allow_other
+</code></pre></div></div>
+
+<p>So, if you run in an environment where you use Rancher Desktop for Docker containers and have to support a few SSH tunnels locally, hopefully this will help you as well.</p>
+
+	</article>
+</div>
+
+</main>
+
+        <footer class="footer row">
+          <div class="col">
+                <div class="footer--social">
+                    <a class="footer--link" href="https://www.buymeacoffee.com/mhead" target="_blank" title="Find anything useful or interesting on this site? Please, buy me a cup of coffee!"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+                    <a class="footer--link" href="http://github.com/headquarters"><img src="/images/icons/GitHub.png" alt="GitHub" /></a>
+                    <a class="footer--link" href="http://linkedin.com/in/michaelehead"><img src="/images/icons/LinkedIn.png" alt="LinkedIn" /></a>
+                </div>
+                <section class="footer--blog-info">
+                  <div class="footer--copyright">&copy; 2023</div>
+                  <div class="footer--poweredby">Generated by <a href="http://jeykyllrb.com">Jekyll</a></div>
+              </section>
+              <a class="footer--go-to-top" href="#go-to-main">&uarr; Top</a>
+          </div>
+        </footer>
+    </body>
+</html>
+
