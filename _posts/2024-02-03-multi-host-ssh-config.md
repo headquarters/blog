@@ -1,7 +1,7 @@
 ---
 layout: post
 title: An example multi-host SSH config
-date: "2023-09-18 20:53:00 -04:00"
+date: "2024-02-03 21:20 -500"
 tags: [development]
 cssClass: nodejs-dns
 ---
