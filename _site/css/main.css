@@ -643,6 +643,10 @@ article {
   text-align: center;
 }
 
+.buymeacoffee img {
+  max-width: 44px;
+}
+
 /* Dead Simple Grid (c) 2012 Vladimir Agafonkin */
 .col {
   padding: 0 1em;

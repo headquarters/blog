@@ -6,8 +6,8 @@
 </description>
     <link>https://www.michaelehead.com/</link>
     <atom:link href="https://www.michaelehead.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 09 Feb 2024 10:36:42 -0500</pubDate>
-    <lastBuildDate>Fri, 09 Feb 2024 10:36:42 -0500</lastBuildDate>
+    <pubDate>Thu, 29 Feb 2024 07:14:08 -0500</pubDate>
+    <lastBuildDate>Thu, 29 Feb 2024 07:14:08 -0500</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
@@ -103,9 +103,9 @@ alias killssh=&quot;pgrep -f \&quot;ssh [hostname1|hostname2|hostname3]\&quot; |
 Demo of the S3 pagination UI: &lt;a href=&quot;https://coruscating-manatee-4afd46.netlify.app&quot;&gt;https://coruscating-manatee-4afd46.netlify.app&lt;/a&gt; &lt;br /&gt;
 Source code: &lt;a href=&quot;https://github.com/headquarters/s3-viewer&quot;&gt;https://github.com/headquarters/s3-viewer&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Traversing S3 buckets to list objects in a bucket can sometimes be confusing because S3 stores objects, not files and folders. It uses prefixes to fake a directory structure. This fake directory structure is what shows up in its own console UI.&lt;/p&gt;
+&lt;p&gt;Building a UI to traverse files and folders in S3 buckets can sometimes be confusing because S3 stores objects, not files and folders. It uses prefixes to fake a directory structure. This fake directory structure is what shows up in its own console UI.&lt;/p&gt;
 
-&lt;p&gt;Another potentially confusing matter in building a UI to traverse S3 objects is the use of the word “pagination” in the client docs. If you’re used to paginating meaning a REST API returns results and a client app shows results with previous/next buttons, then this not the pagination you’re looking for. The &lt;a href=&quot;https://boto3.amazonaws.com/v1/documentation/api/latest/guide/paginators.html&quot;&gt;boto3 docs discuss paginators&lt;/a&gt;, for example, but in this case the pagination is meant to go through “pages” of your bucket’s objects all in one process. Say you have 10K objects and set your limit to 1000 per page, you can loop over the paginator 10 times to eventually fetch all the results. Now your server would be holding on to 10K objects, ready to send them…to the client? Given very few UIs would ever display 10K results in a single UI page, this is unrealistic for pagination with a standard client-server architecture.&lt;/p&gt;
+&lt;p&gt;Another potentially confusing matter in building a UI to traverse S3 objects is the use of the word “pagination” in the SDK client docs. If you’re used to “pagination” meaning a REST API returns results and a client app shows results with previous/next buttons, then this is not the pagination you’re looking for. The &lt;a href=&quot;https://boto3.amazonaws.com/v1/documentation/api/latest/guide/paginators.html&quot;&gt;boto3 docs discuss paginators&lt;/a&gt;, for example, but in this case the pagination is meant to go through “pages” of your bucket’s objects all in one process. Say you have 10K objects and set your limit to 1000 per page, you can loop over the paginator 10 times to eventually fetch all the results. Now your server would be holding on to 10K objects, ready to send them…to the client? Given very few UIs would ever display 10K results in a single UI page, this is unrealistic for pagination with a standard client-server architecture. For server to server, it might make sense to fetch in pages like this, but not so much for a user interface.&lt;/p&gt;
 
 &lt;p&gt;A better approach is to work with the prefix and a “continuation token” to pick back up your querying where you leave off in between requests. This is the approach I took to build something akin to the console UI for paginating through an S3 bucket. I used SvelteKit to build the UI and a single API endpoint for fetching object lists with the AWS S3 client library. Going “into” a folder alters the prefix that is used, while moving back and forth between a list “inside” a folder utilizes the continuation token to pick up where you leave off in between requests. No “paginator” required or necessary.&lt;/p&gt;
 </description>
