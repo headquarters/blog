@@ -1,0 +1,38 @@
+---
+section: work
+title: "Work | IBM Digital Marketplace Search UI"
+---
+
+<header>
+	<h1 class="page-title">IBM Digital Marketplace Search UI</h1>
+</header>
+<article>
+    <aside class="panel">
+        <div class="utilized"><span>Focus:</span> Development</div>
+        <div class="utilized"><span>Worked with:</span> Node.js, React, Sass, Gulp, Mocha, Webpack, TravisCI, Bluemix (PaaS)</div> 
+    </aside>
+    <h2 id="ibm-marketplace-development">Development</h2>
+
+    <p>
+        As part of the same team maintaining the <a href="/work/ibm/marketplace.html">IBM Digital Marketplace storefront</a>, 
+        I wrote UI components and unit tests for the search results pages of the Digital Marketplace. 
+    </p>
+
+    <p>
+        This application had its own CI/CD pipeline setup that we maintained, consisting of GitHub Enterprise, TravisCI, and 
+        Bluemix. Search results were rendered from an Elastic Search endpoint that another team maintained as a microservice. 
+    </p>
+    <figure>
+		<img src="/images/screenshots/ibm/search.jpg" alt="Screenshot of IBM Digital Marketplace search home page" />
+		<figcaption>
+			The search results page for the IBM Digital Marketplace.   
+		</figcaption>
+	</figure> 
+
+    <figure>
+		<img src="/images/screenshots/ibm/search-filter.jpg" alt="Screenshot of IBM Digital Marketplace search home page with filter sidebar showing" />
+		<figcaption>
+			Faceted navigation was in the left sidebar.    
+		</figcaption>
+	</figure>        
+</article>

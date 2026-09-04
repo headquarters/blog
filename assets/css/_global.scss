@@ -1,0 +1,71 @@
+$spacing-unit:   1em;
+$content-length: 40em;
+$code-background: antiquewhite;
+
+img {
+    max-width: 100%;
+}
+
+/**
+ * Set `margin-bottom` to maintain vertical rhythm
+ */
+h1, h2, h3, h4, h5, h6, blockquote, pre,
+ul, ol, dl, figure,
+%vertical-rhythm {
+    margin-bottom: $spacing-unit * 0.5;
+}
+
+p {
+    margin-bottom: $spacing-unit;
+}
+
+/* Global */
+body {
+    font-family: "Avenir Next", Verdana, sans-serif;
+}
+
+code {
+    background-color: $code-background;
+    padding: 0.1em 0.3em;
+    white-space: pre-wrap;
+}
+
+pre {
+    background-color: $code-background;
+
+    code {
+        display: block;
+        padding: 1em;
+        background-color: transparent;
+    }
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: normal;
+}
+
+main {
+	padding: 0 $spacing-unit;
+	margin: 0 auto;
+}
+
+blockquote {
+    font-style: italic;
+    font-family: Georgia, serif;
+}
+
+article {
+    clear: both;
+}
+
+.content {
+	max-width: $content-length;
+}
+
+.page-title {
+	text-align: center;
+}
+
+.buymeacoffee img {
+    max-width: 44px;
+}

@@ -1,0 +1,13 @@
+<div class="site-header">
+    <a href="#main" id="go-to-main" class="site-header--content-link">Go to content &darr;</a>
+    <header class="site-header--titles">
+        <h1 class="site-header--title">{{ .Site.Title }}</h1>
+        <h2 class="site-header--subtitle">{{ .Site.Params.subtitle }}</h2>
+    </header>
+    <nav class="main-nav">
+        <ul class="main-nav--list">
+          <li class="main-nav--list-item {{ if eq .Params.section "about" }}active{{ end }}"><a class="main-nav--link" href="/">About</a></li>
+          <li class="main-nav--list-item {{ if eq .Params.section "blog" }}active{{ end }}"><a class="main-nav--link" href="/blog/">Blog</a></li>
+        </ul>
+    </nav>
+</div>

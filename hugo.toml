@@ -1,0 +1,35 @@
+baseURL    = "https://www.michaelehead.com/"
+locale     = "en-us"
+title      = "Michael's Headquarters"
+timeZone   = "America/New_York"
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  author      = "Michael Head"
+  subtitle    = "On UX Design and Development"
+  description = "Michael Head is a UX-focused software engineer with more than 8 years of experience building awesome user experiences for small agencies, mid-sized companies, and Fortune 50 corporations."
+  email       = "michaelehead@gmail.com"
+
+[permalinks.page]
+  posts = "/:year/:month/:day/:slug"
+
+[uglyURLs]
+  posts = true
+  work = true
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.goldmark.extensions.typographer]
+  disable = false
+
+[markup.highlight]
+  noClasses = false
+
+[outputs]
+  home    = ["HTML", "RSS"]
+  section = ["HTML"]
+
+[outputFormats.RSS]
+  mediaType = "application/rss+xml"
+  baseName  = "feed"
