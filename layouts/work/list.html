@@ -1,0 +1,23 @@
+{{ define "main" }}
+<header>
+	<h1 class="page-title">Work</h1>
+</header>
+<article>
+	{{ range hugo.Data.work_list }}
+		<section class="experience">
+			<header>
+				<h1>{{ .name }}</h1>
+				<p>{{ .desc | safeHTML }}</p>
+			</header>
+
+			<h2>Projects</h2>
+			<ul>
+			{{ range .projects }}
+				<li><a href="{{ .url }}">{{ .name }}</a></li>
+			{{ end }}
+			</ul>
+
+		</section>
+	{{ end }}
+</article>
+{{ end }}

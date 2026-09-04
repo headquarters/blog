@@ -1,0 +1,47 @@
+.main-nav {
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #ddd;
+
+	&--list {
+		list-style: none;
+		padding-left: 0;
+		margin: 0;
+
+		&-item {
+			border-bottom: 1px solid #ccc;
+
+			&:list-child {
+				border: none;
+			}
+
+			&.active {
+				a {
+					font-weight: bold;
+				}
+			}
+		}
+	}
+
+	&--link {
+		padding: 0.5em 0;
+		display: block;
+		transition: color 100ms ease-in, background-color 100ms ease-in;
+
+		&:hover {
+			color: #fff;
+			background-color: #878597;
+		}
+	}
+}
+
+@media only screen and (min-width: 40em){
+	.main-nav--list-item {
+		display: inline-block;
+		border: none;
+	}
+
+	.main-nav--link {
+		padding: 0.5em 1.5em;
+	}
+}

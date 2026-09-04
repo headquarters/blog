@@ -1,0 +1,22 @@
+---
+section: work
+title: "Work | PayScale"
+---
+
+<header>
+	<h1 class="page-title">PayScale - MarketPay</h1>
+</header>
+<article>
+    <aside class="panel">
+        <div class="utilized"><span>Focus:</span> Development, some Design</div>
+        <div class="utilized"><span>Worked with:</span> Node.js, React, Sass, HTML, Gulp, Webpack, Babel, ES6, PostgreSQL</div> 
+    </aside>
+
+    <p>
+        I am currently working as a Senior Software Design Engineer at PayScale, working on their flagship enterprise prodcut
+        MarketPay. In this role, I'm revamping legacy UIs by writing new server and client code in Node.js and React, respectively.  
+    </p>
+    <p>
+        <em>As a B2B product, I am unable to provide screenshots for MarketPay internal features here. Please contact me if you're interested in seeing work I've done for this project.</em>
+    </p>
+</article>
